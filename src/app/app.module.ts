@@ -18,6 +18,8 @@ import { ServersComponent } from './servers/servers.component';
   We have to register our components in the module. So we have to tell Angular
   that the ServerComponent exists. We register our components in the declarations
   attribute.
+  If we use the Angular CLI terminal to create a component the component is
+  registered automatically. But it is still good practice to double check.
    */
   declarations: [
     AppComponent,
