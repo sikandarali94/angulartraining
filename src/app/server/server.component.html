@@ -1,1 +1,21 @@
-<p>The Server Component. Yeah boy!</p>
+<!--
+    Double curly brackets ({{  }}) are used for string interpolation.
+    Inside, any expression that will result in the output of a string
+    will be successfully interpolated. Within string interpolation we
+    cannot write multi-line expressions here or you can't write block
+    expressions here. For serverId and serverStatus we defined these
+    variables in server.component.ts in export class ServerComponent{}.
+
+    The interesting thing here is that serverId is a number but string
+    interpolation only works when the expression will result in a
+    string. The reason serverId is successfully interpolated is
+    because a number can be converted into a string, and that is what
+    has happened here. So in the end you either have to get a string
+    within string interpolation or something that can be converted
+    into a string.
+
+    Another interesting this is that we can call a method in string
+    interpolation, provided the method returns something that can
+    be converted into a string or is a string itself.
+-->
+<p>{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>

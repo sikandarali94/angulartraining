@@ -22,5 +22,18 @@ always attached by adding a @ sign in front of them.
     templateUrl: './server.component.html'
 })
 
-export class  ServerComponent {
+export class ServerComponent {
+    /* Although Typescript will infer it automatically, we can specify what data-type our
+    variables will be by using the colon(:) and then specifying the data-type. The variables
+    we define in export class can then be used to bind these values to the HTML part of the
+    component.
+     */
+    serverId: number = 10;
+    serverStatus: string = 'offline';
+
+    /* The below example is how we create a method in Typescript.
+     */
+    getServerStatus() {
+        return this.serverStatus;
+    }
 }
