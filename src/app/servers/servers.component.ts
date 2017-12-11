@@ -28,6 +28,7 @@ import { Component, OnInit } from '@angular/core';
 export class ServersComponent implements OnInit {
   allowNewServer = false;
   serverCreationStatus = 'No server was created!';
+  serverName = '';
 
   constructor() {
     /* The arrow function (=>) is ES6 syntax.
@@ -42,6 +43,21 @@ export class ServersComponent implements OnInit {
 
   onCreateServer() {
     this.serverCreationStatus = 'Server was created!';
+  }
+
+  /* 'any' tells Typescript that the variable can be any data type.
+  The correct data type to tell Typescript in this case would be Event.
+  This tells Typescript that the variable is an event variable.
+  (<HTMLInputElement>event.target) informs Typescript that we know
+  that the type of the HTML element of this event will be an HTML
+  input element. This is doing explicit casting.
+  For an input element the event variable has stored the value of
+  the input text box in the target variable stored in the event
+  variable. We can check what information is stored in the event
+  variable by doing: console.log(event).
+   */
+  onUpdateServerName(event: any) {
+    this.serverName = (<HTMLInputElement>event.target).value;
   }
 
 }

@@ -1,4 +1,13 @@
 <!--
+$event is a used variable name that we can use in the template when using event
+binding. $event is the data emitted with that event. So input and click are
+default events provided by the DOM and they ship some data when they are fired.
+All that data is packed into the $event variable.
+-->
+<label>Server Name</label>
+<input type="text" class="form-control" (input) = "onUpdateServerName($event)"/>
+<p>{{ serverName }}</p>
+<!--
 Square brackets ([]) indicate to Angular that we are using property binding.
 It tells Angular that we want to dynamically bind a property.Each HTML
 element we use is parsed by the browser and kind of translated into a element
