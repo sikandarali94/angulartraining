@@ -16,6 +16,19 @@ to be disabled.
 -->
 <button class="btn btn-primary" [disabled]="!allowNewServer">Add Server</button>
 <!--
+innerText is another native property of an element we can use (in this case the p
+element). This native property is resolved through a string which it then places
+inside the p tags. This is an alternative to using string interpolation like this:
+<p>{{ allowNewServer }}</p>.
+
+We should use string interpolation if we want to output something to the template
+or print something. If we want to change some property of an element we use property
+binding. An important thing to note is not to mix property binding with string
+interpolation. For example this will will break our app:
+[disabled] = {{ !allowNewServer }}
+-->
+<p [innerText] = "allowNewServer"></p>
+<!--
 Components are reusable in Angular. So we can use this
 -->
 <app-server></app-server>
