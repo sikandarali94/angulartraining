@@ -28,7 +28,10 @@ import { Component, OnInit } from '@angular/core';
 export class ServersComponent implements OnInit {
   allowNewServer = false;
   serverCreationStatus = 'No server was created!';
-  serverName = '';
+  /* serverName having the value of 'Testserver' will not be placed into
+  the template when the app is run if we are not using two-way binding.
+   */
+  serverName = 'Testserver';
 
   constructor() {
     /* The arrow function (=>) is ES6 syntax.

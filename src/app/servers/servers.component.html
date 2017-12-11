@@ -3,9 +3,24 @@ $event is a used variable name that we can use in the template when using event
 binding. $event is the data emitted with that event. So input and click are
 default events provided by the DOM and they ship some data when they are fired.
 All that data is packed into the $event variable.
+Our first input element will not be pre-populated with the serverName value
+pre-defined in the component model when we run the app because the first
+input element is not using two-way binding.
 -->
 <label>Server Name</label>
 <input type="text" class="form-control" (input) = "onUpdateServerName($event)"/>
+<!--
+With two-way binding we use both property binding and event binding. That is why we
+use the square brackets and within them parenthesis to indicate we are using
+two-way data binding. ngModel that we used within the two-way binding down below
+is a directive. This will trigger on the input event and update the value of the serverName
+in our component model automatically. On the other hand, since it is two-way
+binding it will also update the value of the input element if we change serverName somewhere
+else.
+-->
+<input type="text"
+       class="form-control"
+       [(ngModel)]="serverName"/>
 <p>{{ serverName }}</p>
 <!--
 Square brackets ([]) indicate to Angular that we are using property binding.
