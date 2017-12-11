@@ -1,4 +1,21 @@
 <!--
+Square brackets ([]) indicate to Angular that we are using property binding.
+It tells Angular that we want to dynamically bind a property.Each HTML
+element we use is parsed by the browser and kind of translated into a element
+on the DOM. Therefore we have an element in this DOM and this element has a
+couple of properties. A lot of these can't even be set through attributes on the
+HTML element. One of those properties is the disabled property and we can set it
+through the disabled attribute but here we are not using the 'disabled attribute
+anymore. With the square brackets we are directly binding to this native disabled
+property this HTML element has. Thus, there are a lot of native properties of
+elements that we can property bind to. Some of these native properties are resolved
+through a boolean but some are resolved through other values. The disabled native
+property is resolved to a true boolean so that is why we equal it to !allowNewServer,
+because if allowNewServer is false within the component model then we want the button
+to be disabled.
+-->
+<button class="btn btn-primary" [disabled]="!allowNewServer">Add Server</button>
+<!--
 Components are reusable in Angular. So we can use this
 -->
 <app-server></app-server>

@@ -22,14 +22,19 @@ import { Component, OnInit } from '@angular/core';
   However we can use back ticks (`) to use Javascript template expressions
   and that allows use to write this template on multiple lines.
    */
-  template: `
-  <app-server></app-server>
-  <app-server></app-server>`,
+  templateUrl: './servers.component.html',
   styleUrls: ['./servers.component.css']
 })
 export class ServersComponent implements OnInit {
+  allowNewServer = false;
 
-  constructor() { }
+  constructor() {
+    /* The arrow function (=>) is ES6 syntax.
+     */
+    setTimeout(() => {
+      this.allowNewServer = true;
+    }, 2000);
+  }
 
   ngOnInit() {
   }
