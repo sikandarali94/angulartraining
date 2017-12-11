@@ -13,8 +13,19 @@ through a boolean but some are resolved through other values. The disabled nativ
 property is resolved to a true boolean so that is why we equal it to !allowNewServer,
 because if allowNewServer is false within the component model then we want the button
 to be disabled.
+
+Parenthesis indicates to Angular that we are using event binding. Within the
+parenthesis we name the event. By naming the event (click) we are using the onclick
+HTML DOM event. This naming convention is for all events. Therefore, in Angular we
+write the HTML DOM event name within the parenthesis but with the 'on' prefix removed.
+Here we called the onCreateServer method that we defined in the component model.
+However, we can also write the code inside the quotation marks that we want to execute.
+However, it is a better convention to define the code in a method within the model
+component and call it using event binding. If it is a simple code of one line then
+it is acceptable as per convention to write it in the quotation marks rather than
+define a method in component model.
 -->
-<button class="btn btn-primary" [disabled]="!allowNewServer">Add Server</button>
+<button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add Server</button>
 <!--
 innerText is another native property of an element we can use (in this case the p
 element). This native property is resolved through a string which it then places
@@ -27,7 +38,8 @@ binding. An important thing to note is not to mix property binding with string
 interpolation. For example this will will break our app:
 [disabled] = {{ !allowNewServer }}
 -->
-<p [innerText] = "allowNewServer"></p>
+<!--<p [innerText] = "allowNewServer"></p>-->
+<p>{{ serverCreationStatus }}</p>
 <!--
 Components are reusable in Angular. So we can use this
 -->
