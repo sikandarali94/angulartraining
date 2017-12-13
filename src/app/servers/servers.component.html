@@ -71,8 +71,22 @@ p element or it doesn't add the p element. Within the quotation marks next to ng
 the expression must either resolve to a true or to a false. Or we could call a method
 inside that either resolves to true or false. When serverCreated is false the p
 element is not hidden in the DOM, it just isn't there.
+If we want to use an else conditional statement we put a semicolon after the
+conditional expression and type else with the local reference without the hash(#).
+This tells Angular that if the conditional expression is not true then load up
+the DOM template that we defined in the ng-template directive and marked with
+the local reference that we placed next to the else statement.
 -->
-<p *ngIf="serverCreated">Server was created, server name is {{ serverName }}</p>
+<p *ngIf="serverCreated; else noServer">Server was created, server name is {{ serverName }}</p>
+<!--
+The # indicates that it this is a local reference. ng-template is a component with
+a directive shipped with Angular which we can use to mark places in the DOM.
+-->
+<ng-template #noServer>
+    <p>
+    No server was created!
+    </p>
+</ng-template>
 <!--
 Components are reusable in Angular. So we can use this
 -->
