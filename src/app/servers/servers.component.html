@@ -8,7 +8,7 @@ pre-defined in the component model when we run the app because the first
 input element is not using two-way binding.
 -->
 <label>Server Name</label>
-<input type="text" class="form-control" (input) = "onUpdateServerName($event)"/>
+<!--<input type="text" class="form-control" (input) = "onUpdateServerName($event)"/>-->
 <!--
 With two-way binding we use both property binding and event binding. That is why we
 use the square brackets and within them parenthesis to indicate we are using
@@ -21,7 +21,7 @@ else.
 <input type="text"
        class="form-control"
        [(ngModel)]="serverName"/>
-<p>{{ serverName }}</p>
+<!--<p>{{ serverName }}</p>-->
 <!--
 Square brackets ([]) indicate to Angular that we are using property binding.
 It tells Angular that we want to dynamically bind a property.Each HTML
@@ -63,7 +63,16 @@ interpolation. For example this will will break our app:
 [disabled] = {{ !allowNewServer }}
 -->
 <!--<p [innerText] = "allowNewServer"></p>-->
-<p>{{ serverCreationStatus }}</p>
+<!--<p>{{ serverCreationStatus }}</p>-->
+<!--
+The star(*) is required as a prefix to ngIf because ngIf is a structural directive.
+A structural directive changes the structure of our DOM. With ngIf it either adds the
+p element or it doesn't add the p element. Within the quotation marks next to ngIf
+the expression must either resolve to a true or to a false. Or we could call a method
+inside that either resolves to true or false. When serverCreated is false the p
+element is not hidden in the DOM, it just isn't there.
+-->
+<p *ngIf="serverCreated">Server was created, server name is {{ serverName }}</p>
 <!--
 Components are reusable in Angular. So we can use this
 -->

@@ -32,6 +32,7 @@ export class ServersComponent implements OnInit {
   the template when the app is run if we are not using two-way binding.
    */
   serverName = 'Testserver';
+  serverCreated = false;
 
   constructor() {
     /* The arrow function (=>) is ES6 syntax.
@@ -45,7 +46,8 @@ export class ServersComponent implements OnInit {
   }
 
   onCreateServer() {
-    this.serverCreationStatus = 'Server was created!';
+    this.serverCreated = true;
+    this.serverCreationStatus = 'Server was created! Name is ' + this.serverName;
   }
 
   /* 'any' tells Typescript that the variable can be any data type.
