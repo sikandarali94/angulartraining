@@ -18,4 +18,25 @@
     interpolation, provided the method returns something that can
     be converted into a string or is a string itself.
 -->
-<p>{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>
+<!--
+    ngStyle is a built-in attribute directive. These are called attribute
+    directives because they look like normal HTML attributes (without a
+    star(*) basically to distinguish them from structural directives).
+    Unlike structural directives, attribute directives don't add or
+    remove elements. They only change the element they were placed on.
+    With ngStyle we need to give it a configuration to do something.
+    The square brackets is not part of the ngStyle name. They indicate
+    that we want to bind to some property on this directive and this
+    property name happens to also be ngStyle. ngStyle property expects
+    to get a Javascript object and we can map key-value pairs of style
+    names (as key) paired with style values (as value). For the key we
+    can type the key name within a quotation mark like this:
+    'background-color'
+    Or we can use camel casing like this: backgroundColor
+    Because we want to conditionally set the background color depending
+    upon the server status we can execute a method that returns the
+    value of the background-color depending upon the server status. We
+    define this method in our component model. Therefore ngStyle allows
+    to dynamically add styles.
+-->
+<p [ngStyle]="{backgroundColor: getColor()}">{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>

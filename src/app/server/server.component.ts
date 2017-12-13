@@ -28,12 +28,26 @@ export class ServerComponent {
     we define in export class can then be used to bind these values to the HTML part of the
     component.
      */
-    serverId: number = 10;
-    serverStatus: string = 'offline';
+    serverId = 10;
+    serverStatus = 'offline';
+
+    /* The constructor() is just a built-in method. Each class has a constructor() method
+    which is called once this component is created.
+     */
+    constructor() {
+        /* Math.random() without any arguments gives us a floating point number between 0
+        and 1.
+         */
+        this.serverStatus = Math.random() > 0.5 ? 'online' : 'offline';
+    }
 
     /* The below example is how we create a method in Typescript.
      */
     getServerStatus() {
         return this.serverStatus;
+    }
+
+    getColor() {
+        return this.serverStatus === 'online' ? 'green' : 'red';
     }
 }
