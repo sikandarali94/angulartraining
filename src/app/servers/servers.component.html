@@ -92,5 +92,12 @@ a directive shipped with Angular which we can use to mark places in the DOM.
 <!--
 Components are reusable in Angular. So we can use this
 -->
-<app-server></app-server>
-<app-server></app-server>
+<!--
+ngFor is a structural directive so we prefix it with a star(*). ngFor will loop
+through all the elements in servers and assign them to the server variable. We
+could have named the server variable in let anything we like, because it only
+exists when ngFor is looping through an array. The server variable can now be
+used in the template. However, in this example we do need the server variable
+in our template.
+-->
+<app-server *ngFor="let server of servers"></app-server>
