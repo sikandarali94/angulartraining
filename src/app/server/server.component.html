@@ -39,4 +39,15 @@
     define this method in our component model. Therefore ngStyle allows
     to dynamically add styles.
 -->
-<p [ngStyle]="{backgroundColor: getColor()}">{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>
+<!--
+    Where ngStyle allowed us to apply styles dynamically, ngClass allows
+    us to apply or remove classes dynamically. ngClass, like ngStyle only
+    works when using property binding. We also pass a Javascript object
+    to ngClass with key-value pairs. The keys are the CSS class names
+    and the values are the conditions determining whether this class
+    should be attached or not. If a class name has a dash between names
+    like this: online-server, we wrap it in single quotes like this:
+    'online-server'. Also, we can pass as a value a method which either
+    returns true or false.
+-->
+<p [ngStyle]="{backgroundColor: getColor()}" [ngClass]="{online: serverStatus === 'online'}">{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>

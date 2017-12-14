@@ -19,7 +19,12 @@ always attached by adding a @ sign in front of them.
     // selector references the HTML element which will load up the component we define.
     selector: 'app-server',
     // templateUrl tells Typescript/Angular where our component HTML file is.
-    templateUrl: './server.component.html'
+    templateUrl: './server.component.html',
+    styles: [`
+        .online {
+            color: white;
+        }
+    `]
 })
 
 export class ServerComponent {
