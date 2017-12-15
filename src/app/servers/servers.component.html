@@ -99,5 +99,8 @@ could have named the server variable in let anything we like, because it only
 exists when ngFor is looping through an array. The server variable can now be
 used in the template. However, in this example we do need the server variable
 in our template.
+
+The 'let i = index' code in our ngFor code stores the index into the variable
+i of the current iteration.
 -->
-<app-server *ngFor="let server of servers"></app-server>
+<app-server *ngFor="let server of servers; let i = index"></app-server>
