@@ -1,8 +1,0 @@
-/* This app.component.css file defines the style for the app component.
-This css file is defined in app.component.ts so it links to the component
-in order so that the styles are applied.
- */
-
-h3 {
-    color:darkblue;
-}

@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('first-app App', () => {
+describe('n5-complete-guide App', () => {
   let page: AppPage;
 
   beforeEach(() => {
