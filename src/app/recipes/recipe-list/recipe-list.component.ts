@@ -18,7 +18,8 @@ export class RecipeListComponent implements OnInit {
       /* Within the brackets we pass the arguments that the constructor
       function requires as we defined the constructor in the Recipe model.
        */
-      new Recipe('A Test Recipe', 'This is simply a test', 'http://dl.maxpixel.freegreatpicture.com/?f=food-1459693_1280.jpg&type=Download&token=717b704582bc9d84a2e69a9902ef91e2&pid=1459693')
+      new Recipe('A Test Recipe', 'This is simply a test', 'http://dl.maxpixel.freegreatpicture.com/?f=food-1459693_1280.jpg&type=Download&token=717b704582bc9d84a2e69a9902ef91e2&pid=1459693'),
+      new Recipe('A Test Recipe 2', 'This is simply a test 2', 'http://dl.maxpixel.freegreatpicture.com/?f=food-1459693_1280.jpg&type=Download&token=717b704582bc9d84a2e69a9902ef91e2&pid=1459693')
   ];
   constructor() { }
 
