@@ -9,6 +9,14 @@
       <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
       <br><br>
       <ul class="list-group">
+        <!--
+        Sometimes we don't get an error message but he have a logic error in our
+        code. We can debug these kinds of errors using the developer tools in our
+        browser. We first go to 'Sources' and open up the file we want to debug
+        in the webpack folder. We can then add breakpoints to the code we want
+        to examine and see the values of the variables whenever the code is executed
+        on the lines we added breakpoints to.
+        -->
         <li
           class="list-group-item"
           *ngFor="let server of servers; let i = index"
