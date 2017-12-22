@@ -7,22 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   serverElements = [];
-  newServerName = '';
-  newServerContent = '';
 
-  onAddServer() {
-    this.serverElements.push({
-      type: 'server',
-      name: this.newServerName,
-      content: this.newServerContent
-    });
-  }
-
-  onAddBlueprint() {
-    this.serverElements.push({
-      type: 'blueprint',
-      name: this.newServerName,
-      content: this.newServerContent
-    });
-  }
+  /* Here, because we moved a section from the app template into a new component
+  template, that template requires the methods onAddServer() and onAddBlueprint().
+  Therefore we must move the methods from the app model to the component model
+  which has the template that requires these methods. We also have to move
+  the newServerName and newServerContent properties to the new component model
+  as well because the methods that we copied require those properties. The issue
+  is both the app component and cockpit component require the serverElements
+  array. Without serverElements in both components our app will crash.
+   */
 }
