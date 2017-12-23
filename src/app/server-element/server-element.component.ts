@@ -17,10 +17,19 @@ export class ServerElementComponent implements OnInit {
   of server-element component we need to add a decorator. Therefore decorators
   are not only available to classes but to properties as well.
   The decorator that we use to expose element variable to other components is
-  the @Input decorator and it is like a function so we need to execute and t
-  hat is why we write it like: @Input().
+  the @Input decorator and it is like a function so we need to execute and
+  that is why we write it like: @Input().
+  If we want a property that is exposed to other components to have a
+  different name like srvElement we have to define it in the @Input decorator
+  as we do below. What we did below is known as assigning an 'alias' to the
+  element property. However, no we must bind to srvElement if we want to
+  bind to the element property.
+  This binding to components is knows as Component Binding. Therefore we can
+  do HTML Elements Binding (through binding to native properties and events),
+  Directives Binding (through custom properties and events) and finally
+  Components Binding (through custom properties and events also).
    */
-  @Input() element: {type: string, name: string, content: string};
+  @Input('srvElement') element: {type: string, name: string, content: string};
 
   constructor() { }
 
