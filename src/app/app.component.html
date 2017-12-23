@@ -11,7 +11,19 @@
     Here we removed the whole div element with class panel and moved it to the server-element
     component template.
     -->
-      <app-server-element *ngFor="let serverElement of serverElements"></app-server-element>
+    <!--
+    In the server-element component we have a variable called element. Here we want to access
+    that element variable in app-server-element within our app-component. The reason we can't
+    access it by default by typing say: [element] = "serverElement", in app-server-element here
+    is because by default all properties of components are only accessible inside the components
+    and not outside. And that generally is a good thing because we don't want to make all our
+    properties be able to be binded from outside. So therefore we have to be explicit about
+    which properties we want to expose to other components.
+    If we use the @Input() decorator to expose a property to other components only then can
+    we access the property through property binding by, for example, writing this:
+    [element] = "serverElement", as we did below.
+    -->
+    <app-server-element [element]="serverElement" *ngFor="let serverElement of serverElements"></app-server-element>
     </div>
   </div>
 </div>

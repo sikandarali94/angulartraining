@@ -6,7 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  serverElements = [];
+  /* Unlike what we did with the element variable in server-component here we are actually
+  assigning a value to serverElements rather than defining its type.
+   */
+  serverElements = [{type: 'server', name: 'Testserver', content: 'Just a test!'}];
 
   /* Here, because we moved a section from the app template into a new component
   template, that template requires the methods onAddServer() and onAddBlueprint().
