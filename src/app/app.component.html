@@ -3,7 +3,16 @@
   Here we removed the whole div element with class row and moved it to the cockpit
   component template.
   -->
-  <app-cockpit></app-cockpit>
+  <!--
+  Here we want to listen for a custom event, say serverCreated and execute a method within our
+  app component. For example we want to be able to something like this in our app-cockpit:
+  (serverCreated) = "onServerAdded($event)"
+  We want to there to be data passed to the $event variable so we can use it in our methods.
+  -->
+  <app-cockpit
+    (serverCreated) = "onServerAdded($event)"
+    (blueprintCreated) = "onBlueprintAdded($event)"
+  ></app-cockpit>
   <hr>
   <div class="row">
     <div class="col-xs-12">
