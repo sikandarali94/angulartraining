@@ -22,9 +22,11 @@ export class CockpitComponent implements OnInit {
   We don't use the @Input() decorator because we are not getting something passed
   into this component, it's @Output because we are passing something out of the
   component.
+  Like with @Input we can assign an alias to the property we placed the decorator
+  next to by passing a string alias name as shown below.
    */
   @Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
-  @Output() blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+  @Output('bpCreated') blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
 
   newServerName = '';
   newServerContent = '';
