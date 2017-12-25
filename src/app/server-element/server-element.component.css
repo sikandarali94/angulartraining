@@ -27,3 +27,10 @@ view encapsulation in Angular.
 p {
     color: blue;
 }
+
+/* Because we have stopped View Encapsulation for server-element component the
+styles in this stylesheet will be added globally.
+ */
+label {
+    color: red;
+}

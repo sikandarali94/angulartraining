@@ -1,12 +1,30 @@
 /* Because we used the @Input decorator in our component below we need to first
 import it from '@angular/core'.
  */
-import { Component, OnInit, Input } from '@angular/core';
+/* If we want to access the behaviour of Angular encapsulation we have to first
+import ViewEncapsulation from '@angular/core'.
+ */
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
   templateUrl: './server-element.component.html',
-  styleUrls: ['./server-element.component.css']
+  styleUrls: ['./server-element.component.css'],
+  /* If we want to override View Encapsulation of Angular we have to add
+  encapsulation to the @Component decorator below. We can then access
+  ViewEncapsulation and we can choose between three modes:
+  Emulated, None or Native
+  Emulated is the default mode.
+  If we want to stop the behaviour of View Encapsulation we choose the
+  None mode as we did below. Then in the browser we don't see the strange
+  attributes within those elements of this component. So any styles defined
+  in this component will be added globally.
+  In most cases we would like View Encapsulation to be on but it is important
+  to know that we can stop View Encapsulation for a component if we like.
+  The Native mode uses shadow DOM technology but then this won't work in
+  older browsers even though it gives us the same result.
+   */
+  encapsulation: ViewEncapsulation.None
 })
 export class ServerElementComponent implements OnInit {
   /* The curly braces after the colon is a Typescript syntax that tells it
