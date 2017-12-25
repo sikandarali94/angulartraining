@@ -1,7 +1,12 @@
 .container {
   margin-top: 30px;
 }
-
+/* The usual behaviour of CSS is that it applies the styles to the whole document.
+However, Angular has changed this behaviour and these styles only get applied to
+what is in the app component and not what is present in the whole document of the
+browser. And this is a helpful behaviour because it allows us to define only those
+styles that we want for the elements in that component template.
+ */
 p {
   color: blue;
 }
