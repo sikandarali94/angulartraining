@@ -28,7 +28,7 @@ export class CockpitComponent implements OnInit {
   @Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
   @Output('bpCreated') blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
 
-  newServerName = '';
+  // newServerName = '';
   newServerContent = '';
 
   constructor() { }
@@ -39,16 +39,25 @@ export class CockpitComponent implements OnInit {
   /* We want to tell the parent component of cockpit component (the app-component) that a
   new server or a new blueprint was created.
    */
-  onAddServer() {
+  /* The type of data passed by our local reference into onAddServer element to nameInput
+  variable os of the HTMLInputElement. It is better to be explicit about the type as we
+  have done below.
+   */
+  onAddServer(nameInput: HTMLInputElement) {
+    /* We can log the data passed by a local reference into our method. Since we get the
+    whole element with all its properties passed we can log the value of an input element
+    by accessing the value property as shown below.
+     */
+    // console.log(nameInput.value);
     /* To emit the serverCreated custom event we call the emit() method as shown below.
     Inside the emit object we pass an object where we have a serverName and serverContent
     as we defined them in the custom events above.
      */
-    this.serverCreated.emit({serverName: this.newServerName, serverContent: this.newServerContent});
+    this.serverCreated.emit({serverName: nameInput.value, serverContent: this.newServerContent});
   }
 
-  onAddBlueprint() {
-      this.blueprintCreated.emit({serverName: this.newServerName, serverContent: this.newServerContent});
+  onAddBlueprint(nameInput: HTMLInputElement) {
+      this.blueprintCreated.emit({serverName: nameInput.value, serverContent: this.newServerContent});
   }
 
 }
