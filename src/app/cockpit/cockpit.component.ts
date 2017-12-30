@@ -2,8 +2,12 @@
 use it in our component model below.
 The @Output decorator needs to imported so we can use it in our components as
 shown below.
+The @ViewChild decorator needs to imported so we can use it in our components as
+shown below.
+ElementRef needs to be imported so we can use it in our components as shown
+below.
  */
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, ViewChild, ElementRef} from '@angular/core';
 
 @Component({
   selector: 'app-cockpit',
@@ -29,8 +33,16 @@ export class CockpitComponent implements OnInit {
   @Output('bpCreated') blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
 
   // newServerName = '';
-  newServerContent = '';
-
+  // newServerContent = '';
+  /* We can pass a local reference to @ViewChild as a string shown below. We can also
+  pass a component if we were in app-component like CockpitComponent (and not like a
+  string) to get access to the first occurrence of the CockpitComponent. So we write
+  it like this:
+  @ViewChild(CockpitComponent)
+  serverContentInput would be of type ElementRef rather than HTMLInputElement type. We
+  can explicitly state the type of serverContentInput as shown below:
+   */
+  @ViewChild('serverContentInput') serverContentInput: ElementRef;
   constructor() { }
 
   ngOnInit() {
@@ -53,11 +65,28 @@ export class CockpitComponent implements OnInit {
     Inside the emit object we pass an object where we have a serverName and serverContent
     as we defined them in the custom events above.
      */
-    this.serverCreated.emit({serverName: nameInput.value, serverContent: this.newServerContent});
+    console.log(this.serverContentInput);
+    this.serverCreated.emit({
+        serverName: nameInput.value,
+        /* An ElementRef like serverContentInput has a nativeElement property that gives
+        us access to the properties of the underlying element. And we can access properties
+        like value through the nativeElement as shown below.
+        Therefore using local references and @ViewChild we can eliminate the use of two-way
+        data binding as we have done here.
+        An important thing to note is that we should not change the HTML element using local
+        references. It works but it is strongly recommended not to access the DOM like this.
+        Angular offers us a better way of accessing the DOM using directives. For now if
+        we want to change the DOM string interpolation and property binding is the way to go.
+         */
+        serverContent: this.serverContentInput.nativeElement.value
+    });
   }
 
   onAddBlueprint(nameInput: HTMLInputElement) {
-      this.blueprintCreated.emit({serverName: nameInput.value, serverContent: this.newServerContent});
+      this.blueprintCreated.emit({
+          serverName: nameInput.value,
+          serverContent: this.serverContentInput.nativeElement.value
+      });
   }
 
 }
