@@ -32,7 +32,17 @@
     we access the property through property binding by, for example, writing this:
     [element] = "serverElement", as we did below.
     -->
-    <app-server-element [srvElement]="serverElement" *ngFor="let serverElement of serverElements"></app-server-element>
+    <app-server-element [srvElement]="serverElement" *ngFor="let serverElement of serverElements">
+      <!--
+      Everything placed between the opening and closing tags of our own component is lost by default.
+      It is simply removed from the DOM. Angular will not care about it. This is the default behaviour
+      which we can change however.
+      -->
+      <p>
+        <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+        <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+      </p>
+    </app-server-element>
     </div>
   </div>
 </div>

@@ -2,9 +2,16 @@
   class="panel panel-default">
   <div class="panel-heading">{{ element.name }}</div>
   <div class="panel-body">
-    <p>
-      <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
-      <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
-    </p>
+    <!--
+    There is a special directive -- even though it looks like a component, but it does not
+    have its own template -- we can add in the server-element component template here in the
+    place where we want to render the content we can add ng-content as shown below. Since we
+    are placing elements content between the app-server-element tags in our app component
+    template whatever is placed inside those tags will be generated within the place where
+    we put the ng-content directive. This ng-content therefore acts like a 'hook' for where
+    the elements content -- between the app-server-element tags -- are placed. The element
+    contents is then said to be 'projected' into our server-element component.
+    -->
+    <ng-content></ng-content>
   </div>
 </div>
