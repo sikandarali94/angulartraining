@@ -45,6 +45,7 @@ export class CockpitComponent implements OnInit {
   @ViewChild('serverContentInput') serverContentInput: ElementRef;
   constructor() { }
 
+
   ngOnInit() {
   }
 

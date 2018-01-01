@@ -42,4 +42,17 @@ export class AppComponent {
         content: blueprintData.serverContent
     });
   }
+
+  onChangeFirst() {
+    this.serverElements[0].name = 'Changed';
+  }
+
+  /* This method will remove the first element from the serverElements array. When
+  the element is removed ngFor will run again and Angular will realise that the first
+  component has been removed from the DOM and thus will execute the code inside the
+  ngOnDestroy(){} lifecycle hook.
+  */
+  onDestroyFirst() {
+    this.serverElements.splice(0, 1);
+  }
 }
