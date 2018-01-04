@@ -40,7 +40,13 @@
       It is simply removed from the DOM. Angular will not care about it. This is the default behaviour
       which we can change however.
       -->
-      <p>
+      <!--
+      Say we want access to the element we have local referenced down here that is projected by ng-content
+      in our server-element component model. We cannot access this through ViewChild because the content
+      within app-server-element tags is not part of the View; it is part of the Content. That is why we
+      use @ContentChild.
+      -->
+      <p #contentParagraph>
         <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
         <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
       </p>

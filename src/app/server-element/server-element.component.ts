@@ -10,6 +10,10 @@ them in our component.
 SimpleChanges type needs to be imported before we can use them inside our component
 as shown below.
  */
+/*
+ContentChild decorator needs to be imported from '@angular/core' first before we
+use it in our component.
+ */
 import {
     Component,
     OnInit,
@@ -24,7 +28,8 @@ import {
     AfterViewChecked,
     OnDestroy,
     ViewChild,
-    ElementRef
+    ElementRef,
+    ContentChild
 } from '@angular/core';
 
 @Component({
@@ -82,6 +87,11 @@ export class ServerElementComponent implements
   @Input('srvElement') element: {type: string, name: string, content: string};
   @Input() name: string;
   @ViewChild('heading') header: ElementRef;
+  /* @ContentChild works exactly like @ViewChild except this decorator imports
+  elements from the Content rather than the View. Just like with the View we cannot
+  access the View elements until ngAfterContentInit(){}.
+   */
+  @ContentChild('contentParagraph') paragraph: ElementRef;
 
   constructor() {
     console.log('constructor called!');
@@ -113,6 +123,10 @@ export class ServerElementComponent implements
     elements in the component have not been rendered yet.
      */
     console.log('Text Content: ' + this.header.nativeElement.textContent);
+    /* Here we will not get a value for this.paragraph.nativeElement.textContent
+    because Content elements have not been initialized.
+     */
+    console.log('Text Content: ' + this.paragraph.nativeElement.textContent);
   }
 
   /* ngDoCheck(){} is a lifecycle hook in Angular in which the code inside is
@@ -130,6 +144,10 @@ export class ServerElementComponent implements
    */
   ngAfterContentInit() {
     console.log('ngAfterContentInit called!');
+    /* Here we will get a value for this.paragraph.nativeElement.textContent
+    because the Content elements have been initialised.
+     */
+    console.log('Text Content: ' + this.paragraph.nativeElement.textContent);
   }
 
   /* ngAfterContentChecked(){} is a lifecycle hook in Angular in which the code
