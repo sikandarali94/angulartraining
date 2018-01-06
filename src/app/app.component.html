@@ -1,56 +1,9 @@
+<app-header></app-header>
 <div class="container">
-  <!--
-  Here we removed the whole div element with class row and moved it to the cockpit
-  component template.
-  -->
-  <!--
-  Here we want to listen for a custom event, say serverCreated and execute a method within our
-  app component. For example we want to be able to something like this in our app-cockpit:
-  (serverCreated) = "onServerAdded($event)"
-  We want to there to be data passed to the $event variable so we can use it in our methods.
-  -->
-  <app-cockpit
-    (serverCreated) = "onServerAdded($event)"
-    (bpCreated)= "onBlueprintAdded($event)"
-  ></app-cockpit>
-  <hr>
   <div class="row">
-    <div class="col-xs-12">
-      <button class="btn btn-primary" (click)="onChangeFirst()">Change first element</button>
-      <button class="btn btn-danger" (click)="onDestroyFirst()">Destroy first component</button>
-    <!--
-    Here we removed the whole div element with class panel and moved it to the server-element
-    component template.
-    -->
-    <!--
-    In the server-element component we have a variable called element. Here we want to access
-    that element variable in app-server-element within our app-component. The reason we can't
-    access it by default by typing say: [element] = "serverElement", in app-server-element here
-    is because by default all properties of components are only accessible inside the components
-    and not outside. And that generally is a good thing because we don't want to make all our
-    properties be able to be binded from outside. So therefore we have to be explicit about
-    which properties we want to expose to other components.
-    If we use the @Input() decorator to expose a property to other components only then can
-    we access the property through property binding by, for example, writing this:
-    [element] = "serverElement", as we did below.
-    -->
-    <app-server-element [srvElement]="serverElement" [name]="serverElement.name" *ngFor="let serverElement of serverElements">
-      <!--
-      Everything placed between the opening and closing tags of our own component is lost by default.
-      It is simply removed from the DOM. Angular will not care about it. This is the default behaviour
-      which we can change however.
-      -->
-      <!--
-      Say we want access to the element we have local referenced down here that is projected by ng-content
-      in our server-element component model. We cannot access this through ViewChild because the content
-      within app-server-element tags is not part of the View; it is part of the Content. That is why we
-      use @ContentChild.
-      -->
-      <p #contentParagraph>
-        <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
-        <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
-      </p>
-    </app-server-element>
+    <div class="col-md-12">
+      <app-recipes></app-recipes>
+      <app-shopping-list></app-shopping-list>
     </div>
   </div>
 </div>
