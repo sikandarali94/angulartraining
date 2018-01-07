@@ -5,8 +5,8 @@ import {Component, EventEmitter, Output} from '@angular/core';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-  showRecipes = true;
   @Output() viewState = new EventEmitter<{recipeState: boolean}>();
+  showRecipes = true;
   showState (link: string) {
     if (link === 'recipe') {
       return this.showRecipes === true ? '#333' : '#777';
