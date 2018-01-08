@@ -6,9 +6,28 @@
         (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
       <br><br>
       <ul class="list-group">
-        <li
-          class="list-group-item">
-        </li>
+        <!--
+        Having two structural directives on the same element will give us an error.
+        So this will give us an error:
+        <li *ngFor="let number of numbers" *ngIf="number % 2 == 0"></li>
+        -->
+        <!--
+        As show below having structural directives nested does not give us an error.
+        -->
+        <div *ngIf="onlyOdd">
+          <li
+            class="list-group-item"
+            *ngFor="let odd of oddNumbers">
+            {{ odd }}
+          </li>
+        </div>
+        <div *ngIf="!onlyOdd">
+          <li
+            class="list-group-item"
+            *ngFor="let even of evenNumbers">
+            {{ even }}
+          </li>
+        </div>
       </ul>
       <ng-template [ngIf]="onlyOdd">
         <p>Only odd</p>
