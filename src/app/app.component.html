@@ -33,9 +33,14 @@
           </li>
         </div>
       </ul>
-      <ng-template [ngIf]="onlyOdd">
-        <p>Only odd</p>
-      </ng-template>
+      <!--
+      We don't need to set any value to appBasicHighlight and importantly we don't use square brackets
+      because the directive name is just a selector we set up in basic-highlight.directive.ts. The square
+      brackets in that file are not part of that name; it's part of this selector style telling Angular
+      please select it as an attribute on an element. And that is how add appBasicHighlight here: like
+      an attribute to the paragraph.
+      -->
+      <p appBasicHighlight>Style me with basic directive!</p>
     </div>
   </div>
 </div>

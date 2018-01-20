@@ -4,10 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+/* To use a new directive that we have created we first have to inform Angular that we
+have created a new directive by importing it in our app module like we did below.
+ */
+import {BasicHighlightDirective} from './basic-highlight/basic-highlight.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    /* After importing the directive we then must include the directive in our declarations.
+     */
+    BasicHighlightDirective
   ],
   imports: [
     BrowserModule,
