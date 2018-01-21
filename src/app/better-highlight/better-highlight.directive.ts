@@ -4,7 +4,10 @@ ng g d directive-name. We can also write ng generate directive directive-name.
 /* Renderer2 needs to be imported from '@angular/core' before it can be used in our
 Typescript file.
  */
-import {Directive, ElementRef, OnInit, Renderer2} from '@angular/core';
+/* HostListener needs to be imported from '@angular/core' before it can be used in our
+Typescript file.
+ */
+import {Directive, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[appBetterHighlight]'
@@ -36,6 +39,22 @@ export class BetterHighlightDirective implements OnInit {
     to use the Renderer for DOM access and to use the methods the Renderer provides to access
     the DOM.
      */
+    // this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+  }
+  /* HostListener allows us to listen to events on the DOM element that the directive sits on
+  and execute a method. In this case the method is mouseover(). Inside @HostListener() we specify
+  the event that occurs which then executes the method as a string argument. In this case the
+  event is mouseenter, which is one of the events supported by the DOM element this directive
+  sits on. So basically we have all the events available we could also use with event binding
+  before.
+  In the executed method we could also receive the event data like this:
+  @HostListener('mouseenter') mouseover(eventData: Event) {}
+  We can also listen to custom events here and retrieve the data.
+   */
+  @HostListener('mouseenter') mouseover(eventData: Event) {
     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+  }
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+      this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
   }
 }
