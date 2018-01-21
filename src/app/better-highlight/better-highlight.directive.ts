@@ -7,12 +7,33 @@ Typescript file.
 /* HostListener needs to be imported from '@angular/core' before it can be used in our
 Typescript file.
  */
-import {Directive, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
+/* HostBinding needs to be imported from '@angular/core' before it can be used in our
+Typescript file.
+ */
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  OnInit,
+  Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[appBetterHighlight]'
 })
 export class BetterHighlightDirective implements OnInit {
+  /* @HostBinding decorator allows us to not use the Renderer. There is nothing wrong with using
+  the renderer, but we get an even easier way of simply changing the background color if that is
+  all we want to do in a directive.
+  In Host Binding we can define to which property of the hosting element we want to bind. Just
+  like we wrote nativeElement.style.backgroundColor we write as a string 'style.backgroundColor'
+  in Host Binding.
+  With the code below we are telling Angular is please access the style property and set the
+  value of backgroundColor style property to whatever the value of backgroundColor variable is.
+  We also have to set the backgroundColor to an initial value so we don't get an error.
+  With HostBinding we can bind to any property our directive sits on.
+  */
+  @HostBinding('style.backgroundColor') backgroundColor = 'transparent';
   /* Renderer2 is the better alternative to modifying our DOM elements from our model
   code. We must specify the Renderer2 type for the variable. We still need to get a
   reference to an element using the ElementRef type.
@@ -52,9 +73,14 @@ export class BetterHighlightDirective implements OnInit {
   We can also listen to custom events here and retrieve the data.
    */
   @HostListener('mouseenter') mouseover(eventData: Event) {
-    this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+    // this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+    /* We then simply change the value of variable backgroundColor and this affects the
+    background-color of the element the directive sits on.
+     */
+    this.backgroundColor = 'blue';
   }
   @HostListener('mouseleave') mouseleave(eventData: Event) {
-      this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
+    // this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
+    this.backgroundColor = 'transparent';
   }
 }
