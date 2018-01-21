@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 have created a new directive by importing it in our app module like we did below.
  */
 import {BasicHighlightDirective} from './basic-highlight/basic-highlight.directive';
+import { BetterHighlightDirective } from './better-highlight/better-highlight.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     /* After importing the directive we then must include the directive in our declarations.
      */
-    BasicHighlightDirective
+    BasicHighlightDirective,
+    BetterHighlightDirective
   ],
   imports: [
     BrowserModule,

@@ -40,6 +40,11 @@ export class BasicHighlightDirective implements OnInit {
     is because of the private shortcut.
      */
     ngOnInit() {
+        /* This technique of accessing elements is not a good practice and there is a better way
+        to do it. The reason this technique is bad is because Angular is able to render our templates
+        without a DOM and then these properties might not be available. This happens in advanced cases
+        but nonetheless it's not a good practice to directly access our elements.
+         */
         this.elementRef.nativeElement.style.backgroundColor = 'green';
     }
 }
