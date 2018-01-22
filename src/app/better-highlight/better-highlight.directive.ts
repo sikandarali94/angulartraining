@@ -11,17 +11,27 @@ Typescript file.
 Typescript file.
  */
 import {
-  Directive,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  OnInit,
-  Renderer2} from '@angular/core';
+    Directive,
+    ElementRef,
+    HostBinding,
+    HostListener,
+    Input,
+    OnInit,
+    Renderer2
+} from '@angular/core';
 
 @Directive({
   selector: '[appBetterHighlight]'
 })
 export class BetterHighlightDirective implements OnInit {
+  @Input() defaultColor = 'transparent';
+  /* For directives like ngClass we enclose them in square brackets and we set a value like:
+  [ngClass]='{hello: 'world'}'
+  We can do this with our custom directives by assigning an alias to our variables that are
+  accessible to the parent through property binding with the same name as the selector of
+  our custom directive as shown below. It is important to note that this is optional.
+   */
+  @Input('appBetterHighlight') highlightColor = 'blue';
   /* @HostBinding decorator allows us to not use the Renderer. There is nothing wrong with using
   the renderer, but we get an even easier way of simply changing the background color if that is
   all we want to do in a directive.
@@ -33,7 +43,7 @@ export class BetterHighlightDirective implements OnInit {
   We also have to set the backgroundColor to an initial value so we don't get an error.
   With HostBinding we can bind to any property our directive sits on.
   */
-  @HostBinding('style.backgroundColor') backgroundColor = 'transparent';
+  @HostBinding('style.backgroundColor') backgroundColor: string;
   /* Renderer2 is the better alternative to modifying our DOM elements from our model
   code. We must specify the Renderer2 type for the variable. We still need to get a
   reference to an element using the ElementRef type.
@@ -41,6 +51,7 @@ export class BetterHighlightDirective implements OnInit {
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {
+    this.backgroundColor = this.defaultColor;
     /* With a rendered we get a couple of helper methods like setStyle() or setProperty()
     to work with the DOM. setStyle() helper method allows us to set the style of an element
     as shown below. For setStyle() we need to first reference the element we are setting
@@ -77,10 +88,10 @@ export class BetterHighlightDirective implements OnInit {
     /* We then simply change the value of variable backgroundColor and this affects the
     background-color of the element the directive sits on.
      */
-    this.backgroundColor = 'blue';
+    this.backgroundColor = this.highlightColor;
   }
   @HostListener('mouseleave') mouseleave(eventData: Event) {
     // this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
-    this.backgroundColor = 'transparent';
+    this.backgroundColor = this.defaultColor;
   }
 }

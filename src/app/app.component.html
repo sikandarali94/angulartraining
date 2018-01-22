@@ -41,7 +41,20 @@
       an attribute to the paragraph.
       -->
       <p appBasicHighlight>Style me with basic directive!</p>
-      <p appBetterHighlight>Style me with basic directive (better)!</p>
+      <!--
+      Here we can bind to the directive properties after we include the directive with the element. Notice
+      how the directive itself is not enclosed in square brackets but the directive properties are enclosed
+      in square brackets.
+      The way Angular figures out that we are trying to find the directive properties and not the properties
+      of the element is that Angular first checks our own directives first and so on before it reaches the
+      native properties of the elements.
+      We can write [defaultColor]="'yellow'" as defaultColor="yellow", like shown below. This is a special
+      case which Angular recognises if we make sure to remove the square brackets and the single quotation
+      marks (''). In other words Angular recognises this as special syntax for property binding. This is
+      fine to use but we have to make sure we are clear to other people reading this code that we are using
+      property binding and not assigning a value to an existing attribute on the element.
+      -->
+      <p [appBetterHighlight]="'red'" defaultColor="yellow">Style me with basic directive (better)!</p>
     </div>
   </div>
 </div>
