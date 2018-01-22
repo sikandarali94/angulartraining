@@ -23,6 +23,26 @@
             {{ odd }}
           </li>
         </div>
+        <!--
+          There is no star operator (*) in Angular. Angular sees the star operator (*) for structural
+          directive and it actually creates the code behind the scenes for the div element below which
+          has *ngIf on it:
+
+          <ng-template [ngIf]="!onlyOdd">
+            <div>
+            <li
+              class="list-group-item"
+              [ngClass]="{odd: even % 2 !== 0}"
+              [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
+              *ngFor="let even of evenNumbers">
+              {{ even }}
+            </li>
+            </div>
+          </ng-template>
+
+          So in actuality Angular uses ngIf directive with property binding with <ng-template> for
+          determining when to render the template to the DOM.
+        -->
         <div *ngIf="!onlyOdd">
           <li
             class="list-group-item"
