@@ -43,7 +43,7 @@
           So in actuality Angular uses ngIf directive with property binding with <ng-template> for
           determining when to render the template to the DOM.
         -->
-        <div *ngIf="!onlyOdd">
+        <div *appUnless="onlyOdd">
           <li
             class="list-group-item"
             [ngClass]="{odd: even % 2 !== 0}"

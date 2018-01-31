@@ -9,6 +9,7 @@ have created a new directive by importing it in our app module like we did below
  */
 import {BasicHighlightDirective} from './basic-highlight/basic-highlight.directive';
 import { BetterHighlightDirective } from './better-highlight/better-highlight.directive';
+import { UnlessDirective } from './unless/unless.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BetterHighlightDirective } from './better-highlight/better-highlight.di
     /* After importing the directive we then must include the directive in our declarations.
      */
     BasicHighlightDirective,
-    BetterHighlightDirective
+    BetterHighlightDirective,
+    UnlessDirective
   ],
   imports: [
     BrowserModule,
