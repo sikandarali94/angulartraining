@@ -1,92 +1,9 @@
+<app-header (featureSelected)="onNavigate($event)"></app-header>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
-      <button
-        class="btn btn-primary"
-        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
-      <br><br>
-      <ul class="list-group">
-        <!--
-        Having two structural directives on the same element will give us an error.
-        So this will give us an error:
-        <li *ngFor="let number of numbers" *ngIf="number % 2 == 0"></li>
-        -->
-        <!--
-        As show below having structural directives nested does not give us an error.
-        -->
-        <div *ngIf="onlyOdd">
-          <li
-            class="list-group-item"
-            [ngClass]="{odd: odd % 2 !== 0}"
-            [ngStyle]="{backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'}"
-            *ngFor="let odd of oddNumbers">
-            {{ odd }}
-          </li>
-        </div>
-        <!--
-          There is no star operator (*) in Angular. Angular sees the star operator (*) for structural
-          directive and it actually creates the code behind the scenes for the div element below which
-          has *ngIf on it:
-
-          <ng-template [ngIf]="!onlyOdd">
-            <div>
-            <li
-              class="list-group-item"
-              [ngClass]="{odd: even % 2 !== 0}"
-              [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
-              *ngFor="let even of evenNumbers">
-              {{ even }}
-            </li>
-            </div>
-          </ng-template>
-
-          So in actuality Angular uses ngIf directive with property binding with <ng-template> for
-          determining when to render the template to the DOM.
-        -->
-        <div *appUnless="onlyOdd">
-          <li
-            class="list-group-item"
-            [ngClass]="{odd: even % 2 !== 0}"
-            [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}"
-            *ngFor="let even of evenNumbers">
-            {{ even }}
-          </li>
-        </div>
-      </ul>
-      <!--
-      We don't need to set any value to appBasicHighlight and importantly we don't use square brackets
-      because the directive name is just a selector we set up in basic-highlight.directive.ts. The square
-      brackets in that file are not part of that name; it's part of this selector style telling Angular
-      please select it as an attribute on an element. And that is how add appBasicHighlight here: like
-      an attribute to the paragraph.
-      -->
-      <p appBasicHighlight>Style me with basic directive!</p>
-      <!--
-      Here we can bind to the directive properties after we include the directive with the element. Notice
-      how the directive itself is not enclosed in square brackets but the directive properties are enclosed
-      in square brackets.
-      The way Angular figures out that we are trying to find the directive properties and not the properties
-      of the element is that Angular first checks our own directives first and so on before it reaches the
-      native properties of the elements.
-      We can write [defaultColor]="'yellow'" as defaultColor="yellow", like shown below. This is a special
-      case which Angular recognises if we make sure to remove the square brackets and the single quotation
-      marks (''). In other words Angular recognises this as special syntax for property binding. This is
-      fine to use but we have to make sure we are clear to other people reading this code that we are using
-      property binding and not assigning a value to an existing attribute on the element.
-      -->
-      <p [appBetterHighlight]="'red'" defaultColor="yellow">Style me with basic directive (better)!</p>
-      <!--
-      ngSwitch is used to display an element depending upon the value of a property in our model.
-      *ngSwitchCase is where we pass the value we want to check for the property on the element we want
-      to display if the property indeed has that value. *ngSwitchDefault is for when the value of the
-      property does not match the cases above; then we want to show the default element in that case.
-      -->
-      <div [ngSwitch]="value">
-        <p *ngSwitchCase="5">Value is 5</p>
-        <p *ngSwitchCase="10">Value is 10</p>
-        <p *ngSwitchCase="100">Value is 100</p>
-        <p *ngSwitchDefault>Value is Default</p>
-      </div>
+    <div class="col-md-12">
+      <app-recipes *ngIf="loadedFeature === 'recipe'"></app-recipes>
+      <app-shopping-list *ngIf="loadedFeature !== 'recipe'"></app-shopping-list>
     </div>
   </div>
 </div>
