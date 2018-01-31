@@ -75,6 +75,18 @@
       property binding and not assigning a value to an existing attribute on the element.
       -->
       <p [appBetterHighlight]="'red'" defaultColor="yellow">Style me with basic directive (better)!</p>
+      <!--
+      ngSwitch is used to display an element depending upon the value of a property in our model.
+      *ngSwitchCase is where we pass the value we want to check for the property on the element we want
+      to display if the property indeed has that value. *ngSwitchDefault is for when the value of the
+      property does not match the cases above; then we want to show the default element in that case.
+      -->
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">Value is 5</p>
+        <p *ngSwitchCase="10">Value is 10</p>
+        <p *ngSwitchCase="100">Value is 100</p>
+        <p *ngSwitchDefault>Value is Default</p>
+      </div>
     </div>
   </div>
 </div>
