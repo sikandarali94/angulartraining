@@ -6,7 +6,11 @@ import {AccountService} from '../account.service';
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
-  providers: [LoggingService, AccountService]
+  /* Similarly we remove the AccountService from the providers list here as well because we want
+  to use the instance of AccountService that we created in our app component. And similarly we
+  shouldn't remove AccountService from our constructor function.
+   */
+  providers: [LoggingService]
 })
 export class AccountComponent {
   @Input() account: {name: string, status: string};

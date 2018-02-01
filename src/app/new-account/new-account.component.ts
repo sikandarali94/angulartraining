@@ -15,7 +15,11 @@ import {AccountService} from '../account.service';
   it sees we want to have such an instance of and it will know how to give us such an
   instance.
    */
-  providers: [LoggingService, AccountService]
+  /* If we want to use the instance of the service in our app component we simply remove
+  AccountsService from the providers list as we have done below. However, it is important
+  we don't remove AccountService from our constructor.
+   */
+  providers: [LoggingService]
 })
 export class NewAccountComponent {
 
