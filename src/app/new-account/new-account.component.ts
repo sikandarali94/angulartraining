@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 /* We must first import our services before we can inject them into our component for use.
  */
 import {LoggingService} from '../logging.service';
+import {AccountService} from '../account.service';
 
 @Component({
   selector: 'app-new-account',
@@ -14,10 +15,9 @@ import {LoggingService} from '../logging.service';
   it sees we want to have such an instance of and it will know how to give us such an
   instance.
    */
-  providers: [LoggingService]
+  providers: [LoggingService, AccountService]
 })
 export class NewAccountComponent {
-  @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
 
   /* We can name our dependency whatever we like. In this case we name it loggingService.
   However we cannot name our type whatever we like. We have to provide the exact name
@@ -27,13 +27,10 @@ export class NewAccountComponent {
   The last thing we need to tell Angular is how to give us such an instance of
   LoggingService in this component.
    */
-  constructor(private loggingService: LoggingService) {}
+  constructor(private loggingService: LoggingService, private accountsService: AccountService) {}
 
   onCreateAccount(accountName: string, accountStatus: string) {
-    this.accountAdded.emit({
-      name: accountName,
-      status: accountStatus
-    });
+    this.accountsService.addAccount(accountName, accountStatus);
     /* We want to create a service that can log data.
      */
     /* The reason it is better to use this method of creating an instance of our service
