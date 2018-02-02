@@ -5,6 +5,9 @@ import {AccountService} from './account.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  /* The highest level for injecting a service is not actually the app component but the app
+  module.
+   */
   providers: [AccountService]
 })
 export class AppComponent implements OnInit {

@@ -19,7 +19,7 @@ import {AccountService} from '../account.service';
   AccountsService from the providers list as we have done below. However, it is important
   we don't remove AccountService from our constructor.
    */
-  providers: [LoggingService]
+  // providers: [LoggingService]
 })
 export class NewAccountComponent {
 
@@ -42,6 +42,6 @@ export class NewAccountComponent {
     the Angular ecosystem where Angular knows how our app works. There are other advantages
     we will encounter as we use Angular more.
      */
-    this.loggingService.logStatusChange(accountStatus);
+    // this.loggingService.logStatusChange(accountStatus);
   }
 }
