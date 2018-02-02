@@ -2,7 +2,7 @@ import {LoggingService} from './logging.service';
 /* We have to make sure to import the Injectable decorator from '@angular/core' before
 we can use it in our Typescript file.
  */
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 
 /* To inject a service within a service we need to have some metadata attached to it.
 A component has some metadata because we have @Component. To add metadata so we can
@@ -27,6 +27,7 @@ export class AccountService {
             status: 'unknown'
         }
     ];
+    statusUpdated = new EventEmitter<string>();
 
     constructor(private loggingService: LoggingService) {}
 

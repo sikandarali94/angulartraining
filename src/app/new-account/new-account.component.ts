@@ -31,7 +31,20 @@ export class NewAccountComponent {
   The last thing we need to tell Angular is how to give us such an instance of
   LoggingService in this component.
    */
-  constructor(private loggingService: LoggingService, private accountsService: AccountService) {}
+  constructor(private loggingService: LoggingService, private accountsService: AccountService) {
+    /* subscribe() is used to listen to the event being emitted and we specify in subscribe
+    what data the event emitter is throwing out and then we execute a code when that event
+    with the data being emitted is caught by subscribe(). In this case we are sending an alert
+    message whenever the subscribe() function catches an event thrown by statusUpdated in the
+    form of a status in string form.
+    The service with the event emitter allows us to do cross-component communication rather than
+    using templates to catch events and so forth. This saves us a lot of time and it is the reason
+    why services are much better in sending data between components.
+     */
+    this.accountsService.statusUpdated.subscribe(
+        (status: string) => alert('New Status: ' + status)
+    );
+  }
 
   onCreateAccount(accountName: string, accountStatus: string) {
     this.accountsService.addAccount(accountName, accountStatus);
