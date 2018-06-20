@@ -2,9 +2,21 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">Servers</a></li>
-        <li role="presentation"><a href="#">Users</a></li>
+        <!--
+        We might think changing the href to the relevant paths will get our routes to work. At first sight they
+        do, but the issue is that the href reloads the app and this is not what we want. We want to route
+        without reloading the app.
+        That is why we use routerLink of Angular instead of href of HTML. routerLink tells Angular that this is
+        a link but when the link is selected, Angular handles it differently.
+        -->
+        <li role="presentation" class="active"><a routerLink="/">Home</a></li>
+        <li role="presentation"><a routerLink="/servers">Servers</a></li>
+        <!--
+        We can use routerLink as property binding and this gives us more flexibility, as we will see later on.
+        The array notation is not really needed below as we can just write "'/users'", however, the array
+        notation will be more useful later on as it allows us to construct more complex paths.
+        -->
+        <li role="presentation"><a [routerLink]="['/users']">Users</a></li>
       </ul>
     </div>
   </div>
