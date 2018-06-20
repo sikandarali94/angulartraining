@@ -10,17 +10,12 @@
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <app-home></app-home>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <app-users></app-users>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <app-servers></app-servers>
+      <!--
+      We have to tell Angular where to display the currently selected component. We remove all the selectors
+      of the components like we did and use a special directive called <router-outlet></router-outlet> that
+      loads the components depending upon the path in the url.
+      -->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
