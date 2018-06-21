@@ -9,6 +9,12 @@
         That is why we use routerLink of Angular instead of href of HTML. routerLink tells Angular that this is
         a link but when the link is selected, Angular handles it differently.
         -->
+        <!--
+        In Angular we have to be wary of using absolute paths or relative paths. In here if we wrote '/servers'
+        [absolute] or 'servers' [relative] it will give us both 'localhost:4200/servers'. However, if we did
+        this in the servers component, and wrote the same thing, for relative path we would get
+        'localhost:4200/servers/servers', but for absolute path we would get 'localhost:4200/servers'.
+        -->
         <li role="presentation" class="active"><a routerLink="/">Home</a></li>
         <li role="presentation"><a routerLink="/servers">Servers</a></li>
         <!--
