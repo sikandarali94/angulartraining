@@ -15,14 +15,30 @@
         this in the servers component, and wrote the same thing, for relative path we would get
         'localhost:4200/servers/servers', but for absolute path we would get 'localhost:4200/servers'.
         -->
-        <li role="presentation" class="active"><a routerLink="/">Home</a></li>
-        <li role="presentation"><a routerLink="/servers">Servers</a></li>
+        <!--
+        routerLinkActive directive allows us to change the style of a link depending upon which route path
+        is active. We just have to provide the directive with the class that contains the style for indicating
+        what an active link should look like e.g. routerLinkActive="active" [active is a CSS class defined in
+        Bootstrap].
+        routerLinkActive, by default, marks an element as "active" if it 'contains' the path we are on. In the
+        example below, the Home path is "/". The Home path will always be marked as "active" by routerLinkActive
+        because its router path is always contained whenever we go to 'Servers' and 'Users' -- in other words,
+        "localhost:4200/servers" or "localhost:4200/users" always contains "localhost:4200/", which is the path
+        for Home. Thus, routerLinkActive will always apply the CSS class we passed to it on the Home link.
+        To fix this default behaviour by routerLinkActive we can access its settings through
+        [routerLinkActiveOptions] -- it needs property binding because we don't just pass a string but a JS object,
+        as shown below. We access the exact property within routerLinkActiveOptions and set it true. This tells
+        routerLinkActive directive to only apply the CSS class to the link that has the exact path in the URL rather
+        than contained in the URL.
+        -->
+        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
+        <li role="presentation" routerLinkActive="active"><a routerLink="/servers">Servers</a></li>
         <!--
         We can use routerLink as property binding and this gives us more flexibility, as we will see later on.
         The array notation is not really needed below as we can just write "'/users'", however, the array
         notation will be more useful later on as it allows us to construct more complex paths.
         -->
-        <li role="presentation"><a [routerLink]="['/users']">Users</a></li>
+        <li role="presentation" routerLinkActive="active"><a [routerLink]="['/users']">Users</a></li>
       </ul>
     </div>
   </div>
