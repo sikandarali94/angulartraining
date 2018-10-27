@@ -30,7 +30,7 @@ const appRoutes: Routes = [
     parameter passed. In our case it is the id parameter which determines which user to load. We specify
     parameters with a colon (:) as shown below.
      */
-    { path: 'users/:id', component: UserComponent},
+    { path: 'users/:id/:name', component: UserComponent},
     /* It is a good practice to define what component Angular should load if a user enters an empty
     path.
      */
