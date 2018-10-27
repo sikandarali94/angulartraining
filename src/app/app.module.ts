@@ -25,6 +25,12 @@ const appRoutes: Routes = [
     component is where we tell Angular what component to load once it loads the path.
      */
     { path: 'users', component: UsersComponent },
+    /* We can add parameters to our URLs. In this case if in the URL it is specified that a user with
+    a certain id should be loaded in the User Component we can load the correct user depending on the
+    parameter passed. In our case it is the id parameter which determines which user to load. We specify
+    parameters with a colon (:) as shown below.
+     */
+    { path: 'users/:id', component: UserComponent},
     /* It is a good practice to define what component Angular should load if a user enters an empty
     path.
      */
