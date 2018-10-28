@@ -14,12 +14,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLoadServers() {
+  onLoadServer(id: number) {
     /*
     navigate method allows us to navigate to a new path. It takes in an an array and we define to which path
     we want to navigate to, as we have done below.
     */
-    this.router.navigate(['/servers']);
+    /* Below is how we change the URL programatically that has query parameters and fragments.
+     */
+    this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: '1'}, fragment: 'loading'});
   }
 
 }

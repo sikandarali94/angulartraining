@@ -1,7 +1,17 @@
 <div class="row">
   <div class="col-xs-12 col-sm-4">
     <div class="list-group">
+      <!--
+      To add query parameters (where key-value is prefixed with a question mark e.g. ?mode=edit) we use queryParams
+      property of the routerLink directive as shown below.
+      {allowEdit: '1'} gives us ?allowEdit=1 in the URL. We can have multiple key-value pairs in queryParams.
+      To add fragments (where value is prefixed with a hash symbol e.g. #loading) we use fragment property of the
+      routerLink directive as shown below. We can also write [fragment]="['loading']" as fragment="loading".
+      -->
       <a
+        [routerLink]="['/servers', 5, 'edit']"
+        [queryParams]="{allowEdit: '1'}"
+        [fragment]="['loading']"
         href="#"
         class="list-group-item"
         *ngFor="let server of servers">

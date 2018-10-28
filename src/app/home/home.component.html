@@ -3,5 +3,8 @@
 <!--
 Here we want to load the servers component whenever a user clicks on the Load Servers button below.
 -->
-<button class="btn btn-primary" (click)="onLoadServers()">Load Servers</button>
+<!--
+We want the button below to change the URL to: http://localhost:4200/servers/1/edit?allowEdit=1#loading.
+-->
+<button class="btn btn-primary" (click)="onLoadServer(1)">Load Server 1</button>
 
