@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 /* We should import Params from '@angular/router' before we use it in our TypeScript file.
  */
 import {ActivatedRoute, Params} from '@angular/router';
+/* We should import Subscription from 'rxjs/Subscription' before we use it in our TypeScript file.
+ */
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   user: {id: number, name: string};
+  paramsSubscription : Subscription;
 
   /* The ActivatedRoute object -- which has a lot of meta-data about the current URL -- will give us access to the parameters passed in
   the URL. In our case it is id and name parameter we are looking for.
@@ -42,13 +46,23 @@ export class UserComponent implements OnInit {
     is sent through the observable. In our case, whenever the parameters in the URL change. Also in our case we only needed to define the
     first function argument for the subscribe method to work.
      */
-    this.route.params
+    /* Whenever we leave the component and Angular destroys it, Angular also removes the subscription to the parameter changes
+    automatically. If it didn't, this subscription will ive on in memory even though the component is destroyed. What we added below, to
+    unsubscribe from the observable that looks for parameter changes, is just to indicate what happens behind the scenes and we don't
+    need to do it. However, other observables we create on a component on the ngOnDestroy lifecycle hook should be unsubscribed to when the
+    component is destroyed , and the method we have used to unsubscribe below should be followed.
+     */
+    this.paramsSubscription = this.route.params
         .subscribe(
             (params: Params) => {
               this.user.id = params['id'];
               this.user.name = params['name'];
             }
         );
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
   }
 
 }
