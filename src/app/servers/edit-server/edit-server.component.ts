@@ -18,8 +18,8 @@ export class EditServerComponent implements OnInit {
     /* This is one method below in how we can access query parameter values and fragment values in the current URL. However, this would
     not update the component that is currently loaded which has the data passed in the URL altered.
      */
-    console.log(this.route.snapshot.queryParams);
-    console.log(this.route.snapshot.fragment);
+    //console.log(this.route.snapshot.queryParams);
+    //console.log(this.route.snapshot.fragment);
     /* To counter the above issue, route object has queryParams and fragment observables that reload the currently loaded component if
     the data passed to that component from the URL has changed. We don't have to manually unsubscribe to these observables if the component
     is destroyed as Angular would do it automatically for us.
