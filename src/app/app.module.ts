@@ -24,20 +24,18 @@ const appRoutes: Routes = [
     to localhost:4200/users. We have to make sure not to to write '/users' as that will be incorrect.
     component is where we tell Angular what component to load once it loads the path.
      */
-    { path: 'users', component: UsersComponent },
-    /* We can add parameters to our URLs. In this case if in the URL it is specified that a user with
-    a certain id should be loaded in the User Component we can load the correct user depending on the
-    parameter passed. In our case it is the id parameter which determines which user to load. We specify
-    parameters with a colon (:) as shown below.
-     */
-    { path: 'users/:id/:name', component: UserComponent},
-    /* It is a good practice to define what component Angular should load if a user enters an empty
-    path.
-     */
+    { path: 'users', component: UsersComponent, children : [
+      { path: ':id/:name', component: UserComponent},
+    ] },
     { path: '', component: HomeComponent },
-    { path: 'servers', component: ServersComponent },
-    { path: 'servers/:id/edit', component: EditServerComponent },
-    { path: 'servers/:id', component: ServerComponent }
+    /* We repeat ourselves in writing servers in the path repeatedly. By definition, all the paths defined after 'servers' are children
+    routes of 'servers' path route. Therefore, we redefine the 'servers' path below to include its children routes so we don't repeat
+    ourselves in writing 'servers' all the time.
+     */
+    { path: 'servers', component: ServersComponent, children: [
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit', component: EditServerComponent }
+    ] }
 ];
 
 @NgModule({

@@ -25,10 +25,19 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-4">
+    <!--
+      We need to provide a hook to tell Angular where to load the components of the child routes. Like we used
+      <router-outlet></router-outlet> to load the components of the parent routes in app.component.html, we use
+      <router-outlet></router-outlet> here to load the components of the child routes. We commented out the
+      rest of the elements because we want the the child route component to load when the current URL matches
+      the path defined for the child routes.
+    -->
+    <router-outlet></router-outlet>
+    <!--
     <button class="btn btn-primary" (click)="onReload()">Reload Page</button>
     <app-edit-server></app-edit-server>
     <hr>
-    <app-server></app-server>
+    <app-server></app-server>-->
   </div>
 </div>
 
