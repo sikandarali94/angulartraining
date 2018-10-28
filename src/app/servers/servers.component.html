@@ -6,12 +6,17 @@
       property of the routerLink directive as shown below.
       {allowEdit: '1'} gives us ?allowEdit=1 in the URL. We can have multiple key-value pairs in queryParams.
       To add fragments (where value is prefixed with a hash symbol e.g. #loading) we use fragment property of the
-      routerLink directive as shown below. We can also write [fragment]="['loading']" as fragment="loading".
+      routerLink directive as shown below.
+      -->
+      <!--
+      PLEASE NOTE: We should write the fragment property as: fragment="'loading'" and not as [fragment]="['loading']"
+      because it does not work. This is a correction to the comment that was written for 'Passing Query Parameters and
+      Fragments' lecture.
       -->
       <a
         [routerLink]="['/servers', 5, 'edit']"
         [queryParams]="{allowEdit: '1'}"
-        [fragment]="['loading']"
+        fragment="'loading'"
         href="#"
         class="list-group-item"
         *ngFor="let server of servers">
