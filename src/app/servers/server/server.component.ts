@@ -28,7 +28,13 @@ export class ServerComponent implements OnInit {
   }
 
   onEdit() {
-      this.router.navigate(['/servers', this. server.id, 'edit']);
+      /* queryParamsHandling allows us to keep the parameters in the old URL to the new URL. For example, if from
+      http://localhost:4200/servers/1?allowEdit=1 we went to http://localhost:4200/servers/1/edit then 'preserve' will
+      alter the URL to localhost:4200/servers/1/edit?allowEdit=1 preserving the parameters. There is another option for
+      queryParamsHandling which is 'merge'. It simply merges the parameters of the old URL to the parameters of the new
+      URL. In this case, since we are not introducing parameters to the new URL, 'preserve' is the better option.
+       */
+      this.router.navigate(['/servers', this. server.id, 'edit'], {queryParamsHandling: 'preserve'});
   }
 
 }
