@@ -16,6 +16,7 @@ import { ServersService } from './servers/servers.service';
 in our app module. We have to import Routes and RouterModule from '@angular/router'.
  */
 import {RouterModule, Routes} from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 /* Our app routes is an array because we will have multiple routes.
  */
@@ -35,7 +36,19 @@ const appRoutes: Routes = [
     { path: 'servers', component: ServersComponent, children: [
       { path: ':id', component: ServerComponent },
       { path: ':id/edit', component: EditServerComponent }
-    ] }
+    ] },
+    /* We are trying to create a behaviour in Angular where if someone types something in the URL for which we don't have a component to
+    load, we give the user an error page which says that the page has not been found.
+     */
+    { path: 'not-found', component: PageNotFoundComponent },
+    /* An alternative to loading components for a specific URL is to redirect the user on a certain URL to another URL. We achieve this
+    using redirectTo as shown below.
+     */
+    /* The method to catch all URLs that have not specified in our routes is to use the double asterisk (**) -- also known as the wildcard
+    route -- as shown below. The order is important here: we have to make sure the wildcard route here is the last route specified in our
+    routes. This is because our routes get parsed top to bottom.
+     */
+    { path: '**', redirectTo: '/not-found' }
 ];
 
 @NgModule({
@@ -46,7 +59,8 @@ const appRoutes: Routes = [
     ServersComponent,
     UserComponent,
     EditServerComponent,
-    ServerComponent
+    ServerComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
