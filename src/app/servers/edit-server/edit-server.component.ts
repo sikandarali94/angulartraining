@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import { ServersService } from '../servers.service';
 
 @Component({
@@ -11,6 +11,7 @@ export class EditServerComponent implements OnInit {
   server: {id: number, name: string, status: string};
   serverName = '';
   serverStatus = '';
+  allowEdit: boolean = false;
 
   constructor(private serversService: ServersService, private route: ActivatedRoute) { }
 
@@ -24,7 +25,12 @@ export class EditServerComponent implements OnInit {
     the data passed to that component from the URL has changed. We don't have to manually unsubscribe to these observables if the component
     is destroyed as Angular would do it automatically for us.
      */
-    this.route.queryParams.subscribe();
+    this.route.queryParams
+        .subscribe(
+            (queryParams: Params) => {
+              this.allowEdit = queryParams['allowEdit'] === '1';
+            }
+        );
     this.route.fragment.subscribe();
     this.server = this.serversService.getServer(1);
     this.serverName = this.server.name;

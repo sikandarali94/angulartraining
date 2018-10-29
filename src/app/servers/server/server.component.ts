@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import { ServersService } from '../servers.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class ServerComponent implements OnInit {
   server: {id: number, name: string, status: string};
   id: number;
 
-  constructor(private serversService: ServersService, private route: ActivatedRoute) { }
+  constructor(private serversService: ServersService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     /* We get parameter values as string but id below expects a number and so does the argument of the getServer() method. To convert a
@@ -25,6 +25,10 @@ export class ServerComponent implements OnInit {
               this.server = this.serversService.getServer(+params['id'] && +params['id'] < 4 ? +params['id'] : 1);
             }
         )
+  }
+
+  onEdit() {
+      this.router.navigate(['/servers', this. server.id, 'edit']);
   }
 
 }
