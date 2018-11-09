@@ -21,6 +21,7 @@ import {AuthService} from './auth.service';
 import {AuthGuard} from './auth-guard.service';
 import {CanDeactivateGuard} from './servers/edit-server/can-deactivate-guard.service';
 import {CanActivateChild} from '@angular/router';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 /* Our app routes is an array because we will have multiple routes.
  */
@@ -34,7 +35,8 @@ import {CanActivateChild} from '@angular/router';
     UserComponent,
     EditServerComponent,
     ServerComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
  */
 import {AuthGuard} from './auth-guard.service';
 import {CanDeactivateGuard} from './servers/edit-server/can-deactivate-guard.service';
+import {ErrorPageComponent} from './error-page/error-page.component';
 
 const appRoutes: Routes = [
     { path: 'users', component: UsersComponent, children : [
@@ -41,7 +42,12 @@ const appRoutes: Routes = [
              */
             { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
         ] },
-    { path: 'not-found', component: PageNotFoundComponent },
+    // { path: 'not-found', component: PageNotFoundComponent },
+    /* We know that we need to display a certain error message when the page is not found. We can pass that error message as static data
+    through the data property. This is convenient because we can reuse the error page component to display all kinds of different error
+    messages.
+     */
+    { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
     { path: '**', redirectTo: '/not-found' }
 ];
 
