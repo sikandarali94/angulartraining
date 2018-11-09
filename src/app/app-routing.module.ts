@@ -19,6 +19,9 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AuthGuard} from './auth-guard.service';
 import {CanDeactivateGuard} from './servers/edit-server/can-deactivate-guard.service';
 import {ErrorPageComponent} from './error-page/error-page.component';
+/* We must import our resolver before we can use them in our TypeScript file.
+ */
+import {ServerResolver} from './servers/server/server-resolver.service';
 
 const appRoutes: Routes = [
     { path: 'users', component: UsersComponent, children : [
@@ -36,7 +39,10 @@ const appRoutes: Routes = [
         canActivateChild: [AuthGuard],
         component: ServersComponent,
         children: [
-            { path: ':id', component: ServerComponent },
+            /* We use the resolve property and map all our resolvers through an object as shown below. The property 'server' in the JS
+            object is totally up to us on what name it should be. This name is under which we will receive the data from the resolver.
+             */
+            { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
             /* Angular will run the CanDeactivateGuard whenever we leave the :id/edit path. We defined the canDeactivate method here
             because our interface requires that we have this method.
              */
