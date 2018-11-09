@@ -17,6 +17,8 @@ in our app module. We have to import Routes and RouterModule from '@angular/rout
  */
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {AppRoutingModule} from './app-routing.module';
+import {AuthService} from './auth.service';
+import {AuthGuard} from './auth-guard.service';
 
 /* Our app routes is an array because we will have multiple routes.
  */
@@ -40,7 +42,9 @@ import {AppRoutingModule} from './app-routing.module';
      */
     AppRoutingModule
   ],
-  providers: [ServersService],
+  /* We need to place our AuthService and our AuthGuard that we created in our app module in order to use it.
+   */
+  providers: [ServersService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

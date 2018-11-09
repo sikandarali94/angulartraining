@@ -14,13 +14,19 @@ import {ServersComponent} from './servers/servers.component';
 import {ServerComponent} from './servers/server/server.component';
 import {EditServerComponent} from './servers/edit-server/edit-server.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+/* We should import our guards before we can use them in our TypeScript file.
+ */
+import {AuthGuard} from './auth-guard.service';
 
 const appRoutes: Routes = [
     { path: 'users', component: UsersComponent, children : [
             { path: ':id/:name', component: UserComponent},
         ] },
     { path: '', component: HomeComponent },
-    { path: 'servers', component: ServersComponent, children: [
+    /* canActivate is where we add all the route guards we want to apply to the route and will automatically be applied to all the child
+    routes. These routes can only be accessed if canActivate in our guard returns true.
+     */
+    { path: 'servers', canActivate: [AuthGuard], component: ServersComponent, children: [
             { path: ':id', component: ServerComponent },
             { path: ':id/edit', component: EditServerComponent }
         ] },
