@@ -19,6 +19,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import {AppRoutingModule} from './app-routing.module';
 import {AuthService} from './auth.service';
 import {AuthGuard} from './auth-guard.service';
+import {CanDeactivateGuard} from './servers/edit-server/can-deactivate-guard.service';
+import {CanActivateChild} from '@angular/router';
 
 /* Our app routes is an array because we will have multiple routes.
  */
@@ -44,7 +46,9 @@ import {AuthGuard} from './auth-guard.service';
   ],
   /* We need to place our AuthService and our AuthGuard that we created in our app module in order to use it.
    */
-  providers: [ServersService, AuthService, AuthGuard],
+  /* We need to place our CanDeactivateGuard that we created in our app module in order to use it.
+   */
+  providers: [ServersService, AuthService, AuthGuard, CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

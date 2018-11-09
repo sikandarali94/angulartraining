@@ -17,6 +17,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 /* We should import our guards before we can use them in our TypeScript file.
  */
 import {AuthGuard} from './auth-guard.service';
+import {CanDeactivateGuard} from './servers/edit-server/can-deactivate-guard.service';
 
 const appRoutes: Routes = [
     { path: 'users', component: UsersComponent, children : [
@@ -35,7 +36,10 @@ const appRoutes: Routes = [
         component: ServersComponent,
         children: [
             { path: ':id', component: ServerComponent },
-            { path: ':id/edit', component: EditServerComponent }
+            /* Angular will run the CanDeactivateGuard whenever we leave the :id/edit path. We defined the canDeactivate method here
+            because our interface requires that we have this method.
+             */
+            { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
         ] },
     { path: 'not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/not-found' }
