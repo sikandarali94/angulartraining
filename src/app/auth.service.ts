@@ -19,6 +19,10 @@ export class AuthService {
         return promise;
     }
 
+    /* Since we implemented the login and logout methods using the buttons, this will change loggedIn to true when user has clicked Log In
+    button (and thus true will be passed to the promise) or will change loggedIn to false when user has clicked Log Off (and thus false will
+    be passed to the promise).
+     */
     login() {
         this.loggedIn = true;
     }
