@@ -26,7 +26,14 @@ const appRoutes: Routes = [
     /* canActivate is where we add all the route guards we want to apply to the route and will automatically be applied to all the child
     routes. These routes can only be accessed if canActivate in our guard returns true.
      */
-    { path: 'servers', canActivate: [AuthGuard], component: ServersComponent, children: [
+    { path: 'servers',
+        // canActivate: [AuthGuard],
+        /* The advantage of using canActivateChild is that we don't have to individually assign AuthGuard to each of the child routes;
+        canActivateChild protects all the child routes of servers in this case.
+         */
+        canActivateChild: [AuthGuard],
+        component: ServersComponent,
+        children: [
             { path: ':id', component: ServerComponent },
             { path: ':id/edit', component: EditServerComponent }
         ] },

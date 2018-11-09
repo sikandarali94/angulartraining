@@ -1,7 +1,7 @@
-/* We need to import ActivatedRouteSnapshot, CanActivate and RouterStateSnapshot package from '@angular/router' before we can use it in
-our TypeScript file.
+/* We need to import ActivatedRouteSnapshot, CanActivate, CanActivateChild and RouterStateSnapshot package from '@angular/router' before we
+can use it in our TypeScript file.
  */
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 /* We need to import Observable package from 'rxjs' before we can use it in our TypeScript file.
  */
 import {Observable} from 'rxjs';
@@ -16,7 +16,9 @@ import {AuthService} from './auth.service';
 /* Since we are using auth=guard.service.ts as a guard rather than an actual service, it is fitting to name it AuthGuard rather than
 AuthGuardService.
  */
-export class AuthGuard implements CanActivate {
+/* We can use CanActivateChild to protect child routes from being accessed.
+ */
+export class AuthGuard implements CanActivate, CanActivateChild {
     constructor(private authService: AuthService, private router: Router) {}
     /* For CanActivate we are getting the arguments from Angular. We will tell Angular to run this code before our routes are loaded so
     therefore it will give us the data for the arguments.
@@ -41,6 +43,15 @@ export class AuthGuard implements CanActivate {
                         return false;
                     }
                 }
-            )
+            );
+    }
+
+    /* canActivateChild takes the same arguments as canActivate.
+     */
+    canActivateChild(route: ActivatedRouteSnapshot,
+                     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        /* Since we are using the same authentication as canActivate(), we can simply call the canActivate() method.
+         */
+        return this.canActivate(route, state);
     }
 }
