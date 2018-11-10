@@ -1,3 +1,7 @@
+/* When we deploy the Angular app to a server online the server parses the URL rather than Angular. So say we have www.domain.com/servers,
+the online server will parse this URL and look for a servers folder, however, our Angular app only has index.html. We need to configure
+the online server in such a way that if it gives a 404 page not found error, it runs index.html.
+ */
 /* It is not a good practice to have so many routes defined in app.module.ts as it makes the code look unclean. Instead, we should create
 another module for routing. Here we created app-routing.module.ts to hold all the routes as shown below.
  */
@@ -60,8 +64,17 @@ const appRoutes: Routes = [
 @NgModule({
     /* We import the forRoot method to add our routes to the RouterModule.
      */
+    /* If we need to support very old browsers that cannot parse paths like www.domain.com/servers in the client, we have an alternative
+    approach. This alternative approach involves using a hash sign in the URL. So instead of the URL looking like this:
+    www.domain.com/servers it looks like this: www.domain.com/#/servers. The browser will ignore everything to the right of the hash sign
+    and load up www.domain.com in where our index.html for the Angular app exists. This even works for servers because they also ignore
+    everything after the hash symbol. However, we should try to use the prettier method for HTMl by not hash tagging which allows for
+    HTML history mode.
+    We can enable hash tagging by adding {useHash: true} as shown below. useHash is false by default.
+     */
     imports: [
         RouterModule.forRoot(appRoutes)
+        // RouterModule.forRoot(appRoutes, {useHash: true})
     ],
     /* After we have added our routes to the RouterModule we need to export it to app.module.ts.
      */
