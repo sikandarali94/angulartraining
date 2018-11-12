@@ -16,6 +16,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RecipeSelectComponent } from './recipes/recipe-select/recipe-select.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RecipeSelectComponent } from './recipes/recipe-select/recipe-select.com
     ShoppingListComponent,
     ShoppingEditComponent,
     DropdownDirective,
-    RecipeSelectComponent
+    RecipeSelectComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,
