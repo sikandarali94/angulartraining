@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import {UsersService} from '../users.service';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class UserComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private usersService: UsersService) { }
 
   ngOnInit() {
     this.route.params
@@ -24,6 +25,14 @@ export class UserComponent implements OnInit {
           this.id = +params['id'];
         }
       );
+  }
+
+  onActivate() {
+    /* We can call next on userActivated. We used next() method in our home component when we created the custom observable. We used next()
+    to create a bridge between the Observable and the Observer. Subject, however, is easier as it is an observable and observer at the same
+    time. This is why we can conveniently call next here and pass a value.
+     */
+    this.usersService.userActivated.next(this.id);
   }
 
 }
