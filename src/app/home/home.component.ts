@@ -1,3 +1,5 @@
+/* To learn about observables in depth we should refer to the rxjs documentation online.
+ */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 /* To create an observable in our Typescript file, we need to first import the Observable package from 'rxjs/Rx' as shown below.
  */
