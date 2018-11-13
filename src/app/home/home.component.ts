@@ -4,18 +4,23 @@
  */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 /* To create an observable in our Typescript file, we need to first import the Observable package from 'rxjs/Rx' as shown below.
+Once we remove rxjs-compat, instead of importing from 'rxjs/Rx' we import from 'rxjs'. Also, we have to import the interval observer
+separately from 'rxjs', as shown below.
  */
-import {Observable} from 'rxjs/Rx';
+import {Observable, interval} from 'rxjs';
 /* We need to import the whole 'rxjs/Rx' for our custom observable to function. To use all the observable operators, we need to import
 all of 'rxjs/Rx' as shown below.
+Once we remove rxjs-compat, instead of importing all operators from rxjs, we can specify what operators we want to use, as shown below.
  */
-import 'rxjs/Rx';
+import {map} from 'rxjs/operators';
 /* We need to import Observer from 'rxjs/Rx' before we can use it in our TypeScript file.
+Once we remove rxjs-compat, instead of importing from 'rxjs/Rx' we import from 'rxjs'.
  */
-import {Observer} from 'rxjs/Rx';
+import {Observer} from 'rxjs';
 /* We need to import Subscription from 'rxjs/Rx' before we can use it in our TypeScript file.
+Once we remove rxjs-compat, instead of importing from 'rxjs/Rx' we import from 'rxjs'.
  */
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -44,16 +49,21 @@ export class HomeComponent implements OnInit, OnDestroy {
      */
     /* We can chain an observable operator to any observable.
      */
-    const myNumber = Observable.interval(1000)
+    /* Once we remove rxjs-compat, and after we have imported interval separately, we can omit the Observable object before the interval().
+     */
+    const myNumber = interval(1000)
       /* map() operator simply maps the data we get back into a new observable with any transformation of our choice. It takes a function
       as an argument and we can return the data transformed into anything we like. For example, below we are multiplying the data number
       by 2 and returning it. This will log 0 after 1 second, then 2 after 1 second, then 4 after 1 second, and so forth.
       */
-      .map(
+    /* Once we remove rxjs-compat, instead of writing the observable operator as a chain method, we use the pipe() method and place our
+    operator inside that method, as shown below.
+       */
+      .pipe(map(
         (data: number) => {
           return data * 2;
         }
-      );
+      ));
     this.numbersObsSubscription = myNumber.subscribe(
         (number: number) => {
           console.log(number);

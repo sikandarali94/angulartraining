@@ -2,7 +2,9 @@
  */
 /* Subject object should be imported from 'rxjs/Rx' before we can use it in our TypeScript file.
  */
-import {Subject} from 'rxjs/Rx';
+/* Once we remove rxjs-compat, instead of importing from 'rxjs/Rx' we import from 'rxjs'. Otherwise our Angular app will fail to compile.
+ */
+import {Subject} from 'rxjs';
 
 export class UsersService {
     userActivated = new Subject();
