@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 /* To create an observable in our Typescript file, we need to first import the Observable package from 'rxjs/Rx' as shown below.
  */
 import {Observable} from 'rxjs/Rx';
@@ -8,13 +8,20 @@ import 'rxjs/Rx';
 /* We need to import Observer from 'rxjs/Rx' before we can use it in our TypeScript file.
  */
 import {Observer} from 'rxjs/Rx';
+/* We need to import Subscription from 'rxjs/Rx' before we can use it in our TypeScript file.
+ */
+import {Subscription} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  /* We should store our subscriptions separately variables of Subscription type, as shown below.
+   */
+  numbersObsSubscription: Subscription;
+  customObsSubscription: Subscription;
 
   constructor() { }
 
@@ -26,12 +33,16 @@ export class HomeComponent implements OnInit {
     ascending is stored in the number variable within the subscribe method, as shown below. We can name the number variable whatever we
     like.
      */
-    // const myNumber = Observable.interval(1000);
-    // myNumber.subscribe(
-    //     (number: number) => {
-    //       console.log(number);
-    //     }
-    // );
+    /* Like the observable interval below, when we switch away from this component the observable is still subscribed to and keeps
+    running the methods it has been provided. This is a real issue and eventually causes a memory leak. So we have to make sure to
+    unsubscribe if we leave the area where we handle this observer.
+     */
+    const myNumber = Observable.interval(1000);
+    this.numbersObsSubscription = myNumber.subscribe(
+        (number: number) => {
+          console.log(number);
+        }
+    );
 
     /* We are constructing a custom observable that will fire after 2 seconds, 4 seconds and fails at 5 seconds.
     .create() method takes a function as an argument and this function should hold our asynchronous code.
@@ -74,7 +85,7 @@ export class HomeComponent implements OnInit {
     /* Here we are subscribing to our custom observable. The first method will handle the data package it receives. The second method will
     trigger when our custom observable fails. The third method will trigger when our observable is complete.
      */
-    myObservable.subscribe(
+    this.customObsSubscription = myObservable.subscribe(
       (data: string) => {
         console.log(data);
       },
@@ -87,6 +98,14 @@ export class HomeComponent implements OnInit {
         console.log('completed');
       }
     )
+  }
+
+  ngOnDestroy() {
+    /* ngOnDestroy() lifecycle hook signifies when we leave the component, which causes the component to be destroyed. This is where we
+    should unsubscribe from the observables inside the component, as shown below.
+     */
+    this.numbersObsSubscription.unsubscribe();
+    this.customObsSubscription.unsubscribe();
   }
 
 }
