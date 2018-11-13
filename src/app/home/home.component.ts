@@ -1,10 +1,13 @@
+/* RxJS operators allow us to transform the data we receive to something else and still inside the observable world.
+ */
 /* To learn about observables in depth we should refer to the rxjs documentation online.
  */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 /* To create an observable in our Typescript file, we need to first import the Observable package from 'rxjs/Rx' as shown below.
  */
 import {Observable} from 'rxjs/Rx';
-/* We need to import the whole 'rxjs/Rx' for our custom observable to function.
+/* We need to import the whole 'rxjs/Rx' for our custom observable to function. To use all the observable operators, we need to import
+all of 'rxjs/Rx' as shown below.
  */
 import 'rxjs/Rx';
 /* We need to import Observer from 'rxjs/Rx' before we can use it in our TypeScript file.
@@ -39,7 +42,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     running the methods it has been provided. This is a real issue and eventually causes a memory leak. So we have to make sure to
     unsubscribe if we leave the area where we handle this observer.
      */
-    const myNumber = Observable.interval(1000);
+    /* We can chain an observable operator to any observable.
+     */
+    const myNumber = Observable.interval(1000)
+      /* map() operator simply maps the data we get back into a new observable with any transformation of our choice. It takes a function
+      as an argument and we can return the data transformed into anything we like. For example, below we are multiplying the data number
+      by 2 and returning it. This will log 0 after 1 second, then 2 after 1 second, then 4 after 1 second, and so forth.
+      */
+      .map(
+        (data: number) => {
+          return data * 2;
+        }
+      );
     this.numbersObsSubscription = myNumber.subscribe(
         (number: number) => {
           console.log(number);
