@@ -35,7 +35,18 @@
       onSubmit() as shown below.
       -->
       <form (ngSubmit)="onSubmit()" #f="ngForm">
-        <div id="user-data">
+        <!--
+        To group some form elements to give our form some structure, we use the ngModelGroup. In our JS object
+        representation of the form, it can determine individually whether a form group as a whole is valid or invalid
+        and also provides more details for that form group. ngModelGroup needs to be equal to a string to give the group
+        a name which will allow us to access the form data for that form group in the JS object representation of the
+        form using the string name we provided to ngModelGroup. The form group is also assigned classes like ng-dirty,
+        ng-touched, ng-valid, ng-invalid depending upon the state of the form elements in the form group.
+        To get a JS object representation of a specific form group, we put a local reference on the form group, equal it
+        to ngModelGroup as shown below, and either pass that reference into a method or access the reference with
+        @ViewChild.
+        -->
+        <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <!--
@@ -103,6 +114,11 @@
             <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
           </div>
         </div>
+        <!--
+        We can use the reference on the form group to check whether the form group as a whole is valid and has been
+        touched, and then conditionally show an error message.
+        -->
+        <p *ngIf="!userData.valid && userData.touched">User Data is invalid!</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <!--
