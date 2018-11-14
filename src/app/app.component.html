@@ -4,22 +4,60 @@
       <!-- Notice that we don't have the action attribute on the form tag. We are also not specifying the method
       attribute either. Tis is because we don't want this form to be submitted to a server. We want Angular to handle
       this form.
+      Angular, when it detects a form element, automatically creates a JS Object representation of the form for us.
+      This is an example of what the representation looks like:
+      {
+        value: {
+          name: 'Sikandar Ali',
+          email: 'a@b.com"
+        },
+        valid: true
+      }
+      We can think of this form element serving as a selector for an Angular directive which then creates such a JS
+      Object representation of the form for us. Of course we can't that form representation as of now AND it would be
+      very empty. One thing that does not happen automatically is that Angular does not automatically detect our form
+      inputs. Simple reason for this is that whilst we could argue that it should be able to scan our form for inputs,
+      we might not want to add all these inputs as values/controls to our JS object representation of the form.
+      Therefore we need to register our form inputs manually as values/controls for the JS object representation of
+      the form.
       -->
       <form>
         <div id="user-data">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" class="form-control">
+            <!--
+            To add a form input as a control for the JS object representation of our form, we simply attach ngModel
+            on it, as shown below. We used ngModel for two-way data binding but this directive has a lot more features
+            to it than two-way data binding. We just need to provide the name of the control. We do this with the HTML
+            attribute of name, as shown below. This name would be a key in the value object of the JS object
+            representation of the form.
+            -->
+            <input
+              type="text"
+              id="username"
+              class="form-control"
+              ngModel
+              name="username"
+            >
           </div>
           <button class="btn btn-default" type="button">Suggest an Username</button>
           <div class="form-group">
             <label for="email">Mail</label>
-            <input type="email" id="email" class="form-control">
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel
+              name="email">
           </div>
         </div>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
-          <select id="secret" class="form-control">
+          <select
+            id="secret"
+            class="form-control"
+            ngModel
+            name="secret">
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
