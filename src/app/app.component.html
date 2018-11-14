@@ -85,6 +85,12 @@
             email is not a built-in HTML attribute but a selector for an Angular directive to determine if the user has
             submitted a valid email in the form field.
             -->
+            <!--
+            To create a warning message linked to the validity of a form element, we first pass a local reference on
+            the form control and equal it to ngModel. Like with ngForm, ngModel exposes some data about the form control
+            and we can use that data conditionally to show a warning message. This allows us to use *ngIf and show
+            a warning message conditionally through the data exposed by ngModel to the local reference, as shown below.
+            -->
             <input
               type="email"
               id="email"
@@ -92,7 +98,9 @@
               ngModel
               name="email"
               required
-              email>
+              email
+              #email="ngModel">
+            <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
           </div>
         </div>
         <div class="form-group">
