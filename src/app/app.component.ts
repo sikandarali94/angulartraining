@@ -14,6 +14,10 @@ export class AppComponent {
   previous method, we got only access to the form when it was submitted.
    */
   @ViewChild('f') signupForm: NgForm;
+  /* In the model, we can set the default select option by storing the value of the select option we want to be displayed by default.
+   */
+  defaultQuestion = 'teacher';
+
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
