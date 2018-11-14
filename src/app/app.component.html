@@ -155,6 +155,20 @@
             [(ngModel)]="answer"></textarea>
         </div>
         <p>Your reply: {{ answer }}</p>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <!--
+            We can use one way binding to set a default selected radio button.
+            -->
+            <input
+              type="radio"
+              name="gender"
+              ngModel
+              [value]="gender"
+              required>
+            {{gender}}
+          </label>
+        </div>
         <!--
         Putting a click event listener on the submit button is not the best place to register whether a user has
         submitted a form or not. A better alternative is that if a button of type submit is used to submit a form,

@@ -20,6 +20,9 @@ export class AppComponent {
   /* answer is populated with data written by the user in the textarea.
    */
   answer = '';
+  /* This genders array will be used to generate radio buttons of our form.
+   */
+  genders = ['male', 'female'];
 
   suggestUserName() {
     const suggestedName = 'Superuser';
