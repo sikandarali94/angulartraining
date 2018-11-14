@@ -29,7 +29,12 @@
       of the form. However, we only want the JS Object representation of the form. To do this we equal the local ref to
       ngForm. This is because the form exposes form data and that data is captured by ngForm.
       -->
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <!--
+      Although we will usually pass a local reference to get access to the JS object representation of our form, there
+      is another approach to getting access. We can use @ViewChild. That means we do not pass the local reference into
+      onSubmit() as shown below.
+      -->
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
         <div id="user-data">
           <div class="form-group">
             <label for="username">Username</label>

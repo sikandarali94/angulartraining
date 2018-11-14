@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 /* We must import NgForm from '@angular/forms' before we can use it in our TypeScript file.
  */
 import {NgForm} from '@angular/forms';
@@ -9,6 +9,11 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  /* Rather than passing a local reference into a method, we can directly grab it using @ViewChild and store it in a variable of NgForm
+  type, as shown below. This is helpful if we want to access the form before it is submitted. When we passed a local reference in the
+  previous method, we got only access to the form when it was submitted.
+   */
+  @ViewChild('f') signupForm: NgForm;
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
@@ -23,7 +28,11 @@ export class AppComponent {
   form is invalid or not (it also has the valid property which is the opposite of invalid property). Another property, for example, it has
   is the touched and untouched property which tells us if any of the form elements have been clicked upon.
    */
-  onSubmit(form: NgForm) {
-    console.log(form);
+  // onSubmit(form: NgForm) {
+  //   console.log(form);
+  // }
+
+  onSubmit() {
+    console.log(this.signupForm);
   }
 }
