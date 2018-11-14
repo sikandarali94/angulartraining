@@ -21,7 +21,15 @@
       Therefore we need to register our form inputs manually as values/controls for the JS object representation of
       the form.
       -->
-      <form>
+      <!--
+      ngSubmit will be fired whenever this form is submitted, or in other words, whenever the submit event is fired.
+      We provide the method or code to run to ngSubmit whenever the submit event is fired. To get access to JS object
+      representation of the form created by Angular we can place a local reference on the form (#f) and pass it to
+      the method provided to ngSubmit. When we just pass the reference of the form, we get the entire HTML DOM elements
+      of the form. However, we only want the JS Object representation of the form. To do this we equal the local ref to
+      ngForm. This is because the form exposes form data and that data is captured by ngForm.
+      -->
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div id="user-data">
           <div class="form-group">
             <label for="username">Username</label>
@@ -62,6 +70,11 @@
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
+        <!--
+        Putting a click event listener on the submit button is not the best place to register whether a user has
+        submitted a form or not. A better alternative is that if a button of type submit is used to submit a form,
+        the JS submit event is fired. We should use submit event to register whether a form has been submitted.
+        -->
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
