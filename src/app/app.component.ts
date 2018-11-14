@@ -17,6 +17,9 @@ export class AppComponent {
   /* In the model, we can set the default select option by storing the value of the select option we want to be displayed by default.
    */
   defaultQuestion = 'teacher';
+  /* answer is populated with data written by the user in the textarea.
+   */
+  answer = '';
 
   suggestUserName() {
     const suggestedName = 'Superuser';

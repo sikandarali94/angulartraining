@@ -122,6 +122,24 @@
           </select>
         </div>
         <!--
+        Sometimes we want to instantly react/reply to a user entering something in a form field. In this case, we
+        want to repeat what the user is typing in a textarea to a p element. This is where we can use two-way data
+        binding with ngModel. Using two-way data binding with ngModel on a form element also adds that form element
+        as a control for the JS Object representation of the form.
+
+        In conclusion, we used ngModel with no data binding to tell Angular that a form element is a control; we used
+        ngModel with one-way data binding to set a default value of a form element; finally, we used ngModel with
+        two-way data binding to react/reply to a user entering data immediately.
+        -->
+        <div class="form-group">
+          <textarea
+            name="questionAnswer"
+            rows="3"
+            class="form-control"
+            [(ngModel)]="answer"></textarea>
+        </div>
+        <p>Your reply: {{ answer }}</p>
+        <!--
         Putting a click event listener on the submit button is not the best place to register whether a user has
         submitted a form or not. A better alternative is that if a button of type submit is used to submit a form,
         the JS submit event is fired. We should use submit event to register whether a form has been submitted.
