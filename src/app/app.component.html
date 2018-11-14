@@ -89,7 +89,14 @@
               required
             >
           </div>
-          <button class="btn btn-default" type="button">Suggest an Username</button>
+          <!--
+          Upo clicking the 'Suggest a Username' button, we want to populate the username form text input with a
+          suggested username. One solution is to use two-way data binding, but we will explore another solution here.
+          -->
+          <button
+            class="btn btn-default"
+            type="button"
+            (click)="suggestUserName()">Suggest a Username</button>
           <div class="form-group">
             <label for="email">Mail</label>
             <!--

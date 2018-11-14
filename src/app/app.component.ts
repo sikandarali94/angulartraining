@@ -26,6 +26,33 @@ export class AppComponent {
 
   suggestUserName() {
     const suggestedName = 'Superuser';
+    /* Here we are setting the data structure to set value of username similar to how Angular set the JS representation of the form. One
+    major downside to this approach is that it resets the form values even when the user has entered data in the form inputs. However, this
+    solution is a good showcase for how to set all values of the controls in the form.
+     */
+    // this.signupForm.setValue({
+    //   userData: {
+    //       username: suggestedName,
+    //       email: ''
+    //   },
+    //   secret: 'pet',
+    //   questionAnswer: '',
+    //   gender: 'male'
+    // });
+
+    /* Here is a better approach. signupForm is a container of our form and the form object inside it has the properties and methods
+    necessary to modify our form. One such method is patchValue() -- which is not available on signupForm but on signupForm.form -- as shown
+    below. With this method we can specifically target the form control value we want to modify and modify it. Please note that userData
+    is the name of the form group where the username form control resides. Also note that setValue is available on signupForm as well as
+    signupForm.form.
+    Therefore, we should use setValue to modify all the form control values of our form, and use patchValue() to modify a specific form
+    control/s value/s of our form.
+     */
+    this.signupForm.form.patchValue({
+        userData: {
+          username: suggestedName
+        }
+        });
   }
 
   /* When we receive the reference to the form, it is of type: ElementRef. However, when we pass a reference to the form that has accessed
