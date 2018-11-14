@@ -1,3 +1,31 @@
 .container {
   margin-top: 30px;
 }
+
+/* We can style our form elements using the classes Angular automatically adds to our form elements to indicate
+different states.
+
+If we just wrote:
+
+.ng-invalid {
+  border: 1px solid red;
+}
+
+it will not only wrap a red border around all our form elements initially but also around the form and grouping divs.
+This is because the ng-invalid class is added to a form element and grouping divs if the whole form is invalid or if
+form elements in a grouping div are invalid respectively. We can fix this by prefixing input, select, and so on
+depending upon our form elements as shown below.
+
+Another issue is that if we wrote for example:
+
+input.ng-invalid {
+  border: 1px solid red;
+}
+
+it will wrap the input form elements in a red border initially without the user having a chance to type anything in the
+form field. To fix this we prepend our selector with .ng-touched as shown below (which inidicates if a user has had a
+chance to enter the form field or typed something in it).
+ */
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

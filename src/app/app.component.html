@@ -111,7 +111,15 @@
         submitted a form or not. A better alternative is that if a button of type submit is used to submit a form,
         the JS submit event is fired. We should use submit event to register whether a form has been submitted.
         -->
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <!--
+        We can use the JS representation of our form, for example, to disable the submit button if a form is not valid,
+        as shown below.
+        We are using f to access the form because we used it as a local reference on our form.
+        -->
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!f.valid">Submit</button>
       </form>
     </div>
   </div>
