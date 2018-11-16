@@ -86,5 +86,9 @@ export class AppComponent {
     this.user.secretQuestion = this.signupForm.value.secret;
     this.user.answer = this.signupForm.value.questionAnswer;
     this.user.gender = this.signupForm.value.gender;
+
+    /* The reset method of the form resets all the values of the form. It also resets the state like valid, touched, dirty and so on.
+     */
+    this.signupForm.reset();
   }
 }
