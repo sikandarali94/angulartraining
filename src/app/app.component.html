@@ -191,6 +191,21 @@
           type="submit"
           [disabled]="!f.valid">Submit</button>
       </form>
+      <hr>
+      <!--
+      We want to update the elements according to the data the user submits. We also want to only display this data
+      when the user has submitted the form.
+      -->
+      <div class="row" *ngIf="submitted">
+        <div class="col-xs-12">
+          <h3>Your Data</h3>
+          <p>Username: {{user.username}}</p>
+          <p>Mail: {{user.email}}</p>
+          <p>Secret Question: {{user.secretQuestion}}</p>
+          <p>Answer: {{user.answer}}</p>
+          <p>Gender: {{user.gender}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

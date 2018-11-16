@@ -23,6 +23,14 @@ export class AppComponent {
   /* This genders array will be used to generate radio buttons of our form.
    */
   genders = ['male', 'female'];
+  user = {
+    username: '',
+    email: '',
+    secretQuestion: '',
+    answer: '',
+    gender: ''
+  };
+  submitted = false;
 
   suggestUserName() {
     const suggestedName = 'Superuser';
@@ -70,6 +78,13 @@ export class AppComponent {
   // }
 
   onSubmit() {
-    console.log(this.signupForm);
+    this.submitted = true;
+    /* Here we are storing the data submitted by the user.
+     */
+    this.user.username = this.signupForm.value.userData.username;
+    this.user.email = this.signupForm.value.userData.email;
+    this.user.secretQuestion = this.signupForm.value.secret;
+    this.user.answer = this.signupForm.value.questionAnswer;
+    this.user.gender = this.signupForm.value.gender;
   }
 }
