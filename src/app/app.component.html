@@ -4,12 +4,25 @@
       <!--
       We are recreating this form using the reactive approach.
       -->
-      <form>
+      <!--
+      We want to synchronize our HTML inputs with our form in our Typescript code. Angular is auto-detecting that
+      the form tags below is a form and it creates a form for us. We don't want it to do that. To override this
+      behaviour we use formGroup with property binding. This tells Angular to take our form group from the Typescript
+      code instead of inferring one or creating a form for us.
+      -->
+      <form [formGroup]="signupForm">
         <div class="form-group">
           <label for="username">Username</label>
+          <!--
+          [formGroup] synchronises our HTML form with our Typescript code, however, we need to tell Angular which
+          inputs relate to which form controls we defined in our Typescript code. We don't need to use property
+          binding because username is a string (we could write [formControlName]="'username'" but this is needlessly
+          complicated).
+          -->
           <input
             type="text"
             id="username"
+            formControlName="username"
             class="form-control">
         </div>
         <div class="form-group">
@@ -17,12 +30,14 @@
           <input
             type="text"
             id="email"
+            formControlName="email"
             class="form-control">
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
             <input
               type="radio"
+              formControlName="gender"
               [value]="gender">{{ gender }}
           </label>
         </div>
