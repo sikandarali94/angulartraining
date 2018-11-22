@@ -40,4 +40,11 @@ export class AppComponent implements OnInit{
       'gender': new FormControl('male')
     });
   }
+
+  onSubmit() {
+    /* Our form is in our TypeScript code so we can access it anywhere in our code. The value keys of the form are the form control names
+    we gave to the FormGroup.
+     */
+    console.log(this.signupForm);
+  }
 }

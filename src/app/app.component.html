@@ -10,7 +10,10 @@
       behaviour we use formGroup with property binding. This tells Angular to take our form group from the Typescript
       code instead of inferring one or creating a form for us.
       -->
-      <form [formGroup]="signupForm">
+      <!--
+      The difference from template driven approach is that we don't need to get a local reference of the form.
+      -->
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">Username</label>
           <!--
