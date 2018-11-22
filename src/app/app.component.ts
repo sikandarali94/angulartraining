@@ -6,7 +6,9 @@ group of controls and this is what FormGroup holds.
  */
 /* FormControl must be imported from '@angular/forms' before we can use it in our TypeScript file.
  */
-import {FormControl, FormGroup} from '@angular/forms';
+/* Validators must be imported from '@angular/forms' before we can use it in our TypeScript file.
+ */
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -33,8 +35,13 @@ export class AppComponent implements OnInit{
       The first argument FormControl takes is the initial state/value of the form control. The second argument will be a single validator
       or an array of validators we want to apply to this control. The third argument will be potential asynchronous validators.
        */
-      'username': new FormControl(null, ),
-      'email': new FormControl(null),
+      /* Instead of placing validators in our HTML code, we define our validators in our Typescript code. All the validators are in the
+      Validators object. We don't want to execute the validator method like Validators.required() (required is a static method in the
+      Validators object). instead we want to pass a reference to that method. Angular will execute this method whenever it detects that
+      the input of this form control has changed.
+       */
+      'username': new FormControl(null, Validators.required),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
       /* Since we want male to be selected by default, that is why we set the initial value to 'male'.
        */
       'gender': new FormControl('male')
