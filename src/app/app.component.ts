@@ -1,7 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
-/* We must import NgForm from '@angular/forms' before we can use it in our TypeScript file.
+import { Component } from '@angular/core';
+/* FormGroup must be imported from '@angular/forms' before we can use it in our Typescript file. FormGroup is the forms package and it
+contains a lot of classes we will work with. In the template driven approach we already imported NgForm from it. NgForm was this
+automatically created wrapper, but it was wrapping up FormGroup in the end. This is because in Angular a form, in the end, is just a
+group of controls and this is what FormGroup holds.
  */
-import {NgForm} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,86 +12,10 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  /* Rather than passing a local reference into a method, we can directly grab it using @ViewChild and store it in a variable of NgForm
-  type, as shown below. This is helpful if we want to access the form before it is submitted. When we passed a local reference in the
-  previous method, we got only access to the form when it was submitted.
-   */
-  @ViewChild('f') signupForm: NgForm;
-  /* In the model, we can set the default select option by storing the value of the select option we want to be displayed by default.
-   */
-  defaultQuestion = 'teacher';
-  /* answer is populated with data written by the user in the textarea.
-   */
-  answer = '';
-  /* This genders array will be used to generate radio buttons of our form.
+  /* The reactive approach is using Typescript to create forms programmatically.
    */
   genders = ['male', 'female'];
-  user = {
-    username: '',
-    email: '',
-    secretQuestion: '',
-    answer: '',
-    gender: ''
-  };
-  submitted = false;
-
-  suggestUserName() {
-    const suggestedName = 'Superuser';
-    /* Here we are setting the data structure to set value of username similar to how Angular set the JS representation of the form. One
-    major downside to this approach is that it resets the form values even when the user has entered data in the form inputs. However, this
-    solution is a good showcase for how to set all values of the controls in the form.
-     */
-    // this.signupForm.setValue({
-    //   userData: {
-    //       username: suggestedName,
-    //       email: ''
-    //   },
-    //   secret: 'pet',
-    //   questionAnswer: '',
-    //   gender: 'male'
-    // });
-
-    /* Here is a better approach. signupForm is a container of our form and the form object inside it has the properties and methods
-    necessary to modify our form. One such method is patchValue() -- which is not available on signupForm but on signupForm.form -- as shown
-    below. With this method we can specifically target the form control value we want to modify and modify it. Please note that userData
-    is the name of the form group where the username form control resides. Also note that setValue is available on signupForm as well as
-    signupForm.form.
-    Therefore, we should use setValue to modify all the form control values of our form, and use patchValue() to modify a specific form
-    control/s value/s of our form.
-     */
-    this.signupForm.form.patchValue({
-        userData: {
-          username: suggestedName
-        }
-        });
-  }
-
-  /* When we receive the reference to the form, it is of type: ElementRef. However, when we pass a reference to the form that has accessed
-  ngForm, it becomes of type: NgForm. This NgForm object has the value property which includes all the values of the controls we have
-  defined in our form.
-  Apart from the value object, NgForm also has a lot of other properties that hold data about our form. For example, it has a controls
-  property which hold data about out controls. Another property, for example, it has is the dirty property, which if true tells us that
-  the form has been changed (meaning if value has been entered inside). Another property, for example, NgForm has is the disabled property
-  which has a value of true if the form is disabled. Another property, for example, it has is the invalid property which tells us if the
-  form is invalid or not (it also has the valid property which is the opposite of invalid property). Another property, for example, it has
-  is the touched and untouched property which tells us if any of the form elements have been clicked upon.
+  /* signupForm will hold our form in the end.
    */
-  // onSubmit(form: NgForm) {
-  //   console.log(form);
-  // }
-
-  onSubmit() {
-    this.submitted = true;
-    /* Here we are storing the data submitted by the user.
-     */
-    this.user.username = this.signupForm.value.userData.username;
-    this.user.email = this.signupForm.value.userData.email;
-    this.user.secretQuestion = this.signupForm.value.secret;
-    this.user.answer = this.signupForm.value.questionAnswer;
-    this.user.gender = this.signupForm.value.gender;
-
-    /* The reset method of the form resets all the values of the form. It also resets the state like valid, touched, dirty and so on.
-     */
-    this.signupForm.reset();
-  }
+  signupForm: FormGroup;
 }

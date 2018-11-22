@@ -1,211 +1,30 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!-- Notice that we don't have the action attribute on the form tag. We are also not specifying the method
-      attribute either. Tis is because we don't want this form to be submitted to a server. We want Angular to handle
-      this form.
-      Angular, when it detects a form element, automatically creates a JS Object representation of the form for us.
-      This is an example of what the representation looks like:
-      {
-        value: {
-          name: 'Sikandar Ali',
-          email: 'a@b.com"
-        },
-        valid: true
-      }
-      We can think of this form element serving as a selector for an Angular directive which then creates such a JS
-      Object representation of the form for us. Of course we can't that form representation as of now AND it would be
-      very empty. One thing that does not happen automatically is that Angular does not automatically detect our form
-      inputs. Simple reason for this is that whilst we could argue that it should be able to scan our form for inputs,
-      we might not want to add all these inputs as values/controls to our JS object representation of the form.
-      Therefore we need to register our form inputs manually as values/controls for the JS object representation of
-      the form.
-      -->
-      <!--
-      ngSubmit will be fired whenever this form is submitted, or in other words, whenever the submit event is fired.
-      We provide the method or code to run to ngSubmit whenever the submit event is fired. To get access to JS object
-      representation of the form created by Angular we can place a local reference on the form (#f) and pass it to
-      the method provided to ngSubmit. When we just pass the reference of the form, we get the entire HTML DOM elements
-      of the form. However, we only want the JS Object representation of the form. To do this we equal the local ref to
-      ngForm. This is because the form exposes form data and that data is captured by ngForm.
-      -->
-      <!--
-      Although we will usually pass a local reference to get access to the JS object representation of our form, there
-      is another approach to getting access. We can use @ViewChild. That means we do not pass the local reference into
-      onSubmit() as shown below.
-      -->
-      <form (ngSubmit)="onSubmit()" #f="ngForm">
-        <!--
-        To group some form elements to give our form some structure, we use the ngModelGroup. In our JS object
-        representation of the form, it can determine individually whether a form group as a whole is valid or invalid
-        and also provides more details for that form group. ngModelGroup needs to be equal to a string to give the group
-        a name which will allow us to access the form data for that form group in the JS object representation of the
-        form using the string name we provided to ngModelGroup. The form group is also assigned classes like ng-dirty,
-        ng-touched, ng-valid, ng-invalid depending upon the state of the form elements in the form group.
-        To get a JS object representation of a specific form group, we put a local reference on the form group, equal it
-        to ngModelGroup as shown below, and either pass that reference into a method or access the reference with
-        @ViewChild.
-        -->
-        <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <!--
-            To add a form input as a control for the JS object representation of our form, we simply attach ngModel
-            on it, as shown below. We used ngModel for two-way data binding but this directive has a lot more features
-            to it than two-way data binding. We just need to provide the name of the control. We do this with the HTML
-            attribute of name, as shown below. This name would be a key in the value object of the JS object
-            representation of the form.
-            -->
-            <!--
-            required is a built-in HTML attribute to require a user to enter something into the form field. With
-            Angular, required acts as a selector for a directive built into Angular. The directive will automatically
-            configure our form to take the required attribute into account and will treat the form as invalid if
-            value has not been entered (meaning it will notify in the JS object representation of the form that the
-            form is invalid).
-            Angular validates the form not only on a form level but on a control level as well. Meaning, it will tell
-            us individually which form controls are valid or not. This information can be found in the control property.
-            Angular automatically adds ng-dirty ng-touched and ng-valid classes on form controls for us. For example,
-            if a form control has not been changed, ng-dirty class is not applied on the form control. Another
-            example, if a form is invalid the ng-valid class is replaced with ng-invalid class. We can use these classes
-            for styling our form conditionally.
-            -->
-            <!--
-            Which Validators do ship with Angular?
-            Check out the Validators class: https://angular.io/api/forms/Validators - these are all built-in validators,
-            though that are the methods which actually get executed (and which we later can add when using the reactive
-            approach).
-            For the template-driven approach, we need the directives. We can find out their names, by searching for
-            "validator" in the official docs: https://angular.io/api?type=directive - everything marked with "D" is a
-            directive and can be added to our template.
-            Additionally, we might also want to enable HTML5 validation (by default, Angular disables it). We can do
-            so by adding the ngNativeValidate to a control in our template.
-            -->
-            <input
-              type="text"
-              id="username"
-              class="form-control"
-              ngModel
-              name="username"
-              required
-            >
-          </div>
-          <!--
-          Upo clicking the 'Suggest a Username' button, we want to populate the username form text input with a
-          suggested username. One solution is to use two-way data binding, but we will explore another solution here.
-          -->
-          <button
-            class="btn btn-default"
-            type="button"
-            (click)="suggestUserName()">Suggest a Username</button>
-          <div class="form-group">
-            <label for="email">Mail</label>
-            <!--
-            email is not a built-in HTML attribute but a selector for an Angular directive to determine if the user has
-            submitted a valid email in the form field.
-            -->
-            <!--
-            To create a warning message linked to the validity of a form element, we first pass a local reference on
-            the form control and equal it to ngModel. Like with ngForm, ngModel exposes some data about the form control
-            and we can use that data conditionally to show a warning message. This allows us to use *ngIf and show
-            a warning message conditionally through the data exposed by ngModel to the local reference, as shown below.
-            -->
-            <input
-              type="email"
-              id="email"
-              class="form-control"
-              ngModel
-              name="email"
-              required
-              email
-              #email="ngModel">
-            <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
-          </div>
-        </div>
-        <!--
-        We can use the reference on the form group to check whether the form group as a whole is valid and has been
-        touched, and then conditionally show an error message.
-        -->
-        <p *ngIf="!userData.valid && userData.touched">User Data is invalid!</p>
+      <form>
         <div class="form-group">
-          <label for="secret">Secret Questions</label>
-          <!--
-          We can use ngModel with property binding to set a default value for select form element. defaultQuestion is
-          a variable we defined in our model which holds the value of the select option that we want to display by
-          default.
-          We can use this method for a form text input or even form input email where we pass a string to ngModel
-          through property binding that will be displayed as the default text.
-          -->
-          <select
-            id="secret"
-            class="form-control"
-            [ngModel]="defaultQuestion"
-            name="secret">
-            <option value="pet">Your first Pet?</option>
-            <option value="teacher">Your first teacher?</option>
-          </select>
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control">
         </div>
-        <!--
-        Sometimes we want to instantly react/reply to a user entering something in a form field. In this case, we
-        want to repeat what the user is typing in a textarea to a p element. This is where we can use two-way data
-        binding with ngModel. Using two-way data binding with ngModel on a form element also adds that form element
-        as a control for the JS Object representation of the form.
-
-        In conclusion, we used ngModel with no data binding to tell Angular that a form element is a control; we used
-        ngModel with one-way data binding to set a default value of a form element; finally, we used ngModel with
-        two-way data binding to react/reply to a user entering data immediately.
-        -->
         <div class="form-group">
-          <textarea
-            name="questionAnswer"
-            rows="3"
-            class="form-control"
-            [(ngModel)]="answer"></textarea>
+          <label for="email">email</label>
+          <input
+            type="text"
+            id="email"
+            class="form-control">
         </div>
-        <p>Your reply: {{ answer }}</p>
         <div class="radio" *ngFor="let gender of genders">
           <label>
-            <!--
-            We can use one way binding to set a default selected radio button.
-            -->
             <input
               type="radio"
-              name="gender"
-              ngModel
-              [value]="gender"
-              required>
-            {{gender}}
+              [value]="gender">{{ gender }}
           </label>
         </div>
-        <!--
-        Putting a click event listener on the submit button is not the best place to register whether a user has
-        submitted a form or not. A better alternative is that if a button of type submit is used to submit a form,
-        the JS submit event is fired. We should use submit event to register whether a form has been submitted.
-        -->
-        <!--
-        We can use the JS representation of our form, for example, to disable the submit button if a form is not valid,
-        as shown below.
-        We are using f to access the form because we used it as a local reference on our form.
-        -->
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!f.valid">Submit</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
       </form>
-      <hr>
-      <!--
-      We want to update the elements according to the data the user submits. We also want to only display this data
-      when the user has submitted the form.
-      -->
-      <div class="row" *ngIf="submitted">
-        <div class="col-xs-12">
-          <h3>Your Data</h3>
-          <p>Username: {{user.username}}</p>
-          <p>Mail: {{user.email}}</p>
-          <p>Secret Question: {{user.secretQuestion}}</p>
-          <p>Answer: {{user.answer}}</p>
-          <p>Gender: {{user.gender}}</p>
-        </div>
-      </div>
     </div>
   </div>
 </div>

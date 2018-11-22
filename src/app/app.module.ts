@@ -1,23 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-/* To handle forms with Angular, we first need to make sure to import FormsModule from '@angular/forms'. By default, in our CLI, FormsModule
-is included as part of the imports already for us.
- */
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
+/* We need to import ReactiveFormsModule from '@angular/forms' before we can use it in our TypeScript file.
+ */
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
+  /* We don't need the FormsModule for reactive approach (it is only required for the template driven approach). Instead we need the
+  ReactiveFormsModule, as shown below.
+   */
   imports: [
     BrowserModule,
-    /* We need to include FormsModule in our imports to use it in our app.
-     */
-    FormsModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
