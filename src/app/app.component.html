@@ -14,36 +14,45 @@
       The difference from template driven approach is that we don't need to get a local reference of the form.
       -->
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <!--
-          [formGroup] synchronises our HTML form with our Typescript code, however, we need to tell Angular which
-          inputs relate to which form controls we defined in our Typescript code. We don't need to use property
-          binding because username is a string (we could write [formControlName]="'username'" but this is needlessly
-          complicated).
-          -->
-          <input
-            type="text"
-            id="username"
-            formControlName="username"
-            class="form-control">
-          <!--
-          In the .get method we could either pass a control name or a path to the control (which we will explore later).
-          -->
-          <span
-            *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched"
-            class="help-block">Please enter a username!</span>
-        </div>
-        <div class="form-group">
-          <label for="email">email</label>
-          <input
-            type="text"
-            id="email"
-            formControlName="email"
-            class="form-control">
-          <span
-            *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched"
-            class="help-block">Please enter a valid email!</span>
+        <!--
+        formControlName is used to tell Angular which property in our TypeScript object representing the form relates
+        to which input. formGroupName is used to tell Angular which container element holds the form controls for
+        the form group. We provide formGroupName the name we gave to the form group in our model.
+        -->
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <!--
+            [formGroup] synchronises our HTML form with our Typescript code, however, we need to tell Angular which
+            inputs relate to which form controls we defined in our Typescript code. We don't need to use property
+            binding because username is a string (we could write [formControlName]="'username'" but this is needlessly
+            complicated).
+            -->
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              class="form-control">
+            <!--
+            In the .get method we could either pass a control name or a path to the control (which we will explore later).
+            Here we provided the path to the username form control that is within the userData form group. We provide
+            paths that are linked with '.', as shown below.
+            -->
+            <span
+              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+              class="help-block">Please enter a username!</span>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-control">
+            <span
+              *ngIf="!signupForm.get('userData.email').valid && signupForm.get('userData.email').touched"
+              class="help-block">Please enter a valid email!</span>
+          </div>
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>

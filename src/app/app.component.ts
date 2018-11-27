@@ -8,6 +8,8 @@ group of controls and this is what FormGroup holds.
  */
 /* Validators must be imported from '@angular/forms' before we can use it in our TypeScript file.
  */
+/* FormGroup must be imported from '@angular/forms' before we can use it in our TypeScript file.
+ */
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -40,8 +42,12 @@ export class AppComponent implements OnInit{
       Validators object). instead we want to pass a reference to that method. Angular will execute this method whenever it detects that
       the input of this form control has changed.
        */
-      'username': new FormControl(null, Validators.required),
-      'email': new FormControl(null, [Validators.required, Validators.email]),
+      /* We use paths when we have form controls that are nested in form groups. To access those form controls we use paths.
+       */
+      'userData': new FormGroup({
+          'username': new FormControl(null, Validators.required),
+          'email': new FormControl(null, [Validators.required, Validators.email]),
+      }),
       /* Since we want male to be selected by default, that is why we set the initial value to 'male'.
        */
       'gender': new FormControl('male')
