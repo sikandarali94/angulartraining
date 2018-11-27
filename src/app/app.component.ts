@@ -10,7 +10,9 @@ group of controls and this is what FormGroup holds.
  */
 /* FormGroup must be imported from '@angular/forms' before we can use it in our TypeScript file.
  */
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+/* FormArray must be imported from '@angular/forms' before we can use it in our TypeScript file.
+ */
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -50,7 +52,12 @@ export class AppComponent implements OnInit{
       }),
       /* Since we want male to be selected by default, that is why we set the initial value to 'male'.
        */
-      'gender': new FormControl('male')
+      'gender': new FormControl('male'),
+      /* FormArray holds an array of controls. So we pass an array to initialize it, as shown below. We can even write new FormControl()
+      items in the array, however, we are leaving it empty in this case because we want to dynamically add form controls to this array
+      whenever a user presses a button.
+       */
+      'hobbies': new FormArray([])
     });
   }
 
@@ -59,5 +66,13 @@ export class AppComponent implements OnInit{
     we gave to the FormGroup.
      */
     console.log(this.signupForm);
+  }
+
+  onAddHobby() {
+    const control = new FormControl(null, Validators.required);
+    /* We are explicitly casting here, meaning we are telling TypeScript that the part in the outer parenthesis is a FormArray. This allows
+    us to use the array push method, otherwise if we had not explicitly cast here then we would have gotten an error.
+     */
+    (<FormArray>this.signupForm.get('hobbies')).push(control);
   }
 }

@@ -63,6 +63,32 @@
           </label>
         </div>
         <!--
+        We are using formArrayName directive to synchronise this HTML form with the form array we created in our model.
+        -->
+        <div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <!--
+          When a user clicks this button we want to dynamically add a form control here.
+          -->
+          <button class="btn btn-default" type="button" (click)="onAddHobby()">Add Hobby</button>
+          <!--
+          We can loop through all the form controls in our form array and display them as form elements on our HTML
+          page. We are also getting the index of each form control element in the array because Angular assigns the
+          name of each form control in form array to the index value. In the JS representation of the form a hobbies
+          property is created in the value property and it holds the values of the form controls of the hobbies
+          form array.
+          -->
+          <div
+            class="form-group"
+            *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index">
+            <!--
+            We are using property binding on formControlName because we are not passing a string but a local variable
+            that holds the index of the form control element in the form array.
+            -->
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
+        <!--
         For a general form validation message, we don't need the .get() method.
         -->
         <span
