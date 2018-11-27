@@ -26,6 +26,9 @@ export class AppComponent implements OnInit{
   /* signupForm will hold our form in the end.
    */
   signupForm: FormGroup;
+  /* We are creating a custom validator that does not allow these user names to be accepted as valid.
+   */
+  forbiddenUsernames = ['Chris', 'Anna'];
 
   ngOnInit() {
     /* We should initialize our form before rendering the template. That is why we are creating the form inside the ngOnInit lifecycle
@@ -47,8 +50,13 @@ export class AppComponent implements OnInit{
       /* We use paths when we have form controls that are nested in form groups. To access those form controls we use paths.
        */
       'userData': new FormGroup({
-          'username': new FormControl(null, Validators.required),
-          'email': new FormControl(null, [Validators.required, Validators.email]),
+          /* We are assigning the forbiddenNames validator to the 'username' form control.
+          We will get an error if we simply wrote this.forbiddenNames because this.forbiddenUsernames in our forbiddenNames method is
+          not being called from our class but is being called from within the username form control. That is why we are binding the
+          AppComponent class object to the this keyword, as shown below.
+           */
+          'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
+          'email': new FormControl(null, [Validators.required, Validators.email])
       }),
       /* Since we want male to be selected by default, that is why we set the initial value to 'male'.
        */
@@ -74,5 +82,23 @@ export class AppComponent implements OnInit{
     us to use the array push method, otherwise if we had not explicitly cast here then we would have gotten an error.
      */
     (<FormArray>this.signupForm.get('hobbies')).push(control);
+  }
+
+  /* A validator in the end is just a function which gets executed by Angular automatically when it checks the validity of the form control
+  and it checks the validity whenever we change the form control. For a validator to work correctly it needs to receive an argument of
+  what control it should check (it should be of type FormControl).
+  A validator also needs to return something for Angular to be able to handle the return value correctly. This something should be a JS
+  object. The object should have any key (written as 's' here) which can be interpreted as a string. {[s: string]: boolean} is TypeScript
+  syntax for saying hey we want a key-value pair where the key can be interpreted as a string and value to the key is a boolean
+  e.g. {nameIsForbidden: true} nameIsForbidden is interpreted as a string and its value is true.
+   */
+  forbiddenNames(control: FormControl): {[s: string]: boolean} {
+    if (this.forbiddenUsernames.indexOf(control.value) !== -1 ) {
+        return {'nameIsForbidden': true};
+    }
+    /* This is important. If validation is successful, we have to pass nothing (by omitting the return statement) or null. We should not
+    pass, for example, this: {'nameIsForbidden': false}
+     */
+    return null;
   }
 }
