@@ -1,3 +1,8 @@
 .container {
   margin-top: 30px;
 }
+/* Classes in reactive approach is still the same as the template driven approach.
+ */
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

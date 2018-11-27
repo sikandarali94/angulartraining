@@ -27,6 +27,12 @@
             id="username"
             formControlName="username"
             class="form-control">
+          <!--
+          In the .get method we could either pass a control name or a path to the control (which we will explore later).
+          -->
+          <span
+            *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched"
+            class="help-block">Please enter a username!</span>
         </div>
         <div class="form-group">
           <label for="email">email</label>
@@ -35,6 +41,9 @@
             id="email"
             formControlName="email"
             class="form-control">
+          <span
+            *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched"
+            class="help-block">Please enter a valid email!</span>
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
@@ -44,6 +53,12 @@
               [value]="gender">{{ gender }}
           </label>
         </div>
+        <!--
+        For a general form validation message, we don't need the .get() method.
+        -->
+        <span
+          *ngIf="!signupForm.valid && signupForm.touched"
+          class="help-block">Please enter valid data!</span>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
