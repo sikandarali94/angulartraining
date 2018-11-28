@@ -13,6 +13,7 @@ group of controls and this is what FormGroup holds.
 /* FormArray must be imported from '@angular/forms' before we can use it in our TypeScript file.
  */
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -56,7 +57,10 @@ export class AppComponent implements OnInit{
           AppComponent class object to the this keyword, as shown below.
            */
           'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
-          'email': new FormControl(null, [Validators.required, Validators.email])
+          /* The third argument is where we pass asynchronous validators.
+          ng-pending is the class that is put on the form control when it is checking the validation.
+           */
+          'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails)
       }),
       /* Since we want male to be selected by default, that is why we set the initial value to 'male'.
        */
@@ -103,5 +107,26 @@ export class AppComponent implements OnInit{
     pass, for example, this: {'nameIsForbidden': false}
      */
     return null;
+  }
+
+  /* Sometimes we need to use an asynchronous validator. For example, say we type a username and we have to see if the username is already
+  stored on a server. Getting data from the server would not be instant and thus it would be an asynchronous method. That is why this
+  method will either return a Promise or an Observable.
+   */
+  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      /* Here we are just simulating an asynchronous response.
+       */
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+          /* Here we don't return something but use resolve since we are in a Promise.
+           */
+          resolve({'emailIsForbidden' : true});
+        } else {
+          resolve(null);
+        }
+      }, 1500);
+    });
+    return promise;
   }
 }
