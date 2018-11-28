@@ -93,7 +93,10 @@ export class AppComponent implements OnInit{
   e.g. {nameIsForbidden: true} nameIsForbidden is interpreted as a string and its value is true.
    */
   forbiddenNames(control: FormControl): {[s: string]: boolean} {
-    if (this.forbiddenUsernames.indexOf(control.value) !== -1 ) {
+    if (this.forbiddenUsernames.indexOf(control.value) !== -1) {
+        /* This key-value pair is stored as an error on the errors property in the form control property of where this validator is placed
+        on. In our case, this key-value pair is stored in the errors property of the username form control property.
+         */
         return {'nameIsForbidden': true};
     }
     /* This is important. If validation is successful, we have to pass nothing (by omitting the return statement) or null. We should not

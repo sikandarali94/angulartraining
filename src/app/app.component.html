@@ -40,7 +40,21 @@
             -->
             <span
               *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
-              class="help-block">Please enter a username!</span>
+              class="help-block">
+              <!--
+              We can use the errors property to create more specific error messages, as shown below.
+              -->
+              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">
+                This name is invalid!
+              </span>
+              <!--
+              required:true key-value pair is stored in the errors property of the form control that has the required
+              validator if the form control value is left empty.
+              -->
+              <span *ngIf="signupForm.get('userData.username').errors['required']">
+                This field is required!
+              </span>
+            </span>
           </div>
           <div class="form-group">
             <label for="email">email</label>
