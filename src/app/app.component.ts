@@ -71,6 +71,22 @@ export class AppComponent implements OnInit{
        */
       'hobbies': new FormArray([])
     });
+    /* We saw that a form control, when checking for validation, goes either from: ng-valid -> ng-pending -> ng-invalid OR ng-invalid ->
+    ng-pending -> ng-valid.
+    There is actually a form state we can track in general. On the signupForm, and on each of the controls of this form, we have two
+    observables we can listen to: statusChanges and valueChanges. We can use these two hooks to closely observe our form or an individual
+    form control and react to it.
+     */
+    // this.signupForm.valueChanges.subscribe(
+    //     /* With every keystroke, the form control and form group value data (stored as a single object) is printed on the console.
+    //      */
+    //     (value) => console.log(value)
+    // );
+    this.signupForm.statusChanges.subscribe(
+        /* With each keystroke, we either see the status of the form as: VALID, PENDING or INVALID.
+         */
+        (status) => console.log(status)
+    );
   }
 
   onSubmit() {
