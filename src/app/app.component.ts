@@ -87,6 +87,24 @@ export class AppComponent implements OnInit{
          */
         (status) => console.log(status)
     );
+    /* Not only can we listen to the updates on our form, we can also update the form on our own. setValue and patchValue is also available
+    in the template driven approach. We use setValue to set the value for the whole form.
+     */
+    this.signupForm.setValue({
+        'userData': {
+          'username' : 'Max',
+          'email' : 'max@test.com'
+        },
+        'gender' : 'male',
+        'hobbies' : []
+    });
+    /* We use patchValue to set a value for specific form control/s.
+     */
+    this.signupForm.patchValue({
+        'userData': {
+            'username': 'Anna'
+        }
+    });
   }
 
   onSubmit() {
@@ -94,6 +112,10 @@ export class AppComponent implements OnInit{
     we gave to the FormGroup.
      */
     console.log(this.signupForm);
+    /* We can also reset the form using the reset() method, as shown below. We can pass an object to reset() to reset to specific values.
+    So say for example we want to reset the radio button to a specific value rather than being empty.
+     */
+    this.signupForm.reset();
   }
 
   onAddHobby() {
