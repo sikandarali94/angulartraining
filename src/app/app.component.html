@@ -29,7 +29,16 @@
           "Monday, August 9, 1920".
           For multiple parameters, we separate each parameter with a colon (:).
           -->
-          {{ server.started | date:'fullDate'  }}
+          <!--
+          We can chain multiple pipes by separating them with the pipe symbol (|), as shown below and are interpreted
+          left to right. The way the below example works is that date:'fullDate' is applied to server.started data and
+          then uppercase is applied to the result of that transformation. So if we were to apply the uppercase pipe
+          first and then date:'fullDate', we would get an error because the date transformed would be all uppercase
+          rather than in this format: "Mon Aug 09 1920 00:00:00 GMT+1000 (Australian Eastern Standard Time)". Therefore
+          date:'fullDate' does not recognise the format as being all uppercase and that is the reason we get an error.
+          Therefore, the order of the pipes is highly important.
+          -->
+          {{ server.started | date:'fullDate' | uppercase }}
           <span
             class="badge badge-secondary float-right">
             {{ server.status }}
