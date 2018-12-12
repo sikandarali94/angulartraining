@@ -1,4 +1,4 @@
-<div class="container">
+
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="list-group">
@@ -6,13 +6,26 @@
           class="list-group-item"
           *ngFor="let server of servers"
           [ngClass]="getStatusClasses(server)">
+          <!--
+          A pipe is used to transform the output. So, therefore, the logical place to use it is in the template.
+          We use the pipe symbol (|) and the name of the pipe (e.g. uppercase, date), as shown below.
+          -->
+          <strong>{{ server.name }}</strong> |
+          <!--
+          uppercase transforms the data to uppercase.
+          -->
+          {{ server.instanceType | uppercase }} |
+          <!--
+          date transforms date data to a proper date. In our case it transformed:
+          "Mon Aug 09 1920 00:00:00 GMT+1000 (Australian Eastern Standard Time)" to "Aug 9, 1920"
+          -->
+          {{ server.started | date }}
           <span
-            class="badge">
+            class="badge badge-secondary float-right">
             {{ server.status }}
           </span>
-          <strong>{{ server.name }}</strong> | {{ server.instanceType }} | {{ server.started }}
         </li>
       </ul>
     </div>
   </div>
-</div>
+
