@@ -19,7 +19,14 @@
           date transforms date data to a proper date. In our case it transformed:
           "Mon Aug 09 1920 00:00:00 GMT+1000 (Australian Eastern Standard Time)" to "Aug 9, 1920"
           -->
-          {{ server.started | date }}
+          <!--
+          We can paramaterize a pipe to configure in detail what the transformed data should look like. We configure
+          a pipe using a colon (:) and passing a parameter as a string, as shown below. 'fullDate' parameter of the
+          date pipe transformed: "Mon Aug 09 1920 00:00:00 GMT+1000 (Australian Eastern Standard Time)" to
+          "Monday, August 9, 1920".
+          For multiple parameters, we separate each parameter with a colon (:).
+          -->
+          {{ server.started | date:'fullDate'  }}
           <span
             class="badge badge-secondary float-right">
             {{ server.status }}
