@@ -5,7 +5,11 @@ Please note pipe-name is the name we want to give to the pipe so this could be a
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  /* We can force a pipe to recalculate whenever data changes on a page, as shown below. But be aware that this will cost a lot of
+  performance. We force this change by setting pure to false, as shown below. This makes the filter pipe an impure pipe.
+   */
+  pure: false
 })
 export class FilterPipe implements PipeTransform {
 

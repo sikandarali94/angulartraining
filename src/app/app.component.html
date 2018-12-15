@@ -12,7 +12,19 @@
       We want to build a pipe which we can apply to the servers list somehow which allows us to only view the servers
       that fulfill the requirements of what the user types into the input in terms of the server status.
       -->
+      <!--
+      One issue is that if we write 'stable' into the input, then click on the 'Add Server' button, we don't see the
+      new servers appearing on the list that have the status of stable. This is actually not a bug.
+      The reason for this behaviour is that Angular is not running rerunning our pipe on the data whenever the data
+      changes (thankfully so). This is a good behaviour because otherwise Angular would have to rerun this pipe whenever
+      any data on the page changes. This would be really bad because that would cost a lot of performance and the reason
+      why no built-in filter pipe exists.
+      Changing the input and then going back to writing stable will trigger a recalculation and the pipe will be applied
+      to the new data. To be precise: updating arrays or objects does not trigger a recalculation of the pipe.
+      -->
       <input type="text" [(ngModel)]="filteredStatus">
+      <br>
+      <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
       <hr>
       <ul class="list-group">
         <!--
