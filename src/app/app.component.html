@@ -13,7 +13,7 @@
           A pipe is used to transform the output. So, therefore, the logical place to use it is in the template.
           We use the pipe symbol (|) and the name of the pipe (e.g. uppercase, date), as shown below.
           -->
-          <strong>{{ server.name | shorten }}</strong> |
+          <strong>{{ server.name | shorten:15 }}</strong> |
           <!--
           uppercase transforms the data to uppercase.
           -->
