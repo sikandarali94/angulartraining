@@ -4,10 +4,24 @@
   -->
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!--
+      We want to allow the user to filter the our servers. For example, by status if the user types 'stable' in there
+      we only see servers with the stable status.
+      -->
+      <!--
+      We want to build a pipe which we can apply to the servers list somehow which allows us to only view the servers
+      that fulfill the requirements of what the user types into the input in terms of the server status.
+      -->
+      <input type="text" [(ngModel)]="filteredStatus">
+      <hr>
       <ul class="list-group">
+        <!--
+          Important thing to remember is that pipes transform our output and thus the servers variable is also an
+          output. We can apply a pipe to it as shown below and not just in string interpolation.
+        -->
         <li
           class="list-group-item"
-          *ngFor="let server of servers"
+          *ngFor="let server of servers | filter:filteredStatus"
           [ngClass]="getStatusClasses(server)">
           <!--
           A pipe is used to transform the output. So, therefore, the logical place to use it is in the template.
