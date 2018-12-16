@@ -1,88 +1,12 @@
-  <!--
-  To find a full reference of the pipes, we should go to angular.io, and in API Reference, we should type in the
-  search bar: pipe to get all the list of the pipes.
-  -->
+<div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!--
-      We want to allow the user to filter the our servers. For example, by status if the user types 'stable' in there
-      we only see servers with the stable status.
-      -->
-      <!--
-      We want to build a pipe which we can apply to the servers list somehow which allows us to only view the servers
-      that fulfill the requirements of what the user types into the input in terms of the server status.
-      -->
-      <!--
-      One issue is that if we write 'stable' into the input, then click on the 'Add Server' button, we don't see the
-      new servers appearing on the list that have the status of stable. This is actually not a bug.
-      The reason for this behaviour is that Angular is not running rerunning our pipe on the data whenever the data
-      changes (thankfully so). This is a good behaviour because otherwise Angular would have to rerun this pipe whenever
-      any data on the page changes. This would be really bad because that would cost a lot of performance and the reason
-      why no built-in filter pipe exists.
-      Changing the input and then going back to writing stable will trigger a recalculation and the pipe will be applied
-      to the new data. To be precise: updating arrays or objects does not trigger a recalculation of the pipe.
-      -->
-      <input type="text" [(ngModel)]="filteredStatus">
-      <br>
-      <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
-      <br><br>
-      <!--
-      If we just do {{appStatus}}, it will print to the page [object Object] and would not even show the appStatus of
-      stable when the promise is resolved. After 2 seconds it won't be an [object Object] but a string. We know this
-      but Angular doesn't because it doesn't watch appStatus and expects appStatus to change from [object Object] to
-      a string.
-      To tell Angular this, we use the async built-in pipe. This would print 'stable' after 2 seconds. async pipe
-      recognises that appStatus is a promise -- and as a side note it will also work with observables and subscribe --
-      automatically. After 2 seconds, async pipe will simply recognise that something changed and that the promise
-      was resolved and then print the data returned to the promise as a string.
-      -->
-      <h2>App Status: {{appStatus | async}}</h2>
+      <input type="text" #serverName>
+      <button class="btn btn-primary" (click)="onAddServer(serverName.value)">Add Server</button>
       <hr>
-      <ul class="list-group">
-        <!--
-          Important thing to remember is that pipes transform our output and thus the servers variable is also an
-          output. We can apply a pipe to it as shown below and not just in string interpolation.
-        -->
-        <li
-          class="list-group-item"
-          *ngFor="let server of servers | filter:filteredStatus"
-          [ngClass]="getStatusClasses(server)">
-          <!--
-          A pipe is used to transform the output. So, therefore, the logical place to use it is in the template.
-          We use the pipe symbol (|) and the name of the pipe (e.g. uppercase, date), as shown below.
-          -->
-          <strong>{{ server.name | shorten:15 }}</strong> |
-          <!--
-          uppercase transforms the data to uppercase.
-          -->
-          {{ server.instanceType | uppercase }} |
-          <!--
-          date transforms date data to a proper date. In our case it transformed:
-          "Mon Aug 09 1920 00:00:00 GMT+1000 (Australian Eastern Standard Time)" to "Aug 9, 1920"
-          -->
-          <!--
-          We can paramaterize a pipe to configure in detail what the transformed data should look like. We configure
-          a pipe using a colon (:) and passing a parameter as a string, as shown below. 'fullDate' parameter of the
-          date pipe transformed: "Mon Aug 09 1920 00:00:00 GMT+1000 (Australian Eastern Standard Time)" to
-          "Monday, August 9, 1920".
-          For multiple parameters, we separate each parameter with a colon (:).
-          -->
-          <!--
-          We can chain multiple pipes by separating them with the pipe symbol (|), as shown below and are interpreted
-          left to right. The way the below example works is that date:'fullDate' is applied to server.started data and
-          then uppercase is applied to the result of that transformation. So if we were to apply the uppercase pipe
-          first and then date:'fullDate', we would get an error because the date transformed would be all uppercase
-          rather than in this format: "Mon Aug 09 1920 00:00:00 GMT+1000 (Australian Eastern Standard Time)". Therefore
-          date:'fullDate' does not recognise the format as being all uppercase and that is the reason we get an error.
-          Therefore, the order of the pipes is highly important.
-          -->
-          {{ server.started | date:'fullDate' | uppercase }}
-          <span
-            class="badge badge-secondary float-right">
-            {{ server.status }}
-          </span>
-        </li>
+      <ul class="list-group" *ngFor="let server of servers">
+        <li class="list-group-item">{{ server.name }} (ID: {{ server.id }})</li>
       </ul>
     </div>
   </div>
-
+</div>
