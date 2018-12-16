@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 /* We need to import Headers from '@angular/http' before we can use it in our Typescript file.
  */
-import {Headers, Http} from '@angular/http';
+import {Headers, Http, Response} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 /* We can utilise HTTP methods provided by Angular anywhere in our app but it is better to utilise it within a service.
@@ -40,6 +41,14 @@ export class ServerService {
     endpoint.
     We don't need to specify the data argument because we are not sending any data to the database, only getting back data.
      */
-    return this.http.get('https://ng-http-80426.firebaseio.com/data.json');
+    return this.http.get('https://ng-http-80426.firebaseio.com/data.json')
+    /* The map() observable operator will simply take the old observable and wrap the data we get back into some transformed data and
+      wrap this transformed data into another observable.
+       */
+      .map(
+        (response: Response) => {
+          return response.json();
+        }
+      );
   }
 }

@@ -49,10 +49,10 @@ export class AppComponent {
     it has a json method which unwraps the json response data to a JS object, as shown below.
        */
       .subscribe(
-        (response: Response) => {
-          const data = response.json();
-          console.log(data);
-        },
+        /* After transforming the data with the map operator we know that after transforming json to a JS object, that we will get back
+        an array.
+         */
+        (servers: any[]) => console.log(servers),
         (error) => console.log(error)
       );
   }
