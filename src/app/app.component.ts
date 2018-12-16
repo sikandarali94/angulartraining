@@ -6,6 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  /* We are simulating a 2 second HTTP request here.
+   */
+  appStatus = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      /* This will set the appStatus to stable after 2 seconds.
+       */
+      resolve('stable');
+    }, 2000);
+  });
   servers = [
     {
       instanceType: 'medium',
@@ -47,7 +56,7 @@ export class AppComponent {
       instanceType: 'small',
       name: 'New Server',
       status: 'stable',
-      started: new Date(15, 1, 2017);
+      started: new Date(15, 1, 2017)
     });
   }
 }

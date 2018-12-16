@@ -25,6 +25,18 @@
       <input type="text" [(ngModel)]="filteredStatus">
       <br>
       <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
+      <br><br>
+      <!--
+      If we just do {{appStatus}}, it will print to the page [object Object] and would not even show the appStatus of
+      stable when the promise is resolved. After 2 seconds it won't be an [object Object] but a string. We know this
+      but Angular doesn't because it doesn't watch appStatus and expects appStatus to change from [object Object] to
+      a string.
+      To tell Angular this, we use the async built-in pipe. This would print 'stable' after 2 seconds. async pipe
+      recognises that appStatus is a promise -- and as a side note it will also work with observables and subscribe --
+      automatically. After 2 seconds, async pipe will simply recognise that something changed and that the promise
+      was resolved and then print the data returned to the promise as a string.
+      -->
+      <h2>App Status: {{appStatus | async}}</h2>
       <hr>
       <ul class="list-group">
         <!--
