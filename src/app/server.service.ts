@@ -27,7 +27,12 @@ export class ServerService {
     /* To send headers, we pass an object as the third argument in our post request and store the headers data of the headers key, as shown
     below.
      */
-    return this.http.post('https://ng-http-80426.firebaseio.com/data.json', servers, {headers: headers});
+    // return this.http.post('https://ng-http-80426.firebaseio.com/data.json', servers, {headers: headers});
+    /* With a PUT request we are overriding the existing data on the database (this is the specific behaviour with Firebase and might be
+    different with other databases). In terms of syntax in how we we send the request, it is exactly the same as how we would send a POST
+    request.
+     */
+    return this.http.put('https://ng-http-80426.firebaseio.com/data.json', servers, {headers: headers});
   }
   getServers() {
     /* A GET request will return back some data as opposed to sending data to the database. The get method of the http object also returns
