@@ -29,4 +29,12 @@ export class ServerService {
      */
     return this.http.post('https://ng-http-80426.firebaseio.com/data.json', servers, {headers: headers});
   }
+  getServers() {
+    /* A GET request will return back some data as opposed to sending data to the database. The get method of the http object also returns
+    an observable that must be subscribed to in order for the request to be sent. We also have to append the URL with the data.json
+    endpoint.
+    We don't need to specify the data argument because we are not sending any data to the database, only getting back data.
+     */
+    return this.http.get('https://ng-http-80426.firebaseio.com/data.json');
+  }
 }

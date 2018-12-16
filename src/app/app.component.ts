@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import {ServerService} from './server.service';
+/* We have to import Response from '@angular/http' before we can use it in our Typescript file.
+ */
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +40,19 @@ export class AppComponent {
        */
       .subscribe(
         (response) => console.log(response),
+        (error) => console.log(error)
+      );
+  }
+  onGet() {
+    this.serverService.getServers()
+    /* From Firebase, we get a json response and so we have to unwrap the json into a JS object. The response is also of type Response and
+    it has a json method which unwraps the json response data to a JS object, as shown below.
+       */
+      .subscribe(
+        (response: Response) => {
+          const data = response.json();
+          console.log(data);
+        },
         (error) => console.log(error)
       );
   }
