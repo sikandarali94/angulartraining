@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+/* We need to import Headers from '@angular/http' before we can use it in our Typescript file.
+ */
+import {Headers, Http} from '@angular/http';
 
 @Injectable()
 /* We can utilise HTTP methods provided by Angular anywhere in our app but it is better to utilise it within a service.
@@ -7,6 +9,10 @@ import {Http} from '@angular/http';
 export class ServerService {
   constructor (private http: Http) {}
   storeServers(servers: any[]) {
+    /* For some backends, there might be a need to send some headers with the request. We can create headers using the Headers object
+    constructor Angular gives us, shown below.
+     */
+    const headers = new Headers({'Content-Type': 'application/json'});
     /* http has methods resembling all kinds of http requests.
     A post request will append data in our Firebase database while a put request will override the data in our Firebase database.
     First argument is the URL where we will send our HTTP request. The second argument is the data we want to send.
@@ -18,6 +24,9 @@ export class ServerService {
     /* We need to append the url with the endpoint data.json and is specific to only Firebase. The .json is important because this simply
     tells Firebase that we are about to work with its database, otherwise, we will get an error (again, this is only specific to Firebase).
      */
-    return this.http.post('https://ng-http-80426.firebaseio.com/data.json', servers);
+    /* To send headers, we pass an object as the third argument in our post request and store the headers data of the headers key, as shown
+    below.
+     */
+    return this.http.post('https://ng-http-80426.firebaseio.com/data.json', servers, {headers: headers});
   }
 }
