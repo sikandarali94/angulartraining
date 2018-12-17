@@ -70,4 +70,15 @@ export class ServerService {
         }
       );
   }
+  /* From a URL we are getting a value that we want to display on our app component template.
+  At the end of our Firebase URL, we must put the .json data endpoint for the request to go through successfully.
+   */
+  getAppName() {
+    return this.http.get('https://ng-http-80426.firebaseio.com/data/appName.json')
+      .map(
+        (response: Response) => {
+          return response.json();
+        }
+      );
+  }
 }

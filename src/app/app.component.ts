@@ -7,6 +7,9 @@ import {ServerService} from './server.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  /* We are calling the method and storing the returned observable into appName.
+   */
+  appName = this.serverService.getAppName();
   servers = [
     {
       name: 'Testserver',
