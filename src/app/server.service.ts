@@ -3,6 +3,9 @@ import {Injectable} from '@angular/core';
  */
 import {Headers, Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+import {throwError} from 'rxjs';
 
 @Injectable()
 /* We can utilise HTTP methods provided by Angular anywhere in our app but it is better to utilise it within a service.
@@ -41,7 +44,9 @@ export class ServerService {
     endpoint.
     We don't need to specify the data argument because we are not sending any data to the database, only getting back data.
      */
-    return this.http.get('https://ng-http-80426.firebaseio.com/data.json')
+    /* We are deliberately causing an error by removing .json from data.json and then catching the error.
+     */
+    return this.http.get('https://ng-http-80426.firebaseio.com/data')
     /* The map() observable operator will simply take the old observable and wrap the data we get back into some transformed data and
       wrap this transformed data into another observable.
        */
@@ -52,6 +57,16 @@ export class ServerService {
             server.name = 'FETCHED_' + server.name;
           }
           return data;
+        }
+      )
+      /* Like we did in map(), we also have to return an observable in our catch() operator.
+       */
+      .catch(
+        (error: Response) => {
+          /* The catch() operator will not automatically wrap our data into an observable so we have to create our own. throwError()
+          automatically creates an observable for us. So now, we can throw a meaningful error onto the console by typing our own.
+           */
+          return throwError('Something went wrong');
         }
       );
   }
