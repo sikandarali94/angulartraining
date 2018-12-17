@@ -1,22 +1,8 @@
+<app-header></app-header>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!--
-      When we just write: {{ appName }} it will be displayed on the page as [object Object]. This is because appName
-      is being passed an observable, and even though the observable eventually gets resolved to a string value, that
-      change is not reflected in our page. To fix this, we use the async pipe which displays the resolved data without
-      needing to subscribe.
-      -->
-      <h1>{{ appName | async }}</h1>
-      <input type="text" #serverName>
-      <button class="btn btn-primary" (click)="onAddServer(serverName.value)">Add Server</button>
-      <br><br>
-      <button class="btn btn-primary" (click)="onSave()">Save Servers</button>
-      <button class="btn btn-primary" (click)="onGet()">Get Servers</button>
-      <hr>
-      <ul class="list-group" *ngFor="let server of servers">
-        <li class="list-group-item">{{ server.name }} (ID: {{ server.id }})</li>
-      </ul>
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
