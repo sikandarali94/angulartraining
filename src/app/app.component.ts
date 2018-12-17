@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import {ServerService} from './server.service';
-/* We have to import Response from '@angular/http' before we can use it in our Typescript file.
- */
-import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -52,7 +49,10 @@ export class AppComponent {
         /* After transforming the data with the map operator we know that after transforming json to a JS object, that we will get back
         an array.
          */
-        (servers: any[]) => console.log(servers),
+        /* We are transforming the data by prefixing the server names with 'FETCHED_' that we are getting from the database. Then we are
+        updating it in our component.
+         */
+        (servers: any[]) => this.servers = servers,
         (error) => console.log(error)
       );
   }
