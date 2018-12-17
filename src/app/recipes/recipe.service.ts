@@ -57,7 +57,16 @@ export class RecipeService {
     this.recipesChanged.next(this.recipes.slice());
   }
 
+  replaceRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
   storeRecipes() {
     return this.http.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json', this.recipes);
+  }
+
+  fetchRecipes() {
+    return this.http.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json');
   }
 }
