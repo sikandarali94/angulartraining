@@ -1,3 +1,5 @@
+/* Most of the authentication happens on the backend but it is important to understand how to handle authentication on the frontend.
+ */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
