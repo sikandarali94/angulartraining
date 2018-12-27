@@ -4,7 +4,10 @@ import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import {Subject} from 'rxjs';
+import {Response} from '@angular/http';
 import {Http} from '@angular/http';
+
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RecipeService {
@@ -67,6 +70,25 @@ export class RecipeService {
   }
 
   fetchRecipes() {
-    return this.http.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json');
+    /* One slight issue we encounter is that if we remove all the ingredients from a recipe and upload recipes onto Firebase, that
+    particular recipe will not have the Ingredient object inside, thus breaking our definition of what a Recipe should have.
+     */
+    return this.http.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json')
+      .map(
+        (response: Response) => {
+          const recipes: Recipe[] = response.json();
+          /* For each recipe we want to check if it has an ingredients property.
+           */
+          for (let recipe of recipes) {
+            if (!recipe['ingredients']) {
+              /* If a recipe does not have the ingredients property we add it and set it to an empty array.
+               */
+              recipe['ingredients'] = [];
+              console.log(recipe);
+            }
+          }
+          return recipes;
+        }
+      );
   }
 }

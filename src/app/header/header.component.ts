@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RecipeService} from '../recipes/recipe.service';
 import {Response} from '@angular/http';
+import {Recipe} from '../recipes/recipe.model';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent {
   onFetchData() {
     this.recipeService.fetchRecipes()
       .subscribe(
-        (response: Response) => this.recipeService.replaceRecipes(response.json())
+        (response: Recipe[]) => this.recipeService.replaceRecipes(response)
       );
   }
 }
