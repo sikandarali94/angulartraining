@@ -1,3 +1,8 @@
+/* We are going to use the Firebase SDK for Email-Password authentication because there is not great REST API from Firebase for this. Make
+sure to enable Email-Password authentication on Firebase's console. To install the Firebase SDK we write in the console:
+npm install --save firebase
+
+ */
 /* Most of the authentication happens on the backend but it is important to understand how to handle authentication on the frontend.
  */
 /* JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information
