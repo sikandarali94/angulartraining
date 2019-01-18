@@ -64,6 +64,16 @@ export class RecipeService {
     this.recipes = recipes;
     this.recipesChanged.next(this.recipes.slice());
   }
+  /* When we are saving or fetching data, we want it so that this can only happen with a token that goes with the request. We first have
+  to change the rules in our Firebase console to allow someone to read or write data when send a valid token with their request. We change
+  the rules in our console to:
+  {
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+  }
+   */
 
   storeRecipes() {
     return this.http.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json', this.recipes);
