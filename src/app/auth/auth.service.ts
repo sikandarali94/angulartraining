@@ -1,9 +1,16 @@
 import * as firebase from 'firebase';
+import {Router} from '@angular/router';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 /* It is appropriate to create a separate service for authentication, like we did here. This service will also be used for creating users.
  */
 export class AuthService {
   token: string;
+
+  constructor(private router: Router) {
+
+  }
   /* This method will be used for signing up a user.
    */
   signupUser(email: string, password: string) {
@@ -25,6 +32,9 @@ export class AuthService {
         to Application->IndexedDB and there we will find the JSON Web Token.
          */
         response => {
+          /* Once the user has signed in successfully, we then want to navigate the user away from the sign in page.
+           */
+          this.router.navigate(['/']);
           /* When we are signing in we request a token as shown below. This makes sense because once a user has signed in successfully we
           want to get the valid token. This also assures that we have an already stored token with which to save or fetch our data from the
           Firebase service.
