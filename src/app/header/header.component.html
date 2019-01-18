@@ -17,7 +17,12 @@
           <li style="list-style: none; margin-right:15px;"><a routerLink="/signup">Register</a></li>
           <li style="list-style: none; margin-right:15px;"><a routerLink="/signin">Login</a></li>
         </ng-template>
-
+        <!--
+        We want to show the logout button only when the person using this app is authenticated.
+        -->
+        <li *ngIf="authService.isAuthenticated()" style="list-style: none; margin-right:15px;">
+          <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+        </li>
         <!--
         If the person using the app is authenticated then he or she should see the Manage link for the app.
         -->

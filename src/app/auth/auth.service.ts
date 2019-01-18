@@ -41,6 +41,16 @@ export class AuthService {
 
   }
 
+  logout() {
+    /* The firebase package has a method called signOut which removes the stored token in the browser and thus virtually signing the
+    user out.
+     */
+    firebase.auth().signOut();
+    /* While the token has been removed from the browser, we also should make sure to remove it from our app.
+     */
+    this.token = null;
+  }
+
   /* This method would allow us to retrieve the stored JSON Web Token for authentication.
    */
   getToken() {

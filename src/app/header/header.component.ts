@@ -21,4 +21,8 @@ export class HeaderComponent {
         (response: Recipe[]) => this.recipeService.replaceRecipes(response)
       );
   }
+
+  onLogout() {
+    this.authService.logout();
+  }
 }
