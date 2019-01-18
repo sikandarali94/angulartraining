@@ -8,6 +8,7 @@ import {Response} from '@angular/http';
 import {Http} from '@angular/http';
 
 import 'rxjs/add/operator/map';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable()
 export class RecipeService {
@@ -31,7 +32,7 @@ export class RecipeService {
       ])
   ];
 
-  constructor(private slService: ShoppingListService, private http: Http) {}
+  constructor(private slService: ShoppingListService, private http: Http, private authService: AuthService) {}
 
   getRecipe(id: number) {
     return this.recipes[id];
@@ -76,14 +77,31 @@ export class RecipeService {
    */
 
   storeRecipes() {
-    return this.http.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json', this.recipes);
+    const tk = this.authService.getToken();
+    return this.http.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, this.recipes);
   }
 
   fetchRecipes() {
+    /* To make a successful request we first need to get the token. We have defined the method in our auth service that does that and we
+    invoke that method here, as shown below.
+     */
+    const tk = this.authService.getToken();
+    // .then(
+    //   (token: string) => {
+    //     /* The token will not automatically be available because getting the token in Firebase is an asynchronous request. We also
+    //     cannot place the get method down below into here because that returns an observable which we don't want to have in this callback
+    //     function. Therefore, we need to come up with a solution rather than implement this.
+    //      */
+    //     tk = token;
+    //   }
+    // );
     /* One slight issue we encounter is that if we remove all the ingredients from a recipe and upload recipes onto Firebase, that
     particular recipe will not have the Ingredient object inside, thus breaking our definition of what a Recipe should have.
      */
-    return this.http.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json')
+    /* To send our request with the token we add the auth query parameter that Firebase recognises and then append to that query parameter
+    our JSON token, which Firebase will be able to parse.
+     */
+    return this.http.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk)
       .map(
         (response: Response) => {
           const recipes: Recipe[] = response.json();
@@ -94,7 +112,6 @@ export class RecipeService {
               /* If a recipe does not have the ingredients property we add it and set it to an empty array.
                */
               recipe['ingredients'] = [];
-              console.log(recipe);
             }
           }
           return recipes;
