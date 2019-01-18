@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
       the Authentication page.
        */
       apiKey: 'AIzaSyAJRo6BANushcKkNdOezRvDaGbTL3P_rTk',
-      authDomain: 'ng-recipe-book-82253.firebaseapp.com'
+      authDomain: 'ng-recipe-book-82253.firebaseapp.com',
     });
   }
 
