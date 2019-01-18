@@ -59,4 +59,12 @@ export class AuthService {
      */
     return this.token;
   }
+
+  /* The method indicates if someone using the app is authenticated or not.
+   */
+  isAuthenticated() {
+    /* If the token is null that means we are not authenticated, therefore, if token is not null that means we are authenticated.
+     */
+    return this.token != null;
+  }
 }
