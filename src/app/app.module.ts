@@ -1,3 +1,7 @@
+/* A custom module created by us will is called a feature module and is a good way to separate our components, directives, pipes and so
+forth bundled in various feature modules in our app. We will later learn how we can use feature modules to speed up our app.
+ */
+
 /* We are going to use the Firebase SDK for Email-Password authentication because there is not great REST API from Firebase for this. Make
 sure to enable Email-Password authentication on Firebase's console. To install the Firebase SDK we write in the console:
 npm install --save firebase
