@@ -28,6 +28,9 @@ const routes: Routes = [
     imports: [
         RouterModule.forRoot(routes)
     ],
+    /* The exports is where we define what gets imported into the module that imports this module. Therefore, we are exporting it to another
+    module.
+     */
     exports: [RouterModule]
 })
 

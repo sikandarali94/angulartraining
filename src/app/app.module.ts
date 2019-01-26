@@ -12,6 +12,9 @@ Authorization: This is the most common scenario for using JWT. Once the user is 
 allowing the user to access routes, services, and resources that are permitted with that token. Single Sign On is a feature that widely uses
 JWT nowadays, because of its small overhead and its ability to be easily used across different domains.
  */
+/* An import is a TypeScript feature and is not related to Angular modules in any way. We can see below that we have a lot of import
+statements. Although, this is not bad, we can improve this with the use of multiple modules.
+ */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -38,6 +41,8 @@ import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
 
 @NgModule({
+  /* In the declarations array we define which components or directives or pipes the module uses.
+   */
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -53,6 +58,10 @@ import {AuthGuard} from './auth/auth-guard.service';
     SignupComponent,
     SigninComponent
   ],
+  /* In imports we define what other modules does the particular module use. When we import another module, we basically import everything
+  that that module exports. These modules are bundled with components, directives, services and so forth that we get access to once we
+  import the module.
+   */
   imports: [
     BrowserModule,
     FormsModule,
@@ -61,7 +70,13 @@ import {AuthGuard} from './auth/auth-guard.service';
     AppRoutingModule,
     BsDropdownModule.forRoot()
   ],
+  /* In the providers array, we simply define which services we may use in this module. It's important to note that when we are providing
+  the services in the app module here we are providing the instance of the service to the whole app unless a child component initiates
+  another instance of the service.
+   */
   providers: [ShoppingListService, RecipeService, AuthService, AuthGuard],
+  /* In the bootstrap array, that simply defines our root component. The root component is different to the root module.
+   */
   bootstrap: [AppComponent]
 })
 export class AppModule { }
