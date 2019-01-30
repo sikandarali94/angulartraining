@@ -12,6 +12,7 @@ import {RecipeEditComponent} from './recipe-edit/recipe-edit.component';
 import {RecipeDetailComponent} from './recipe-detail/recipe-detail.component';
 import {RecipeSelectComponent} from './recipe-select/recipe-select.component';
 import {RecipeItemComponent} from './recipe-list/recipe-item/recipe-item.component';
+import {RecipesRoutingModule} from './recipes-routing.module';
 
 
 /* To create a module we use the @NgModule decorator, as shown below.
@@ -36,7 +37,8 @@ import {RecipeItemComponent} from './recipe-list/recipe-item/recipe-item.compone
     /* We don't have to add the CommonModule to every feature module. What the CommonModule does is that it gives us access to these common
     directives like ngClass, ngFor, ngIf and so on. Chances are pretty high that every feature module will utilise the common directives.
      */
-    CommonModule
+    CommonModule,
+    RecipesRoutingModule
   ]
 })
 export class RecipesModule {}
