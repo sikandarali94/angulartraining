@@ -28,7 +28,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -38,6 +37,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
 import {RecipesModule} from './recipes/recipes.module';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   /* In the declarations array we define which components or directives or pipes the module uses.
@@ -56,7 +56,6 @@ import {RecipesModule} from './recipes/recipes.module';
     this issue we can use something that we call a: shared module. A shard module is a module not containing a feature but only something
     that is shared across multiple modules.
      */
-    DropdownDirective,
     SignupComponent,
     SigninComponent
   ],
@@ -76,6 +75,9 @@ import {RecipesModule} from './recipes/recipes.module';
     work correctly.
      */
     RecipesModule,
+    /* Exporting the CommonModule from the shared module will not overwrite the BrowserModule.
+     */
+    SharedModule,
     AppRoutingModule,
     BsDropdownModule.forRoot()
   ],
