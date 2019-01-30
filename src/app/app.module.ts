@@ -67,8 +67,11 @@ import {RecipesModule} from './recipes/recipes.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule,
+    /* We need to position your RecipesModule prior to the AppRoutingModule.This is required to ensure that the Catch-all/ wildcard routes
+    work correctly.
+     */
     RecipesModule,
+    AppRoutingModule,
     BsDropdownModule.forRoot()
   ],
   /* In the providers array, we simply define which services we may use in this module. It's important to note that when we are providing
