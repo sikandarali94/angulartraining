@@ -51,6 +51,11 @@ import {RecipesModule} from './recipes/recipes.module';
     this will give an error and thus we cannot have duplicate declarations in two modules. We can have duplicate services and modules within
     modules,however, not duplicate declarations.
      */
+    /* We have an issue here. We want to use the DropdownDirective in both the app module and the recipes module. The issue is that the
+    recipes module is a feature module and we cannot have duplicate declarations from both the app module and the recipes module. To fix
+    this issue we can use something that we call a: shared module. A shard module is a module not containing a feature but only something
+    that is shared across multiple modules.
+     */
     DropdownDirective,
     SignupComponent,
     SigninComponent
