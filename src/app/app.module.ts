@@ -21,28 +21,23 @@ statements. Although, this is not bad, we can improve this with the use of multi
  */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { RecipeSelectComponent } from './recipes/recipe-select/recipe-select.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import {RecipeService} from './recipes/recipe.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
+import {RecipesModule} from './recipes/recipes.module';
 
 @NgModule({
   /* In the declarations array we define which components or directives or pipes the module uses.
@@ -50,15 +45,13 @@ import {AuthGuard} from './auth/auth-guard.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
+    /* We are copying the dropdown directive to the recipes module because we use it within the components in our recipes folder. However,
+    this will give an error and thus we cannot have duplicate declarations in two modules. We can have duplicate services and modules within
+    modules,however, not duplicate declarations.
+     */
     DropdownDirective,
-    RecipeSelectComponent,
-    RecipeEditComponent,
     SignupComponent,
     SigninComponent
   ],
@@ -67,16 +60,23 @@ import {AuthGuard} from './auth/auth-guard.service';
   import the module.
    */
   imports: [
+    /* In the app module, we don't have the CommonModule but instead we have the BrowserModule. The reason for this is that the
+    BrowserModule contains all the features of the CommonModule and then some additional features which are only needed at the point in
+    time when the application starts and therefore are only needed at the app module.
+     */
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
+    RecipesModule,
     BsDropdownModule.forRoot()
   ],
   /* In the providers array, we simply define which services we may use in this module. It's important to note that when we are providing
   the services in the app module here we are providing the instance of the service to the whole app unless a child component initiates
   another instance of the service.
+   */
+  /* We should leave the RecipeService in the app module because it is not only used by the components in the recipes folder but used by
+  other parts of the app.
    */
   providers: [ShoppingListService, RecipeService, AuthService, AuthGuard],
   /* In the bootstrap array, that simply defines our root component. The root component is different to the root module.
