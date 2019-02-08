@@ -4,6 +4,7 @@ modules in terms of what features are being shared. Regardless, we typically hav
 import {NgModule} from '@angular/core';
 import {DropdownDirective} from './dropdown.directive';
 import {CommonModule} from '@angular/common';
+import {BsDropdownModule} from 'ngx-bootstrap';
 
 /* A shared module is like a normal module in terms of using NgModule and so forth to declare it. It just differs in terms of how we use
 a shared module compared to the root module or feature modules.
@@ -14,6 +15,9 @@ a shared module compared to the root module or feature modules.
   declarations: [
     DropdownDirective
   ],
+  imports: [
+    BsDropdownModule.forRoot()
+  ],
   /* Thus far we have only used exports to export configured routing modules. However, here, we will use it to export the DropdownDirective,
   as shown below. This is because anything declared within a module is only available within that module; to make something within the
   module available to other modules, we export it explicitally. Therefore, it is a good idea to export the CommonModule to other modules
@@ -22,7 +26,8 @@ a shared module compared to the root module or feature modules.
    */
   exports: [
     CommonModule,
-    DropdownDirective
+    DropdownDirective,
+    BsDropdownModule
   ]
 })
 export class SharedModule {}
