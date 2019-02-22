@@ -27,20 +27,20 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import {RecipeService} from './recipes/recipe.service';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
 import {RecipesModule} from './recipes/recipes.module';
 import {SharedModule} from './shared/shared.module';
 import {ShoppingListModule} from './shopping-list/shopping-list.module';
+import {AuthModule} from './auth/auth.module';
+import {ShoppingListService} from './shopping-list/shopping-list.service';
 
 @NgModule({
   /* In the declarations array we define which components or directives or pipes the module uses.
    */
   declarations: [
     AppComponent,
-    HeaderComponent,
+    HeaderComponent
     /* We are copying the dropdown directive to the recipes module because we use it within the components in our recipes folder. However,
     this will give an error and thus we cannot have duplicate declarations in two modules. We can have duplicate services and modules within
     modules,however, not duplicate declarations.
@@ -50,8 +50,6 @@ import {ShoppingListModule} from './shopping-list/shopping-list.module';
     this issue we can use something that we call a: shared module. A shard module is a module not containing a feature but only something
     that is shared across multiple modules.
      */
-    SignupComponent,
-    SigninComponent
   ],
   /* In imports we define what other modules does the particular module use. When we import another module, we basically import everything
   that that module exports. These modules are bundled with components, directives, services and so forth that we get access to once we
@@ -73,6 +71,7 @@ import {ShoppingListModule} from './shopping-list/shopping-list.module';
     ShoppingListModule,
     SharedModule,
     AppRoutingModule,
+    AuthModule
   ],
   /* In the providers array, we simply define which services we may use in this module. It's important to note that when we are providing
   the services in the app module here we are providing the instance of the service to the whole app unless a child component initiates
@@ -81,7 +80,7 @@ import {ShoppingListModule} from './shopping-list/shopping-list.module';
   /* We should leave the RecipeService in the app module because it is not only used by the components in the recipes folder but used by
   other parts of the app.
    */
-  providers: [RecipeService, AuthService, AuthGuard],
+  providers: [RecipeService, AuthService, AuthGuard, ShoppingListService],
   /* In the bootstrap array, that simply defines our root component. The root component is different to the root module.
    */
   bootstrap: [AppComponent]
