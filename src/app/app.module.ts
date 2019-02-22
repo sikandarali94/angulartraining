@@ -1,3 +1,10 @@
+/* There are sections of our app contained within feature modules that the user never visits. However, our overall JS bundle which contains
+the whole app is downloaded entirely in the beginning when the user opens the app. That means that a lot of the code might never be used
+because the user never visits certain sections within our app. This causes performance issues when the app is first loading.
+Lazy Loading fixes this issue because it allows us to lazy load feature modules and the routes contained within whenever the user needs
+it by visiting the components of the feature module. In other words, when the user goes to a route registered within a feature module, only
+then does Angular lazy load the contents of that feature module.
+ */
 /* A custom module created by us will is called a feature module and is a good way to separate our components, directives, pipes and so
 forth bundled in various feature modules in our app. We will later learn how we can use feature modules to speed up our app.
  */
