@@ -8,7 +8,10 @@ import {AuthGuard} from '../auth/auth-guard.service';
 import {RecipeDetailComponent} from './recipe-detail/recipe-detail.component';
 
 const recipesRoutes: Routes = [
-  { path: 'recipes', component: RecipesComponent, children: [
+  /* Since we already provided the 'recipes' route path in the app-routing.module.ts file, the 'recipes' route here will not work. We just
+  specify an empty path, because we want to load the RecipesComponent when navigated to '/recipes' path in the browser.
+   */
+  { path: '', component: RecipesComponent, children: [
       { path: '', component: RecipeSelectComponent},
       { path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard]},
       { path: ':id', component: RecipeDetailComponent},

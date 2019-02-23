@@ -36,18 +36,19 @@ import { AppRoutingModule } from './app-routing.module';
 import {RecipeService} from './recipes/recipe.service';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
-import {RecipesModule} from './recipes/recipes.module';
 import {SharedModule} from './shared/shared.module';
 import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {AuthModule} from './auth/auth.module';
 import {ShoppingListService} from './shopping-list/shopping-list.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   /* In the declarations array we define which components or directives or pipes the module uses.
    */
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
     /* We are copying the dropdown directive to the recipes module because we use it within the components in our recipes folder. However,
     this will give an error and thus we cannot have duplicate declarations in two modules. We can have duplicate services and modules within
     modules,however, not duplicate declarations.
@@ -72,7 +73,9 @@ import {ShoppingListService} from './shopping-list/shopping-list.service';
     /* We need to position your RecipesModule prior to the AppRoutingModule.This is required to ensure that the Catch-all/ wildcard routes
     work correctly.
      */
-    RecipesModule,
+    /* The issue right now is that we eagerly load the RecipesModule into our app module, meaning the whole RecipesModule is loaded when the
+    app starts. That is why we have removed the RecipesModule from the imports, as shown below -- we want to lazy load the RecipesModule.
+     */
     /* Exporting the CommonModule from the shared module will not overwrite the BrowserModule.
      */
     ShoppingListModule,
