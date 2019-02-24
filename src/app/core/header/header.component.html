@@ -13,7 +13,7 @@
         <!--
         If the person using the app is not authenticated then he or she should see the Register and Login router links.
         -->
-        <ng-template [ngIf]="!authService.isAuthenticated()">
+        <ng-template [ngIf]="isAuthenticated()">
           <li style="list-style: none; margin-right:15px;"><a routerLink="/signup">Register</a></li>
           <li style="list-style: none; margin-right:15px;"><a routerLink="/signin">Login</a></li>
         </ng-template>

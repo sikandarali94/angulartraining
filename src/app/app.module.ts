@@ -1,3 +1,21 @@
+/* Angular offers two types of compiling our code: just-in-time compilation and ahead-of-time compilation. What does compilation mean in
+the first place? It does not mean compiling TS code to JS code (that is done by the CLI). Part of the compilation process that Angular does
+is that parses out HTML template code and compiles them into JS (for the simple reason that accessing JS is faster than accessing the DOM
+in the browser).It does this either using just-in-time compilation (default) or ahead-of-time compilation.
+Just-in-Time Compilation is where we develop our code and then we ship it to production and then the app gets downloaded in the browser
+and then Angular bootstraps the app where Angular parses and compiles all the templates within the browser (ng serve is an example of
+just-in-time compilation).
+Ahead-of-Time Compilation is where we develop our code but then after we allow Angular to parse the templates and convert them to JS code.
+This doesn't affect the dynamic nature of our template like using ngFor or ngIf; we just allow Angular to understand our template code ahead
+of time. After Angular compiles the templates to JS we then ship the code to production and then the app id downloaded in the browser.
+The advantages of AoT (ahead-of-time) compilation are, firstly, that our application start up faster because parsing an compilation doesn't
+happen in the browser; secondly, our templates get checked during or right after development for build errors and we can fix these errors
+rather than seeing the build errors in the JS console on the browser when the code is being compiled by Angular due to just-in-time
+compilation; thirdly, we get a much smaller file size as unused features can be stripped out (for example, if Angular realizes that we
+didn't use ngIf for example in our code, it then tosses the code for ngIf out because we don't use it) and the compiler itself isn't
+shipped with the app to the browser.
+In summary: it is much better to use AoT compilation than JIT (just-in-time) compilation when deploying our app to the browser.
+ */
 /* Say we have components or directives that belong to the core of the application (like a header component or a side nav component), we use
 a core module for those components and directives. In other words, the core module contains code that will be used to instantiate our app
 and load some core functionality.
