@@ -1,3 +1,7 @@
+/* Say we have components or directives that belong to the core of the application (like a header component or a side nav component), we use
+a core module for those components and directives. In other words, the core module contains code that will be used to instantiate our app
+and load some core functionality.
+ */
 /* Say we provide a service in the app module and then provide the same service in a feature module (not loaded lazily). At the point
 the application starts we have a Root Injector for the entire application and the service provided in the feature module is added to the
 root injector and also the service provided in the root app module. So basically in the whole application we're going to have one of the
