@@ -1,3 +1,22 @@
+/* Say we provide a service in the app module and then provide the same service in a feature module (not loaded lazily). At the point
+the application starts we have a Root Injector for the entire application and the service provided in the feature module is added to the
+root injector and also the service provided in the root app module. So basically in the whole application we're going to have one of the
+same instance of the service and there won't be a special instance of the service for the feature module.
+When a feature module is lazily loaded at a later time it also uses the service in the root injector (in this instance we haven't provided
+the service in the lazy loaded feature module). However, if we provide the service in the lazy loaded feature module and when that module
+is loaded, Angular will provide a Child Injector for the service in the lazy loaded feature module. This means that a special instance of
+the service is created for the lazy loaded feature module and it will not use the root injector of the service that the rest of the
+application will use.
+In a feature module that is not lazily loaded, if we want to provide a service whose scope is only within the feature module and not the
+root of the app, we should provide that service in a component within the feature module rather than on the feature module itself.
+If we provide a service in a shared module (in this example, thjs shared module is connected to a feature module and a lazy loaded feature
+module), the service is added to the root injector, however the lazy loaded feature module will not use the service added to the root
+injector. Instead, when the lazy loaded feature module is loaded in the app, Angular will create a child injector for the service provided
+in the shared module and the lazy loaded feature module will use the child injector. We shouldn't do this because the behaviour is odd. We
+would expect that the service in the shared module be shared with the rest of the application, however the service is isolated from the
+rest of the app (so not being shared at all) when the lazy loaded feature module connected to the shared module is loaded. In summary:
+don't provide services in shared modules, especially if we plan to use them in lazy loaded modules!
+ */
 /* There are sections of our app contained within feature modules that the user never visits. However, our overall JS bundle which contains
 the whole app is downloaded entirely in the beginning when the user opens the app. That means that a lot of the code might never be used
 because the user never visits certain sections within our app. This causes performance issues when the app is first loading.
