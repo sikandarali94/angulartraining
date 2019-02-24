@@ -1,3 +1,6 @@
+/* We simply write in the CLI 'ng build' for JIT compilation. To use AoT compilation in the CLI we write instead 'ng build --prod'. The
+latter optimizes the code and it minifies the code (before we had to write: 'ng build --prod --aot' for AoT compilation).
+ */
 /* Angular offers two types of compiling our code: just-in-time compilation and ahead-of-time compilation. What does compilation mean in
 the first place? It does not mean compiling TS code to JS code (that is done by the CLI). Part of the compilation process that Angular does
 is that parses out HTML template code and compiles them into JS (for the simple reason that accessing JS is faster than accessing the DOM
