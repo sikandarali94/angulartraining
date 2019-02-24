@@ -5,7 +5,7 @@ the module where we plan to use the selector OR we have to import another module
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './core/home/home.component';
 
 /* Only allow app to route to RecipeEditComponent if it has stored within a valid token.
  */

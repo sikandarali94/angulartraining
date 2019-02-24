@@ -1,8 +1,9 @@
+/* We moved the header component into the core folder where we have the core module.
+ */
 import { Component } from '@angular/core';
-import {RecipeService} from '../recipes/recipe.service';
-import {Response} from '@angular/http';
-import {Recipe} from '../recipes/recipe.model';
-import {AuthService} from '../auth/auth.service';
+import {RecipeService} from '../../recipes/recipe.service';
+import {Recipe} from '../../recipes/recipe.model';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',

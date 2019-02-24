@@ -54,7 +54,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import {RecipeService} from './recipes/recipe.service';
 import {AuthService} from './auth/auth.service';
@@ -63,15 +62,15 @@ import {SharedModule} from './shared/shared.module';
 import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {AuthModule} from './auth/auth.module';
 import {ShoppingListService} from './shopping-list/shopping-list.service';
-import { HomeComponent } from './home/home.component';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   /* In the declarations array we define which components or directives or pipes the module uses.
    */
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent
+    /* Ideally, we should only have the AppComponent declared within our app module.
+     */
+    AppComponent
     /* We are copying the dropdown directive to the recipes module because we use it within the components in our recipes folder. However,
     this will give an error and thus we cannot have duplicate declarations in two modules. We can have duplicate services and modules within
     modules,however, not duplicate declarations.
@@ -85,6 +84,10 @@ import { HomeComponent } from './home/home.component';
   /* In imports we define what other modules does the particular module use. When we import another module, we basically import everything
   that that module exports. These modules are bundled with components, directives, services and so forth that we get access to once we
   import the module.
+   */
+  /* We can also use the core module to basically bundle all our imports and providers in the core module. Because unlike the shared module,
+  the core module will only be imported by the root module (aka app module). So having service providers in the core module isn't an issue
+  because it is not a shared module and we won't get the behaviour discussed previously.
    */
   imports: [
     /* In the app module, we don't have the CommonModule but instead we have the BrowserModule. The reason for this is that the
@@ -104,7 +107,8 @@ import { HomeComponent } from './home/home.component';
     ShoppingListModule,
     SharedModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    CoreModule
   ],
   /* In the providers array, we simply define which services we may use in this module. It's important to note that when we are providing
   the services in the app module here we are providing the instance of the service to the whole app unless a child component initiates
