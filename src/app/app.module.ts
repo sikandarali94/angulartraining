@@ -55,13 +55,9 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import {RecipeService} from './recipes/recipe.service';
-import {AuthService} from './auth/auth.service';
-import {AuthGuard} from './auth/auth-guard.service';
 import {SharedModule} from './shared/shared.module';
 import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {AuthModule} from './auth/auth.module';
-import {ShoppingListService} from './shopping-list/shopping-list.service';
 import {CoreModule} from './core/core.module';
 
 @NgModule({
@@ -117,7 +113,7 @@ import {CoreModule} from './core/core.module';
   /* We should leave the RecipeService in the app module because it is not only used by the components in the recipes folder but used by
   other parts of the app.
    */
-  providers: [RecipeService, AuthService, AuthGuard, ShoppingListService],
+  providers: [],
   /* In the bootstrap array, that simply defines our root component. The root component is different to the root module.
    */
   bootstrap: [AppComponent]

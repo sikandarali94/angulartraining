@@ -3,6 +3,9 @@ import {HeaderComponent} from './header/header.component';
 import {HomeComponent} from './home/home.component';
 import {SharedModule} from '../shared/shared.module';
 import {AppRoutingModule} from '../app-routing.module';
+import {RecipeService} from '../recipes/recipe.service';
+import {AuthService} from '../auth/auth.service';
+import {ShoppingListService} from '../shopping-list/shopping-list.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,14 @@ import {AppRoutingModule} from '../app-routing.module';
     selector within the app component template.
      */
     HeaderComponent
+  ],
+  /* Providing the services in our core module still creates an instance of each of these services for our whole app provided our core
+  module is loaded eagerly instead of lazily. The added benefit is that it keeps our app module lean.
+   */
+  providers: [
+    RecipeService,
+    AuthService,
+    ShoppingListService
   ]
 })
 export class CoreModule {}

@@ -29,7 +29,13 @@ const recipesRoutes: Routes = [
      */
     RouterModule.forChild(recipesRoutes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    /* The only place where we use the AuthGuard is in our recipes-routing module. It makes more sense to have it not in our core module but
+    in our recipes-routing module.
+     */
+    AuthGuard
+  ]
 })
 export class RecipesRoutingModule {
 
