@@ -7,6 +7,10 @@
   If our Angular app is not in the root folder, but in a different folder we have to correctly point to where the app
   is within the href attribute of the <base> element below.
   Another tip: when deploying, make sure the server serves the index.html file of our app when it encounters 404 errors.
+  To set the base href when building the project we can write this command in the console:
+  ng build --prod --aot --base-href /my-app/
+  Please note '/my-app/' is the base href and can be anything we like depending upon the situation of where our base
+  href lies.
   -->
   <base href="/">
 
