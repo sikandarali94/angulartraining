@@ -71,8 +71,8 @@ JWT nowadays, because of its small overhead and its ability to be easily used ac
 statements. Although, this is not bad, we can improve this with the use of multiple modules.
  */
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -112,7 +112,9 @@ import {CoreModule} from './core/core.module';
     time when the application starts and therefore are only needed at the app module.
      */
     BrowserModule,
-    HttpModule,
+    /* HttpModule contains the old http client. We are going to use the new one here, called the HttpClientModule.
+     */
+    HttpClientModule,
     /* We need to position your RecipesModule prior to the AppRoutingModule.This is required to ensure that the Catch-all/ wildcard routes
     work correctly.
      */

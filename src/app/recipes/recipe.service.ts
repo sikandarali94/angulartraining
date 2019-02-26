@@ -5,7 +5,9 @@ import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import {Subject} from 'rxjs';
 import {Response} from '@angular/http';
-import {Http} from '@angular/http';
+/* To use HttpClient within our TS file, we must first import it from '@angular/common/http'.
+ */
+import {HttpClient} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import {AuthService} from '../auth/auth.service';
@@ -32,7 +34,7 @@ export class RecipeService {
       ])
   ];
 
-  constructor(private slService: ShoppingListService, private http: Http, private authService: AuthService) {}
+  constructor(private slService: ShoppingListService, private httpClient: HttpClient, private authService: AuthService) {}
 
   getRecipe(id: number) {
     return this.recipes[id];
@@ -78,7 +80,11 @@ export class RecipeService {
 
   storeRecipes() {
     const tk = this.authService.getToken();
-    return this.http.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, this.recipes);
+    /* The httpClient still has a put method like the old http client. It's first argument is still the url of where to send the request to
+    and the second argument is still the body of data we want to send to the server at the url. However, it accepts more optional arguments
+    for more detailed configuration not available in the old http client.
+     */
+    return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, this.recipes);
   }
 
   fetchRecipes() {
@@ -101,13 +107,21 @@ export class RecipeService {
     /* To send our request with the token we add the auth query parameter that Firebase recognises and then append to that query parameter
     our JSON token, which Firebase will be able to parse.
      */
-    return this.http.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk)
+    /* We don't to put the .json() method on the data we are getting back. httpClient automatically extracts the data from the response
+    and returns it as an object (it assumes we always get json data, but we can change this). We can change this default
+    behaviour if we want access to the whole response and not just the data.
+     */
+    return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk)
       .map(
-        (response: Response) => {
-          const recipes: Recipe[] = response.json();
+        /* We also don't need to use the Response type because httpClient automatically returns the data as an object.
+        Also, instead of writing 'recipes: Recipe[]' and stating the type here, we can use a new feature httpClient called typed requests
+        where we state the data type by making get(), put(), push() and so on generic methods and stating the type within <> that we are
+        getting back, as shown above.
+         */
+        (recipes) => {
           /* For each recipe we want to check if it has an ingredients property.
            */
-          for (let recipe of recipes) {
+          for (const recipe of recipes) {
             if (!recipe['ingredients']) {
               /* If a recipe does not have the ingredients property we add it and set it to an empty array.
                */
