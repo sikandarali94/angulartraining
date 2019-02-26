@@ -1,3 +1,10 @@
+/* With lazy loading in this case, we load the recipes feature module when the user visits the '/recipes' route. When the user visits it,
+there might be some time where the app hangs while waiting for the recipes feature module to load. It would be nice if we use lazy loading
+but preload the code, which means at the point of time we visit the webpage we don't load the lazy loaded code but then whilst the user
+is using the app and using different sections of the app apart from the lazy loaded features of our app, we preload the lazy loaded
+features. Then when the user decides to visit the loaded features of our app, we have the code already available. Angular makes this
+preloading strategy very easy to implement.
+ */
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 

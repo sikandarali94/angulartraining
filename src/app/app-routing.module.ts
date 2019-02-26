@@ -3,7 +3,9 @@ anywhere in our application before we get a chance of visiting the route. Howeve
 the module where we plan to use the selector OR we have to import another module which exports that thing.
  */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+/* We have to import PreloadAllModules from '@angular/router' before we can use it in our TypeScript file.
+ */
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import {HomeComponent} from './core/home/home.component';
 
@@ -22,8 +24,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+    /* To enable lazy loading we pass a second argument to the forRoot method where we pass extra configuration in the form of an object.
+    The property in the object that we are concerned about in regards to preloading lazy loaded routes is the preloadingStrategy property;
+    the value we pass to this property is a type which defines what preloading strategy we want to implement. By default, the
+    preloadingStrategy property is not set (meaning, don't preload). To preload lazy loaded routes we pass the PreloadAllModules as a value
+    to preloadingStrategy within the configuration, as shown below.
+    We can write our own preloading strategy but that is too advanced to cover here.
+     */
     imports: [
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
     ],
     /* The exports is where we define what gets imported into the module that imports this module. Therefore, we are exporting it to another
     module.
