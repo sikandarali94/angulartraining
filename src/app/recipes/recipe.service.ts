@@ -6,7 +6,9 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import {Subject} from 'rxjs';
 /* To use HttpClient within our TS file, we must first import it from '@angular/common/http'.
  */
-import {HttpClient} from '@angular/common/http';
+/* To use HttpHeaders within our TS file, we must first import it from '@angular/common/http'.
+ */
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import {AuthService} from '../auth/auth.service';
@@ -84,7 +86,17 @@ export class RecipeService {
     for more detailed configuration not available in the old http client.
      */
     return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, this.recipes, {
-      observe: 'events'
+      observe: 'events',
+      /* To send a header to the server we instantiate it with new HttpHeaders and then define the header that way with the set() method.
+      The set() method takes the name of the header and then the value of the header. To send more than one header we can append to the
+      first header using the append() method. For example:
+      headers: new HttpHeaders().set('Authorization', 'Bearer adadasdadas').append()
+      We don't need to always prepare a header inline with the headers property but we can prepare our headers using new HttpHeaders, set(),
+      append() and so forth before in our code within a variable and then use that variable as a value to the headers property.
+      Please note that the headers property does not overrule the default headers always sent to the server with each request. Sometimes
+      those default headers are determined by the browser in which the app is running.
+       */
+      // headers: new HttpHeaders().set()
     });
   }
 
