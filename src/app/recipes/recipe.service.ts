@@ -4,7 +4,6 @@ import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import {Subject} from 'rxjs';
-import {Response} from '@angular/http';
 /* To use HttpClient within our TS file, we must first import it from '@angular/common/http'.
  */
 import {HttpClient} from '@angular/common/http';
@@ -111,24 +110,42 @@ export class RecipeService {
     and returns it as an object (it assumes we always get json data, but we can change this). We can change this default
     behaviour if we want access to the whole response and not just the data.
      */
-    return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk)
+    // return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk)
+    return this.httpClient.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, {
+      /* There are several configurations we can do in the options arguments which is the second argument of the get() method and the third
+      argument of the post() method. One configuration we can do is the 'body', where we can define the body of data we want to send with
+      the request (of course, we wouldn't do this with a get() request but we can do it with a post() or put() request.). Another
+      configuration we can do is the 'headers', where we give the property special parameters (the HTTP headers object).
+      The configuration of "observe: 'response'" will not give us the data body automatically but the entire response we get from the
+      server. The default of this configuration is: "observe: 'body'"
+      The configuration of "responseType: 'text'" will not treat the data we get from the server as json (which is the default) but as text.
+      Another value to the responseType can be 'blob', which is useful if we're downloading a file. Another value to the responseType can
+      be 'arraybuffer' if we want to buffer some data. There are of course a lot more values to the 'responseType' property we can use (the
+      most common option is of course "responseType: 'json'".
+       */
+      observe: 'response',
+      responseType: 'text'
+    })
       .map(
         /* We also don't need to use the Response type because httpClient automatically returns the data as an object.
         Also, instead of writing 'recipes: Recipe[]' and stating the type here, we can use a new feature httpClient called typed requests
         where we state the data type by making get(), put(), push() and so on generic methods and stating the type within <> that we are
         getting back, as shown above.
          */
+        /* Because we did "responseType: 'text'" in the configuration above, the JSON that is return is treated as text.
+         */
         (recipes) => {
+          console.log(recipes);
           /* For each recipe we want to check if it has an ingredients property.
            */
-          for (const recipe of recipes) {
-            if (!recipe['ingredients']) {
-              /* If a recipe does not have the ingredients property we add it and set it to an empty array.
-               */
-              recipe['ingredients'] = [];
-            }
-          }
-          return recipes;
+          // for (const recipe of recipes) {
+          //   if (!recipe['ingredients']) {
+          //     /* If a recipe does not have the ingredients property we add it and set it to an empty array.
+          //      */
+          //     recipe['ingredients'] = [];
+          //   }
+          // }
+          return [];
         }
       );
   }
