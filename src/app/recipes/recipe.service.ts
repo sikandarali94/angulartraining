@@ -83,7 +83,9 @@ export class RecipeService {
     and the second argument is still the body of data we want to send to the server at the url. However, it accepts more optional arguments
     for more detailed configuration not available in the old http client.
      */
-    return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, this.recipes);
+    return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, this.recipes, {
+      observe: 'events'
+    });
   }
 
   fetchRecipes() {
@@ -111,7 +113,7 @@ export class RecipeService {
     behaviour if we want access to the whole response and not just the data.
      */
     // return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk)
-    return this.httpClient.get('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, {
+    return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, {
       /* There are several configurations we can do in the options arguments which is the second argument of the get() method and the third
       argument of the post() method. One configuration we can do is the 'body', where we can define the body of data we want to send with
       the request (of course, we wouldn't do this with a get() request but we can do it with a post() or put() request.). Another
@@ -123,8 +125,8 @@ export class RecipeService {
       be 'arraybuffer' if we want to buffer some data. There are of course a lot more values to the 'responseType' property we can use (the
       most common option is of course "responseType: 'json'".
        */
-      observe: 'response',
-      responseType: 'text'
+      observe: 'body',
+      responseType: 'json'
     })
       .map(
         /* We also don't need to use the Response type because httpClient automatically returns the data as an object.
@@ -135,16 +137,15 @@ export class RecipeService {
         /* Because we did "responseType: 'text'" in the configuration above, the JSON that is return is treated as text.
          */
         (recipes) => {
-          console.log(recipes);
           /* For each recipe we want to check if it has an ingredients property.
            */
-          // for (const recipe of recipes) {
-          //   if (!recipe['ingredients']) {
-          //     /* If a recipe does not have the ingredients property we add it and set it to an empty array.
-          //      */
-          //     recipe['ingredients'] = [];
-          //   }
-          // }
+          for (const recipe of recipes) {
+            if (!recipe['ingredients']) {
+              /* If a recipe does not have the ingredients property we add it and set it to an empty array.
+               */
+              recipe['ingredients'] = [];
+            }
+          }
           return [];
         }
       );
