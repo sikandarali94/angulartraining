@@ -8,7 +8,7 @@ import {Subject} from 'rxjs';
  */
 /* To use HttpHeaders within our TS file, we must first import it from '@angular/common/http'.
  */
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import {AuthService} from '../auth/auth.service';
@@ -85,8 +85,13 @@ export class RecipeService {
     and the second argument is still the body of data we want to send to the server at the url. However, it accepts more optional arguments
     for more detailed configuration not available in the old http client.
      */
-    return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, this.recipes, {
+    return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json', this.fetchRecipes(), {
       observe: 'events',
+      /* If we don't want to hardcode our params, we can set the params using the params property, as shown below. We have to instantiate
+      HttpParams() and then we can apply the set() method (to add a param), the append() method (to change an existing param), the delete()
+      method (to delete an existing param), the getAll() method (to retrieve all existing params) and so forth.
+       */
+      params: new HttpParams().set('auth', tk)
       /* To send a header to the server we instantiate it with new HttpHeaders and then define the header that way with the set() method.
       The set() method takes the name of the header and then the value of the header. To send more than one header we can append to the
       first header using the append() method. For example:
@@ -136,6 +141,8 @@ export class RecipeService {
       Another value to the responseType can be 'blob', which is useful if we're downloading a file. Another value to the responseType can
       be 'arraybuffer' if we want to buffer some data. There are of course a lot more values to the 'responseType' property we can use (the
       most common option is of course "responseType: 'json'".
+       */
+      /* We can also set params property for the get request.
        */
       observe: 'body',
       responseType: 'json'
