@@ -8,7 +8,7 @@ import {Subject} from 'rxjs';
  */
 /* To use HttpHeaders within our TS file, we must first import it from '@angular/common/http'.
  */
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import {AuthService} from '../auth/auth.service';
@@ -85,13 +85,13 @@ export class RecipeService {
     and the second argument is still the body of data we want to send to the server at the url. However, it accepts more optional arguments
     for more detailed configuration not available in the old http client.
      */
-    return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json', this.fetchRecipes(), {
-      observe: 'events',
+    // return this.httpClient.put('https://ng-recipe-book-82253.firebaseio.com/recipes.json', this.fetchRecipes(), {
+    //   observe: 'events',
       /* If we don't want to hardcode our params, we can set the params using the params property, as shown below. We have to instantiate
       HttpParams() and then we can apply the set() method (to add a param), the append() method (to change an existing param), the delete()
       method (to delete an existing param), the getAll() method (to retrieve all existing params) and so forth.
        */
-      params: new HttpParams().set('auth', tk)
+      // params: new HttpParams().set('auth', tk)
       /* To send a header to the server we instantiate it with new HttpHeaders and then define the header that way with the set() method.
       The set() method takes the name of the header and then the value of the header. To send more than one header we can append to the
       first header using the append() method. For example:
@@ -102,7 +102,22 @@ export class RecipeService {
       those default headers are determined by the browser in which the app is running.
        */
       // headers: new HttpHeaders().set()
+    // });
+    /* HttpRequest() is a more advanced way of making a request. The first argument is a string of what type of request we want to set (in
+    our case it is 'PUT'). The second argument is the URL we want to send the request to. The third argument is the data we want to send.
+    The fourth argument is where we want to configure the request. We are not sending the request, but just defining it.
+     */
+    const req = new HttpRequest('PUT', 'https://ng-recipe-book-82253.firebaseio.com/recipes.json', this.fetchRecipes(), {
+      /* Setting the reportProgress to true will give us feedback about the progress of this request or response. This is useful if we are
+      uploading or downloading something.
+       */
+      reportProgress: true,
+      params: new HttpParams().set('auth', tk)
     });
+    /* To send the above request, we use the httpClient.request() method and pass the variable which contains the definition of our request.
+    This method returns an observable.
+     */
+    return this.httpClient.request(req);
   }
 
   fetchRecipes() {

@@ -15,6 +15,15 @@ export class HeaderComponent {
   onSaveData() {
     this.recipeService.storeRecipes().subscribe(
       (response) => {
+        /* The response when we set reportProgress to true looks something like this:
+        {
+          type: 1, loaded: 500, total: 500
+        }
+        'total' is the amount of data that needs to be sent/received.
+        'loaded' is the amount of data that has been sent/received.
+        type: 0' is the send event; 'type: 1' is the upload event; type: '3' is the download event.
+         */
+        console.log(response);
       }
     );
   }
