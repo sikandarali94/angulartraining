@@ -10,6 +10,7 @@ import {ShoppingListService} from '../shopping-list/shopping-list.service';
  */
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from '../shared/auth.interceptor';
+import {LoggingInterceptor} from '../shared/logging.interceptor';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,10 @@ import {AuthInterceptor} from '../shared/auth.interceptor';
     Angular we can have multiple interceptors. To set multiple interceptors, we just duplicate the line below for each interceptor we want
     to add.
      */
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    /* The order of interceptors that we place here is the order in which the interceptors are executed.
+     */
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}
   ]
 })
 export class CoreModule {}
