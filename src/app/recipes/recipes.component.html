@@ -3,13 +3,6 @@
     <app-recipe-list></app-recipe-list>
   </div>
   <div class="col-md-7">
-    <!--
-    Because we now created a separate module for our recipes feature, we are getting an error regarding the
-    <router-outlet>. While we do define our routes in the app module, that is not enough. The routes do not travel down
-    to our recipes module. Modules are only able to use what we define in those modules and we don't have routes defined
-    in the recipes module. Services, however, are an exception and they do travel from the app module to the feature
-    modules.
-    -->
     <router-outlet></router-outlet>
   </div>
 </div>

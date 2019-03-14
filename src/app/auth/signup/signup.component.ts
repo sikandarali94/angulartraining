@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {AuthService} from '../auth.service';
+import { NgForm } from '@angular/forms';
+
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,8 +18,6 @@ export class SignupComponent implements OnInit {
   onSignup(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
-    /* We simply provide the email and password from the sign up form to the authentication service to create a user.
-     */
     this.authService.signupUser(email, password);
   }
 
