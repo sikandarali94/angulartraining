@@ -1,3 +1,8 @@
+/* In Angular, the application state is lost whenever we refresh the browser.
+In medium-sized apps where we have several components connected to several services, it's hard maintaining that app because the state of the
+application depends on so many factors e.g. methods on services being used by many components to update or override existing state and so
+forth. That is why we don't want to have too many places within our app where we update or override the state of the application.
+ */
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -6,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { AuthModule } from './auth/auth.module'
+import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
