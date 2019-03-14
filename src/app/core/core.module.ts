@@ -6,6 +6,10 @@ import {AppRoutingModule} from '../app-routing.module';
 import {RecipeService} from '../recipes/recipe.service';
 import {AuthService} from '../auth/auth.service';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
+/* To use HTTP_INTERCEPTORS in our typescript file, we have to first import it from '@angular/core'.
+ */
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from '../shared/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,16 @@ import {ShoppingListService} from '../shopping-list/shopping-list.service';
   providers: [
     RecipeService,
     AuthService,
-    ShoppingListService
+    ShoppingListService,
+    /* We have to tell Angular that we want to use the interceptor and have to provide the interceptor in providers. However we don't simply
+    write AuthInterceptor. We have to use a special syntax. HTTP_INTERCEPTORS is a special placeholder or token that Angular understands; it
+    tells Angular that what we will provide here is an Http interceptor. Angular will add it to the pipeline of interceptors that it is
+    aware of and send every outgoing request through. So Angular will send every outgoing request through to the interceptors automatically.
+    We have to tell Angular what interceptors we have in our app; we do this using the useClass property as shown below. 'multi:true' tells
+    Angular we can have multiple interceptors. To set multiple interceptors, we just duplicate the line below for each interceptor we want
+    to add.
+     */
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
 })
 export class CoreModule {}

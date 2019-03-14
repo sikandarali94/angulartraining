@@ -121,10 +121,6 @@ export class RecipeService {
   }
 
   fetchRecipes() {
-    /* To make a successful request we first need to get the token. We have defined the method in our auth service that does that and we
-    invoke that method here, as shown below.
-     */
-    const tk = this.authService.getToken();
     // .then(
     //   (token: string) => {
     //     /* The token will not automatically be available because getting the token in Firebase is an asynchronous request. We also
@@ -145,7 +141,9 @@ export class RecipeService {
     behaviour if we want access to the whole response and not just the data.
      */
     // return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk)
-    return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json?auth=' + tk, {
+    /* We are not fetching the token here, but will use the interceptor to add the token as a param to the HTTP Request.
+     */
+    return this.httpClient.get<Recipe[]>('https://ng-recipe-book-82253.firebaseio.com/recipes.json', {
       /* There are several configurations we can do in the options arguments which is the second argument of the get() method and the third
       argument of the post() method. One configuration we can do is the 'body', where we can define the body of data we want to send with
       the request (of course, we wouldn't do this with a get() request but we can do it with a post() or put() request.). Another
