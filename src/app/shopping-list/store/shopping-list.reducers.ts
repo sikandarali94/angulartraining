@@ -1,7 +1,7 @@
 /* To use Action in our TS file, we must first import it from: '@ngrx/store'
  */
 import { Action } from '@ngrx/store';
-import {Ingredient} from '../shared/ingredient.model';
+import {Ingredient} from '../../shared/ingredient.model';
 
 /* Make sure to use the keyword function here and not an ES6 arrow function.
 A reducer function will be triggered whenever an action is dispatched.
@@ -10,10 +10,8 @@ state of the application) and an action. The first time the redux function runs 
 initial current state and make that the default of the state argument.
  */
 
-/* We export this constant because we'll later also want to use it in other files. We typically use uppercase characters to name the
-constants and use the same name as the value; the name should be descriptive so other developers can follow along.
- */
-export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+
+
 
 const initialState = {
   ingredients: [
