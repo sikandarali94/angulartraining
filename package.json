@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^7.0.3",
     "@angular/platform-browser-dynamic": "^7.0.3",
     "@angular/router": "^7.0.3",
+    "@ngrx/store": "^7.3.0",
+    "bootstrap": "3.3.7",
     "core-js": "^2.5.7",
     "firebase": "^5.7.2",
     "ngx-bootstrap": "^3.1.1",

@@ -1,3 +1,6 @@
+/* To install the NgRx package, we use this command in the terminal:
+  npm install --save @ngrx/store
+ */
 import { Ingredient } from '../shared/ingredient.model';
 import { Subject } from 'rxjs/Subject';
 
