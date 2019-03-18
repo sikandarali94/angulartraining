@@ -1,3 +1,7 @@
+/* We are importing all of our actions.
+ */
+import * as ShoppingListActions from './shopping-list.actions';
+
 /* To use Action in our TS file, we must first import it from: '@ngrx/store'
  */
 import { Action } from '@ngrx/store';
@@ -20,7 +24,10 @@ const initialState = {
   ]
 };
 
-export function shoppingListReducer(state = initialState, action: Action) {
+/* Our action for shoppingListReducer is no longer Action but ShoppingListActions.ShoppingListActions because that is where all of our
+actions is for the shopping list feature.
+ */
+export function shoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions) {
   /* We have to return the new state of our application with a reducer function.
    */
   /* We use a switch statement to determine what kind of action was dispatched. We check action.type, which is a property provided on the
@@ -30,7 +37,9 @@ export function shoppingListReducer(state = initialState, action: Action) {
     /* What is the value of action.type? We can actually set this when we dispatch an action. We typically use simply a string describing
     the action. To make sure we don't mistype anywhere in our app, we typically also store this in a constant, as we have done above.
      */
-    case ADD_INGREDIENT:
+    /* ADD_INGREDIENT is a unique identifier we created for the AddIngredient action.
+     */
+    case ShoppingListActions.ADD_INGREDIENT:
       /* Because we have to do this in an immutable way, we are using the spread operator to copy the values from the previous state.
        */
       return {
@@ -39,8 +48,12 @@ export function shoppingListReducer(state = initialState, action: Action) {
         actions in NgRx are payload-less; they only have the type property. To get the payload we have to define our own clearly typed
         actions.
          */
-        ingredients: [...state.ingredients, action]
+        /* It took a lot of work to be able to just define our payload here, but the advantage is that it is now really easy to work with.
+         */
+        ingredients: [...state.ingredients, action.payload]
       };
+    default:
+      return state;
   }
   return state;
 }
