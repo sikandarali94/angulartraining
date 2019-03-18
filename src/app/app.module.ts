@@ -13,6 +13,10 @@ import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
+/* To use StoreModule within our TS file, we first must import it from '@ngrx/store'.
+ */
+import {StoreModule} from '@ngrx/store';
+import {shoppingListReducer} from './shopping-list/store/shopping-list.reducers';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,10 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     ShoppingListModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    /* The forRoot() method of StoreModule takes a JS object where we define our reducers with keys that we can name anything we like.
+     */
+    StoreModule.forRoot({shoppingList: shoppingListReducer})
   ],
   bootstrap: [AppComponent]
 })
