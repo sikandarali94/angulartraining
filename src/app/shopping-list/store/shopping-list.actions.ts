@@ -15,7 +15,11 @@ export class AddIngredient implements Action {
   /* We have to add a payload manually because not every action will require a payload. To add a payload, we add the payload property, as
   shown below.
    */
-  payload: Ingredient;
+  /* Whenever we create an instance of the AddIngredient action, we want to set the payload property of the AddIngredient action. That is
+  why we are using the constructor method. The reason we are using the public accessor keyword is because we want to set the payload
+  property outside the actions file.
+   */
+  constructor(public payload: Ingredient) {}
 }
 
 /* Here we are bundling all of our actions we set in this file in one single export. export type is Typescript feature we can use to define

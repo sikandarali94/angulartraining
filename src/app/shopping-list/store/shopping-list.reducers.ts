@@ -33,6 +33,8 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
   /* We use a switch statement to determine what kind of action was dispatched. We check action.type, which is a property provided on the
   action object.
    */
+  /* We are trying to dispatch the action defined below whenever we edit the shopping list.
+   */
   switch (action.type) {
     /* What is the value of action.type? We can actually set this when we dispatch an action. We typically use simply a string describing
     the action. To make sure we don't mistype anywhere in our app, we typically also store this in a constant, as we have done above.
