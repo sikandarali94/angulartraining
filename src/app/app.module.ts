@@ -32,6 +32,9 @@ import {shoppingListReducer} from './shopping-list/store/shopping-list.reducers'
     CoreModule,
     /* The forRoot() method of StoreModule takes a JS object where we define our reducers with keys that we can name anything we like.
      */
+    /* Below, we defined the global state of our application where it requires we have a shoppingList key, where the shoppingListReducer
+    returns an objects with a new array of ingredients when we add ingredients to the shopping list.
+     */
     StoreModule.forRoot({shoppingList: shoppingListReducer})
   ],
   bootstrap: [AppComponent]
