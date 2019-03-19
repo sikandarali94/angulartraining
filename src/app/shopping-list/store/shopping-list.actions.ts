@@ -5,6 +5,8 @@ import {Ingredient} from '../../shared/ingredient.model';
  */
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const ADD_INGREDIENTS = 'ADD_INGREDIENTS';
+export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT';
+export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 
 /* Convention with class names is that we start with a capital letter of the first word and capitalise subsequent words after that.
  */
@@ -28,9 +30,19 @@ export class AddIngredients implements Action {
   constructor(public payload: Ingredient[]) {}
 }
 
+export class UpdateIngredient implements Action {
+  readonly type = UPDATE_INGREDIENT;
+  constructor(public payload: {index: number, ingredient: Ingredient}) {}
+}
+
+export class DeleteIngredient implements Action {
+  readonly type = DELETE_INGREDIENT;
+  constructor(public payload: number) {}
+}
+
 /* Here we are bundling all of our actions we set in this file in one single export. export type is Typescript feature we can use to define
 our own type.
  */
 /* To bundle multiple actions, we use the union operator (|) as shown below.
  */
-export type ShoppingListActions = AddIngredient | AddIngredients;
+export type ShoppingListActions = AddIngredient | AddIngredients | UpdateIngredient | DeleteIngredient;
