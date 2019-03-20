@@ -4,6 +4,7 @@ import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import * as fromShoppingList from './store/shopping-list.reducers';
 
 @Component({
   selector: 'app-shopping-list',
@@ -20,7 +21,7 @@ export class ShoppingListComponent implements OnInit {
   an object that has a new array of ingredients after ingredients are added to the shopping list.
   That is why we wrote {ingredients: Ingredient[]}.
    */
-  constructor(private slService: ShoppingListService, private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) { }
+  constructor(private slService: ShoppingListService, private store: Store<fromShoppingList.AppState>) { }
 
   ngOnInit() {
     /* this.store.select() queries a state and returns an observable.

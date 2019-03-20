@@ -2,9 +2,6 @@
  */
 import * as ShoppingListActions from './shopping-list.actions';
 
-/* To use Action in our TS file, we must first import it from: '@ngrx/store'
- */
-import { Action } from '@ngrx/store';
 import {Ingredient} from '../../shared/ingredient.model';
 
 /* Make sure to use the keyword function here and not an ES6 arrow function.
@@ -14,14 +11,27 @@ state of the application) and an action. The first time the redux function runs 
 initial current state and make that the default of the state argument.
  */
 
+/* We are defining and exporting interfaces for our state so we can use it in the rest of the app rather than repeatedly defining it from
+scratch.
+ */
+export interface AppState {
+  shoppingList: State;
+}
 
 
+export interface State {
+  ingredients: Ingredient[];
+  editedIngredient: Ingredient;
+  editedIngredientIndex: number;
+}
 
 const initialState = {
   ingredients: [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10)
-  ]
+  ],
+  editedIngredient: null,
+  editedIngredientIndex: -1
 };
 
 /* Our action for shoppingListReducer is no longer Action but ShoppingListActions.ShoppingListActions because that is where all of our
