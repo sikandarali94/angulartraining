@@ -71,7 +71,7 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
       };
 
     case ShoppingListActions.UPDATE_INGREDIENT:
-      const ingredient = state.ingredients[action.payload.index];
+      const ingredient = state.ingredients[state.editedIngredientIndex];
       /* A cool way to update an object immutably.
        */
       const updatedIngredient = {
@@ -79,7 +79,7 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
         ...action.payload.ingredient
       };
       const ingredients = [...state.ingredients];
-      ingredients[action.payload.index] = updatedIngredient;
+      ingredients[state.editedIngredientIndex] = updatedIngredient;
       return {
         ...state,
         ingredients: ingredients
@@ -89,10 +89,18 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
       /* A cool way to delete items from an object immutably.
        */
       const oldIngredients = [...state.ingredients];
-      oldIngredients.splice(action.payload, 1);
+      oldIngredients.splice(state.editedIngredientIndex, 1);
       return {
         ...state,
         ingredients: oldIngredients
+      };
+
+    case ShoppingListActions.START_EDIT:
+      const editedIngredient = {...state.ingredients[action.payload]};
+      return {
+        ...state,
+        editedIngredient: editedIngredient,
+        editedIngredientIndex: action.payload
       };
 
     default:
