@@ -1,16 +1,13 @@
-import {Ingredient} from '../../shared/ingredient.model';
-import {InitialState} from '@ngrx/store/src/models';
-
 export interface State {
   token: string;
   authenticated: boolean;
 }
 
-const initialState = {
+const initialState: State = {
   token: null,
   authenticated: false
 };
 
-export function authReducer(state = InitialState, action) {
+export function authReducer(state = initialState, action) {
   return state;
 }
