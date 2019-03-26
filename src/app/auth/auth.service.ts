@@ -9,10 +9,14 @@ export class AuthService {
   constructor(private router: Router) {}
 
   signupUser(email: string, password: string) {
+    /* Below we are dealing with an asynchronous operation and there are other asynchronous operations happening in this service. The issue
+    is that asynchronous operations cannot be handled inside reducers. Reducers simply take a state as an input and then output a new state,
+    which has to happen synchronously.
+     */
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(
         error => console.log(error)
-      )
+      );
   }
 
   signinUser(email: string, password: string) {
@@ -23,7 +27,7 @@ export class AuthService {
           firebase.auth().currentUser.getIdToken()
             .then(
               (token: string) => this.token = token
-            )
+            );
         }
       )
       .catch(
