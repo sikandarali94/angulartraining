@@ -16,7 +16,9 @@ import { CoreModule } from './core/core.module';
 /* To use StoreModule within our TS file, we first must import it from '@ngrx/store'.
  */
 import {StoreModule} from '@ngrx/store';
-import {shoppingListReducer} from './shopping-list/store/shopping-list.reducers';
+/* We then simply import all the app reducers that we registered in app.reducers and then pass it to the forRoot() method of StoreModule.
+ */
+import { reducers } from './store/app.reducers';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import {shoppingListReducer} from './shopping-list/store/shopping-list.reducers'
     /* Below, we defined the global state of our application where it requires we have a shoppingList key, where the shoppingListReducer
     returns an objects with a new array of ingredients when we add ingredients to the shopping list.
      */
-    StoreModule.forRoot({shoppingList: shoppingListReducer})
+    StoreModule.forRoot(reducers)
   ],
   bootstrap: [AppComponent]
 })
