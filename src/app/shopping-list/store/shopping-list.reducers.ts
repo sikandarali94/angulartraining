@@ -11,14 +11,6 @@ state of the application) and an action. The first time the redux function runs 
 initial current state and make that the default of the state argument.
  */
 
-/* We are defining and exporting interfaces for our state so we can use it in the rest of the app rather than repeatedly defining it from
-scratch.
- */
-export interface AppState {
-  shoppingList: State;
-}
-
-
 export interface State {
   ingredients: Ingredient[];
   editedIngredient: Ingredient;

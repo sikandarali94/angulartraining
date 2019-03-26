@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import * as fromShoppingList from './store/shopping-list.reducers';
+/* With the global reducer we always import the global reducer rather than individual reducers.
+ */
 import * as ShoppingListActions from './store/shopping-list.actions';
+import * as fromApp from '../store/app.reducers';
 
 @Component({
   selector: 'app-shopping-list',
@@ -21,7 +23,7 @@ export class ShoppingListComponent implements OnInit {
   an object that has a new array of ingredients after ingredients are added to the shopping list.
   That is why we wrote {ingredients: Ingredient[]}.
    */
-  constructor(private store: Store<fromShoppingList.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     /* this.store.select() queries a state and returns an observable.
