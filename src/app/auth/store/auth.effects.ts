@@ -2,8 +2,11 @@
  */
 /* To use Effects in our ts file, we must first import it from '@ngrx/effects'.
  */
-import {Actions, Effect} from '@ngrx/effects';
+/* To use ofType in our ts file, we must first import it from '@ngrx/effects'.
+ */
+import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Injectable} from '@angular/core';
+import * as AuthActions from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -16,7 +19,12 @@ export class AuthEffects {
   /* On the right side of the side effects properties we can access an action in our store. To be able to access an action we add a
   constructor method and inject something
    */
-  authSignup;
+  authSignup = this.actions$.pipe(
+    /* ofType() helper method allows us to check if the action which is occurring (this.actions$ will be fired for any action) is of a
+    special type so that we only continue executing the code for the property (in our case authSignup) if a certain action occurs.
+     */
+    ofType(AuthActions.TRY_SIGNUP)
+  );
 
   /* NgRx Effects actually is automatically able to retrieve all the actions from the application state. All we have to do is we have to add
   a private property here of type Actions (where Actions is all the actions of our application state).
