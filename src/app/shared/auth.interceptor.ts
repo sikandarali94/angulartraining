@@ -22,7 +22,13 @@ export class AuthInterceptor implements HttpInterceptor {
     observable returned by this.store.select('auth'). By using the switchMap it won't return an observable wrapped by another observable but
     instead use the returned value (next.handle(copiedReq)) which is an observable.
      */
+    /* The issue is that we create an observable to look for changes in the state and the code inside switchMap fires. So when the state
+    changes the code is cloning a request that was not sent in the first place. To fix this we use take(1), which means that after firing
+    one event, close the this.store.select() observable stream. The number we pass into take() is the number of emissions we want the
+    observable it is attached to to fire before closing the stream.
+     */
     return this.store.select('auth')
+      .take(1)
       .switchMap((authState: fromAuth.State) => {
         const copiedReq = req.clone({params: req.params.set('auth', authState.token)});
         return next.handle(copiedReq);
