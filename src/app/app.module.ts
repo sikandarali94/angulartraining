@@ -19,6 +19,10 @@ import {StoreModule} from '@ngrx/store';
 /* We then simply import all the app reducers that we registered in app.reducers and then pass it to the forRoot() method of StoreModule.
  */
 import { reducers } from './store/app.reducers';
+/* To use EffectsModule within our TS file, we first must import it from '@ngrx/effects'.
+ */
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './auth/store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,10 @@ import { reducers } from './store/app.reducers';
     /* Below, we defined the global state of our application where it requires we have a shoppingList key, where the shoppingListReducer
     returns an objects with a new array of ingredients when we add ingredients to the shopping list.
      */
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    /* We register here the effects we want to control, as shown below.
+     */
+    EffectsModule.forRoot([AuthEffects])
   ],
   bootstrap: [AppComponent]
 })

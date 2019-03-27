@@ -2,8 +2,10 @@
  */
 /* To use Effects in our ts file, we must first import it from '@ngrx/effects'.
  */
-import {Effect} from '@ngrx/effects';
+import {Actions, Effect} from '@ngrx/effects';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class AuthEffects {
   /* A side effect in the beginning is just a property.
    */
@@ -11,5 +13,14 @@ export class AuthEffects {
   this property and will basically execute the code we assign on the right side of it depending upon conditions we define over there.
    */
   @Effect()
-  authSignup
+  /* On the right side of the side effects properties we can access an action in our store. To be able to access an action we add a
+  constructor method and inject something
+   */
+  authSignup;
+
+  /* NgRx Effects actually is automatically able to retrieve all the actions from the application state. All we have to do is we have to add
+  a private property here of type Actions (where Actions is all the actions of our application state).
+   */
+  constructor(private actions$: Actions) {
+    }
 }
