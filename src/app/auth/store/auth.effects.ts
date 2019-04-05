@@ -67,6 +67,35 @@ export class AuthEffects {
       ];
     });
 
+    @Effect()
+    authSignin = this.actions$.pipe(
+      ofType(AuthActions.TRY_SIGNIN)
+    )
+      .map((action: AuthActions.TrySignin) => {
+        return action.payload;
+      })
+      .switchMap((signinData: {username: string, password: string}) => {
+        return fromPromise(firebase.auth().signInWithEmailAndPassword(signinData.username, signinData.password));
+      })
+      .switchMap(() => {
+        return fromPromise(firebase.auth().currentUser.getIdToken());
+      })
+      /* mergeMap allows us to merge multiple observables into one.
+       */
+      .mergeMap((token: string) => {
+        /* We are returning two observables here that will be merged into one.
+         */
+        return [
+          {
+            type: AuthActions.SIGNIN
+          },
+          {
+            type: AuthActions.SET_TOKEN,
+            payload: token
+          }
+        ];
+      });
+
   /* NgRx Effects actually is automatically able to retrieve all the actions from the application state. All we have to do is we have to add
   a private property here of type Actions (where Actions is all the actions of our application state).
    */
