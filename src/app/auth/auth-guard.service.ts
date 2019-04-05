@@ -14,7 +14,9 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     /* Here we are grabbing the authenticated value from the state and returning it.
      */
-    return this.store.select('auth').map((authState: fromAuth.State) => {
+    return this.store.select('auth')
+      .take(1)
+      .map((authState: fromAuth.State) => {
       return authState.authenticated;
     });
   }
