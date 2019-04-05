@@ -12,9 +12,12 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import { fromPromise} from 'rxjs/observable/fromPromise';
 import * as firebase from 'firebase';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
+  constructor(private actions$: Actions, private router: Router) {
+  }
   /* A side effect in the beginning is just a property.
    */
   /* @Effect() decorator registers, in this case, the authSignup property within the NgRx effects world we can say. NgRx will then watch
@@ -83,6 +86,7 @@ export class AuthEffects {
       /* mergeMap allows us to merge multiple observables into one.
        */
       .mergeMap((token: string) => {
+        this.router.navigate(['/']);
         /* We are returning two observables here that will be merged into one.
          */
         return [
@@ -95,10 +99,4 @@ export class AuthEffects {
           }
         ];
       });
-
-  /* NgRx Effects actually is automatically able to retrieve all the actions from the application state. All we have to do is we have to add
-  a private property here of type Actions (where Actions is all the actions of our application state).
-   */
-  constructor(private actions$: Actions) {
-    }
 }
