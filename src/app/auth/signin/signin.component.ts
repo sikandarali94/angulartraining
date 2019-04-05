@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-import { AuthService } from '../auth.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducers';
 import {TrySignin} from '../store/auth.actions';
@@ -13,7 +11,7 @@ import {TrySignin} from '../store/auth.actions';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private authService: AuthService, private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
   }
