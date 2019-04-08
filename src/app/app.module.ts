@@ -1,3 +1,7 @@
+/* To listen to a router change event and reflect that as a state change, we can do this using the 'router-store'
+package of NgRx. To install this package we simply write in the terminal:
+npm install --save @ngrx/router-store
+ */
 /* In Angular, the application state is lost whenever we refresh the browser.
 In medium-sized apps where we have several components connected to several services, it's hard maintaining that app because the state of the
 application depends on so many factors e.g. methods on services being used by many components to update or override existing state and so
@@ -23,6 +27,9 @@ import { reducers } from './store/app.reducers';
  */
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './auth/store/auth.effects';
+/* To use StoreRouterConnectingModule in our ts file, we must first import it from '@ngrx/router-store'.
+ */
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -44,7 +51,10 @@ import {AuthEffects} from './auth/store/auth.effects';
     StoreModule.forRoot(reducers),
     /* We register here the effects we want to control, as shown below.
      */
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects]),
+    /* The package is very simple to set up. All we do is write StoreRouterConnectingModule in our declarations, as shown below.
+     */
+    StoreRouterConnectingModule
   ],
   bootstrap: [AppComponent]
 })
