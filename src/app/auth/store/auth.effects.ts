@@ -8,6 +8,10 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Injectable} from '@angular/core';
 import * as AuthActions from './auth.actions';
 import 'rxjs/add/operator/map';
+/* To use the .do() operator in our ts file, we must first import it from 'rxjs/add/operator/do'. Please note that the later versions of
+rxjs have renamed this operator as the tap() operator.
+ */
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import { fromPromise} from 'rxjs/observable/fromPromise';
@@ -98,5 +102,15 @@ export class AuthEffects {
             payload: token
           }
         ];
+      });
+
+    @Effect({dispatch: false})
+    authLogout = this.actions$.pipe(
+      ofType(AuthActions.LOGOUT)
+    )
+      /* The .do() operator allows us to perform side effects with the observed data. It does not modify the stream in any way.
+       */
+      .do(() => {
+        this.router.navigate(['/']);
       });
 }
