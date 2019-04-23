@@ -1,3 +1,7 @@
+/* To install the Store Devtools package, we write this in the terminal:
+npm install --save @ngrx/store-devtools
+This also needs a special Chrome extension: Redux DevTools.
+ */
 /* To listen to a router change event and reflect that as a state change, we can do this using the 'router-store'
 package of NgRx. To install this package we simply write in the terminal:
 npm install --save @ngrx/router-store
@@ -30,6 +34,10 @@ import {AuthEffects} from './auth/store/auth.effects';
 /* To use StoreRouterConnectingModule in our ts file, we must first import it from '@ngrx/router-store'.
  */
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+/* To use StoreDevtoolsModule in our ts file, we must first import it from '@ngrx/store-devtools'.
+ */
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -54,7 +62,16 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     EffectsModule.forRoot([AuthEffects]),
     /* The package is very simple to set up. All we do is write StoreRouterConnectingModule in our declarations, as shown below.
      */
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule,
+    /* StoreDevtoolsModule must be added after StoreModule.forRoot() and not before it.
+    We can configure StoreDevtoolsModule using the instrument method, but even if we don't, we still need to include the instrument method,
+    as shown below.
+
+    With the line:
+    !environment.production ? StoreDevtoolsModule.instrument() : []
+    we are saying that if the environment is in production then don't add StoreDevtoolsModule package.
+     */
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   bootstrap: [AppComponent]
 })
