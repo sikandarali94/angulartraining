@@ -1,7 +1,7 @@
 /* In this file we simply want to export a global application-wide reducer in the end. Here the goal is to export a state which bundles all
 the other applications' states.
  */
-/* Now if any part of our app (namely the recipes part) is loaded lazily, that means we can't include it in our application state at the
+/* Now if any part of our app (namely the recipeState part) is loaded lazily, that means we can't include it in our application state at the
 point of time our application bootstraps because the code simply isn't there. However, the NgRx package has a feature that allows us to deal
 with this situation by dynamically injecting a state into our global app state if a certain module or portion of our app is loaded lazily.
  */
