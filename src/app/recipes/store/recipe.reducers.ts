@@ -1,8 +1,9 @@
 import {Recipe} from '../recipe.model';
 import {Ingredient} from '../../shared/ingredient.model';
 import {ADD_RECIPE, DELETE_RECIPE, RecipeActions, SET_RECIPES, UPDATE_RECIPE} from './recipe.actions';
+import {AppState} from '../../store/app.reducers';
 
-export interface FeatureState {
+export interface FeatureState extends AppState {
   recipes: State;
 }
 
