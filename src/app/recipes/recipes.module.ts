@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
 
 import { RecipesComponent } from './recipes.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
@@ -12,6 +13,7 @@ import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.compo
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import {recipeReducer} from './store/recipe.reducers';
+import {RecipeEffects} from '../store/recipe.effects';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {recipeReducer} from './store/recipe.reducers';
     global application state once this lazy loaded module has been added to our application.
     In forFeature(), we first provide a string name of our feature and then we add our reducers associated with that feature name.
      */
-    StoreModule.forFeature('recipes', recipeReducer)
+    StoreModule.forFeature('recipes', recipeReducer),
+    EffectsModule.forFeature([RecipeEffects])
   ]
 })
 export class RecipesModule {}
