@@ -17,7 +17,6 @@ export class SigninComponent implements OnInit {
   }
 
   onSignin(form: NgForm) {
-    console.log('Success');
     const email = form.value.email;
     const password = form.value.password;
     this.store.dispatch(new TrySignin({username: email, password: password}));

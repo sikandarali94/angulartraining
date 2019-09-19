@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
+import 'rxjs-compat/add/operator/take';
 
 import * as fromApp from '../store/app.reducers';
 import * as fromAuth from '../auth/store/auth.reducers';
@@ -13,7 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private store: Store<fromApp.AppState>) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Intercepted!', req);
     // const copiedReq = req.clone({headers: req.headers.set('', '')});
     /* We have a little issue here. In the past we could our token synchronously but now we get it asynchronously, because selecting a slice
     of our state yields us an observable (which is an asynchronous object). To fix this issue, we realise that the intercept method requires
