@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-import {FeatureState, State} from '../store/recipe.reducers';
-import {take} from 'rxjs/operators';
-import {DeleteRecipe} from '../store/recipe.actions';
+import { FeatureState, State } from '../store/recipe.reducers';
+import { take } from 'rxjs/operators';
+import { DeleteRecipe } from '../store/recipe.actions';
 
 @Component({
   selector: 'app-recipe-detail',

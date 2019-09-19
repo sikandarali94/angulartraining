@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Ingredient } from '../shared/ingredient.model';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 /* With the global reducer we always import the global reducer rather than individual reducers.
  */
 import * as ShoppingListActions from './store/shopping-list.actions';

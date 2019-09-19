@@ -1,10 +1,8 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import {Store} from '@ngrx/store';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
-import 'rxjs-compat/add/operator/take';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 
 import * as fromApp from '../store/app.reducers';
 import * as fromAuth from '../auth/store/auth.reducers';
@@ -27,12 +25,12 @@ export class AuthInterceptor implements HttpInterceptor {
     one event, close the this.store.select() observable stream. The number we pass into take() is the number of emissions we want the
     observable it is attached to to fire before closing the stream.
      */
-    return this.store.select('auth')
-      .take(1)
-      .switchMap((authState: fromAuth.State) => {
+    return this.store.select('auth').pipe(
+      take(1),
+      switchMap((authState: fromAuth.State) => {
         const copiedReq = req.clone({params: req.params.set('auth', authState.token)});
         return next.handle(copiedReq);
-      });
-    // return null;
+      })
+    );
   }
 }
