@@ -47,6 +47,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     /* The second method we pass to the subscribe() method is the callback function that executes when an error is emitted by the
     observable. The third method we pass to the subscribe() method is the callback function that executes when the observable is completed.
+    Whenever we subscribe and set up our different handler functions, RxJS in the end merges them all together into one object and passes
+    that object (also known as the observer) to the observable. The observable will then interact with the observer (through
+    observer.next(), observer.error() and observer.complete()) and let the observer know about new data, errors or when it is complete.
+    However, we very rarely build our own observables as RxJS and other libraries like Angular provide us with prebuilt observables.
     */
     this.firstObsSubscription = customIntervalObservable.subscribe(data => {
       console.log(data);
