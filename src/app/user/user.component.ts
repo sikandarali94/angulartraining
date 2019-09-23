@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    /* For observables provided by Angular, they are automatically unsubscribed from because they are managed by Angular. */
     this.route.params.subscribe((params: Params) => {
       this.id = +params.id;
     });
