@@ -30,12 +30,30 @@ export class HomeComponent implements OnInit, OnDestroy {
         /* We use the .next() method to emit a new value. We use observer.error() to emit an error. We use observer.complete() to signal
         that the observable is complete. */
         observer.next(count);
+        if (count === 5) {
+          /* After an observable completes it is done and no other values are emitted after. Also, when an observable completes, RxJS
+          automatically unsubscribes from it. */
+          observer.complete();
+        }
+        if (count > 3) {
+          /* When an observable emits an error, we don't need to unsubscribe from it as it is unsubscribed from automatically. It is
+          important to note that when an observer emits an error, it does not mean that the observable is complete even though an error
+          emission cancels the observable. */
+          observer.error(new Error('Count is greater than 3!'));
+        }
         count++;
       }, 1000);
     });
 
+    /* The second method we pass to the subscribe() method is the callback function that executes when an error is emitted by the
+    observable. The third method we pass to the subscribe() method is the callback function that executes when the observable is completed.
+    */
     this.firstObsSubscription = customIntervalObservable.subscribe(data => {
       console.log(data);
+    }, error => {
+      alert(error.message);
+    }, () => {
+      console.log('Completed!');
     });
   }
 
