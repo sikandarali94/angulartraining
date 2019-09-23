@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -45,6 +46,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
+    this.firstObsSubscription = customIntervalObservable.pipe(
+      filter(data => data > 0),
+      map((data: number) => `Round: ${data + 1}`)
+    ).subscribe(data => {
+      console.log(data);
+    }, error => {
+      alert(error.message);
+    }, () => {
+      console.log('Completed!');
+    });
+
     /* The second method we pass to the subscribe() method is the callback function that executes when an error is emitted by the
     observable. The third method we pass to the subscribe() method is the callback function that executes when the observable is completed.
     Whenever we subscribe and set up our different handler functions, RxJS in the end merges them all together into one object and passes
@@ -52,13 +64,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     observer.next(), observer.error() and observer.complete()) and let the observer know about new data, errors or when it is complete.
     However, we very rarely build our own observables as RxJS and other libraries like Angular provide us with prebuilt observables.
     */
-    this.firstObsSubscription = customIntervalObservable.subscribe(data => {
-      console.log(data);
-    }, error => {
-      alert(error.message);
-    }, () => {
-      console.log('Completed!');
-    });
   }
 
   ngOnDestroy(): void {
