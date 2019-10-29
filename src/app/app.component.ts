@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { Post } from './post.model';
+import { PostsService } from './posts.service';
 
 @Component({
   selector: 'app-root',
@@ -19,51 +20,27 @@ export class AppComponent implements OnInit {
   isFetching = false;
 
   /* We inject the HttpClient, as shown below. */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private postsService: PostsService) {}
 
   ngOnInit() {
-    this.fetchPosts();
+    this.postsService.fetchPosts();
   }
 
-  onCreatePost(postData: Post) {
+  onCreatePost({ title, content }: Post) {
     // Send Http request
     /* The HttpClient has RESTful verbs we can use to send HTTP requests as methods e.g. post(), delete(), get(), patch(), put(). The post()
     method takes the request URL as the first argument, the URL body as the second argument (Angular automatically converts the JS object to
     JSON). Angular uses observable with these HTTP request methods and that is why we must subscribe to them in order for the request to be
     sent successfully. We don't have to manually unsubscribe, because Angular does it automatically anyway with these methods. */
-    this.http.post<{ name: string }>('https://ng-recipe-book-82253.firebaseio.com/posts.json', postData).subscribe(
-      responseData => {
-        console.log(responseData);
-    });
+    this.postsService.createAndStorePosts(title, content);
   }
 
   onFetchPosts() {
     // Send Http request
-    this.fetchPosts();
+    this.postsService.fetchPosts();
   }
 
   onClearPosts() {
     // Send Http request
-  }
-
-  private fetchPosts() {
-    this.isFetching = true;
-    /* .pipe() method allows us to funnel our observable data through multiple operators before they react the .subscribe() method. */
-    /* HTTPClient methods in Angular are generic, therefore we can indicate within angled brackets what type of data we will receive within
-    the body, as shown below. This is a recommended practice to do. */
-    this.http.get<{ [key: string]: Post }>('https://ng-recipe-book-82253.firebaseio.com/posts.json').pipe(
-      map((responseData) => {
-        const postsArray: Post[] = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            postsArray.push({ ...responseData[key], id: key});
-          }
-        }
-        return postsArray;
-      })
-    ).subscribe(posts => {
-      this.isFetching = false;
-      this.loadedPosts = posts;
-    });
   }
 }
