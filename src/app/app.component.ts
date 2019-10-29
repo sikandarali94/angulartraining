@@ -16,6 +16,7 @@ import { Post } from './post.model';
 })
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
+  isFetching = false;
 
   /* We inject the HttpClient, as shown below. */
   constructor(private http: HttpClient) {}
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts() {
+    this.isFetching = true;
     /* .pipe() method allows us to funnel our observable data through multiple operators before they react the .subscribe() method. */
     /* HTTPClient methods in Angular are generic, therefore we can indicate within angled brackets what type of data we will receive within
     the body, as shown below. This is a recommended practice to do. */
@@ -60,6 +62,7 @@ export class AppComponent implements OnInit {
         return postsArray;
       })
     ).subscribe(posts => {
+      this.isFetching = false;
       this.loadedPosts = posts;
     });
   }
