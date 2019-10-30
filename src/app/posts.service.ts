@@ -6,20 +6,21 @@ import { Post } from './post.model';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
+  URL = 'https://ng-recipe-book-82253.firebaseio.com/posts.json';
 
   constructor(private http: HttpClient) {}
 
   createAndStorePosts(title: string, content: string) {
     const postData: Post = { title, content};
 
-    this.http.post<{ name: string }>('https://ng-recipe-book-82253.firebaseio.com/posts.json', postData).subscribe(
+    this.http.post<{ name: string }>(this.URL, postData).subscribe(
       responseData => {
         console.log(responseData);
     });
   }
 
   fetchPosts() {
-    return this.http.get<{ [key: string]: Post }>('https://ng-recipe-book-82253.firebaseio.com/posts.json').pipe(
+    return this.http.get<{ [key: string]: Post }>(this.URL).pipe(
       map((responseData) => {
         const postsArray: Post[] = [];
         for (const key in responseData) {
@@ -30,5 +31,9 @@ export class PostsService {
         return postsArray;
       })
     );
+  }
+
+  clearPosts() {
+    return this.http.delete(this.URL);
   }
 }
