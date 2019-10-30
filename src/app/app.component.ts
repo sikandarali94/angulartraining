@@ -2,10 +2,11 @@
 anything like that. This is because everyone can inspect the Angular code. We instead send HTTP requests from Angular to a server and get
 a HTTP response from the server back. To interact with the server, we do it through its API. The server is the one that then interacts with
 the DB if interacting with the DB is required. */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 /* We import the HttpClient from '@angular/common/http', as shown below. */
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { Post } from './post.model';
 import { PostsService } from './posts.service';
@@ -15,15 +16,20 @@ import { PostsService } from './posts.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   loadedPosts: Post[] = [];
   isFetching = false;
   error = null;
+  private errorSub: Subscription;
 
   /* We inject the HttpClient, as shown below. */
   constructor(private http: HttpClient, private postsService: PostsService) {}
 
   ngOnInit() {
+    this.errorSub = this.postsService.error.subscribe(errorMessage => {
+      this.error = errorMessage;
+    });
+
     this.isFetching = true;
     this.postsService.fetchPosts().subscribe(posts => {
       this.isFetching = false;
@@ -58,5 +64,9 @@ export class AppComponent implements OnInit {
     this.postsService.clearPosts().subscribe(() => {
       this.loadedPosts = [];
     });
+  }
+
+  ngOnDestroy(): void {
+    this.errorSub.unsubscribe();
   }
 }
