@@ -18,12 +18,19 @@ import { PostsService } from './posts.service';
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching = false;
+  error = null;
 
   /* We inject the HttpClient, as shown below. */
   constructor(private http: HttpClient, private postsService: PostsService) {}
 
   ngOnInit() {
-    this.postsService.fetchPosts();
+    this.isFetching = true;
+    this.postsService.fetchPosts().subscribe(posts => {
+      this.isFetching = false;
+      this.loadedPosts = posts;
+    }, error => {
+      this.error = error.message;
+    });
   }
 
   onCreatePost({ title, content }: Post) {
@@ -37,9 +44,13 @@ export class AppComponent implements OnInit {
 
   onFetchPosts() {
     this.isFetching = true;
+    /* The second method of the .subscribe() method takes a callback function which runs when an error occurs. */
     this.postsService.fetchPosts().subscribe(posts => {
       this.isFetching = false;
       this.loadedPosts = posts;
+    }, error => {
+      /* Be default, error objects have a message property. */
+      this.error = error.message;
     });
   }
 
