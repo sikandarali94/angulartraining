@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { Post } from './post.model';
-import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -20,7 +19,7 @@ export class PostsService {
   }
 
   fetchPosts() {
-    this.http.get<{ [key: string]: Post }>('https://ng-recipe-book-82253.firebaseio.com/posts.json').pipe(
+    return this.http.get<{ [key: string]: Post }>('https://ng-recipe-book-82253.firebaseio.com/posts.json').pipe(
       map((responseData) => {
         const postsArray: Post[] = [];
         for (const key in responseData) {
@@ -30,7 +29,6 @@ export class PostsService {
         }
         return postsArray;
       })
-    ).subscribe(posts => {
-    });
+    );
   }
 }

@@ -36,8 +36,11 @@ export class AppComponent implements OnInit {
   }
 
   onFetchPosts() {
-    // Send Http request
-    this.postsService.fetchPosts();
+    this.isFetching = true;
+    this.postsService.fetchPosts().subscribe(posts => {
+      this.isFetching = false;
+      this.loadedPosts = posts;
+    });
   }
 
   onClearPosts() {
