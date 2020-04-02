@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
 
 import { Post } from './post.model';
-import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -33,6 +33,14 @@ export class PostsService {
           }
         }
         return postsArray;
+      }),
+      catchError(errorRes => {
+        // Here we can do some error handling.
+        console.log('Error');
+        /* After we are done handling the error, we should pass it on to the subscribe() method, similar to how we pass data in the map
+        operator to the subscribe() method. To do this we use the throwError() function, which yields a new observable by wrapping an error,
+        as shown below. */
+        return throwError(errorRes);
       })
     );
   }
