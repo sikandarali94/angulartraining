@@ -5,7 +5,6 @@ the DB if interacting with the DB is required. */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 /* We import the HttpClient from '@angular/common/http', as shown below. */
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 import { Post } from './post.model';
@@ -55,6 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isFetching = false;
       this.loadedPosts = posts;
     }, error => {
+      this.isFetching = false;
       /* Be default, error objects have a message property. */
       this.error = error.message;
     });
@@ -64,6 +64,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.postsService.clearPosts().subscribe(() => {
       this.loadedPosts = [];
     });
+  }
+
+  onHandleError() {
+    this.error = null;
   }
 
   ngOnDestroy(): void {
