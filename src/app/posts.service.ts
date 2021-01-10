@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 
 import { Post } from './post.model';
@@ -15,7 +15,11 @@ export class PostsService {
   createAndStorePosts(title: string, content: string) {
     const postData: Post = { title, content};
 
-    this.http.post<{ name: string }>(this.URL, postData).subscribe(
+    this.http.post<{ name: string }>(this.URL, postData, {
+      /* observe: 'body' means that we get the response data extracted and converted to a JS object automatically. observe: 'response' gives
+      us back the full HTTP response object. */
+      observe: 'response'
+    }).subscribe(
       responseData => {
         console.log(responseData);
     }, error => {
@@ -57,6 +61,20 @@ export class PostsService {
   }
 
   clearPosts() {
-    return this.http.delete(this.URL);
+    /* We can observe various events that occur during a HTTP call. We can then write logic depending upon what type of event occurs during
+    the call, as shown below. HttpEventType is an enum and allows us to be more explicit in our code in regards to what event we are
+    referring to. event.type in the end is just a number; for example, event.type = 0 means a Sent event occurred, event.type = 4 means a
+    Response event occurred, and there are many more events apart from these we can observe. */
+    return this.http.delete(this.URL, {
+      observe: 'events'
+    }).pipe(tap(event => {
+      if (event.type === HttpEventType.Sent) {
+        // ...
+      }
+
+      if (event.type === HttpEventType.Response) {
+        console.log(event.body);
+      }
+    }));
   }
 }
