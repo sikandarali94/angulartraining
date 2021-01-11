@@ -66,7 +66,10 @@ export class PostsService {
     referring to. event.type in the end is just a number; for example, event.type = 0 means a Sent event occurred, event.type = 4 means a
     Response event occurred, and there are many more events apart from these we can observe. */
     return this.http.delete(this.URL, {
-      observe: 'events'
+      observe: 'events',
+      /* Instead of wanting JSON back in our body, we can modify the response body type to be returned as a text rather than JSON, as shown
+      below. The default value is 'json'. */
+      responseType: 'text'
     }).pipe(tap(event => {
       if (event.type === HttpEventType.Sent) {
         // ...
